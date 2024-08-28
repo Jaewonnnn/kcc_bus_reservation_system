@@ -1,7 +1,7 @@
 ---
-name: issue template
-about: issue template's
-title: ''
+name: "\U0001F3A8Style"
+about: Style 이슈
+title: "[Style]"
 labels: ''
 assignees: ''
 
@@ -11,7 +11,7 @@ assignees: ''
 >
 
 ## Progress
-- [ ]
+- [ ] 
 
 ## ETC
 >
