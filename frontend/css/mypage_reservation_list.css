@@ -1,7 +1,6 @@
 section #admin_info{
   margin-top: 100px;
 }
-
 #admin_all .header_text{
   font-weight: 700;
   
@@ -139,4 +138,18 @@ body{
 
 #second_card {
   height: auto;
+}
+
+
+
+.table tr .form-check-input {
+  border: 1px solid #a19d9d;
+}
+
+.table tr button {
+  background-color: #212954;
+  color: #FFFFFF;
+  border-radius: 10px;
+  width: 90px;
+  height: 38px;
 }
