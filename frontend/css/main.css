@@ -40,10 +40,158 @@ section#main{
 div#main_view{
   width: 100%;
   height: 600px;
-  
 }
 
 div#main_view img{
   width: 100%;
   height: 100%;
+}
+
+/* ===================가운데 예약================== */
+
+div#main_reservation_wrap{
+  width: 80%;
+  height: 250px;
+  position: absolute;
+  top: 45%;
+  left: 10%;
+}
+div#main_reservation_menu{
+  width: 450px;
+  height: 65px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 20px 20px 0 0;
+  overflow: hidden;
+}
+div#main_reservation_menu>button{
+  width: 50%;
+  height: 100%;
+  border: none;
+  background-color: #5c5c5c;
+  color: white;
+  font: 500 18px "Noto Sans KR";
+  cursor: pointer;
+}
+div#main_reservation_menu>button.selector{
+  background-color: white;
+  color: black;
+}
+section#main_reservation{
+  width: 100%;
+  height: 160px;
+  background: white;
+  box-shadow: 0px 15px 51px 10px rgba(0, 0, 0, 0.08);
+  border-radius: 0 20px 20px 20px;
+  padding: 45px 30px;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+ul#main_reservation_list{
+  width: 90%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+ul#main_reservation_list>li{
+  width: 19%;
+  height: 100%;
+  border-right: solid 1px;
+  border-color: #CCCCCC;
+  padding-left: 20px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+ul#main_reservation_list>li:last-child{
+  border-right: none;
+}
+p.main_reservation_list_small{
+  font: 400 16px "Noto Sans KR";
+  color: #8B8B8B;
+  margin-bottom: 20px;
+}
+p.main_reservation_list_small>i{
+  color: #00137A;
+  margin-right: 5px;
+}
+p.main_reservation_list_big{
+  font: 500 20px "Noto Sans KR";
+}
+
+
+button#main_reservation_search{
+  width: 70px;
+  height: 70px;
+  border-radius: 20px;
+  border: none;
+  background-color: #212954;
+}
+button#main_reservation_search>i{
+  font-size: 20px;
+  color: white;
+}
+
+div#main_down_list{
+  width: 100%;
+  height: 230px;
+  margin-top: 150px;
+  margin-bottom: 50px;
+  padding: 0 10%;
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+div#main_down_list>div{
+  width: 47%;
+  height: 100%;
+  border-radius: 10px;
+  box-shadow: 4px 4px 20px 5px rgba(0, 0, 0, 0.12);
+  padding: 20px;
+  box-sizing: border-box;
+}
+div#main_down_list>div>h2{
+  font: 600 18px "Noto Sans KR";
+}
+ul#main_announcement_list{
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+ul#main_announcement_list>li{
+
+  font: 400 16px "Noto Sans KR";
+  color: #5c5c5c;
+  padding: 0 0 5px 10px;
+  box-sizing: border-box;
+}
+
+ul#main_question_list{
+  width: 100%;
+  height: 80%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+ul#main_question_list>li{
+
+  font: 400 16px "Noto Sans KR";
+  color: #5c5c5c;
+  padding: 0 0 5px 10px;
+  box-sizing: border-box;
 }
