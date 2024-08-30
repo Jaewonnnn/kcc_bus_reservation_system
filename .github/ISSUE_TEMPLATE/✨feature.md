@@ -1,7 +1,7 @@
 ---
 name: "✨Feature"
 about: Feature 이슈
-title: "[Featuer]"
+title: "[Feature]"
 labels: ''
 assignees: ''
 
