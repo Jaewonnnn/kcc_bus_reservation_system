@@ -1,0 +1,25 @@
+server:
+  port: ${PORT_NUMBER}
+
+logging:
+  level:
+    org.springframework: DEBUG
+
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+  messages:
+    basename: messages
+  datasource:
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+
+mybatis:
+  configuration:
+    map-underscore-to-camel-case: true
+  mapper-locations: classpath:mapper/user/*.xml
+  type-aliases-package: com.unibus.user.domain
