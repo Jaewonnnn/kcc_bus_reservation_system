@@ -1,0 +1,74 @@
+header{
+  width: 100%;
+  height: 100px;
+  padding: 20px 35px;
+  box-sizing: border-box;
+  background: white;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 20;
+
+}
+div#header_wrap{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
+h1{
+  font: 600 30px "Playfair Display";
+  color: #00137A;
+  margin-top: 5px;
+  margin-left: 10px;
+}
+
+ul#header_menu{
+  width: 35%;
+  height: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  margin-left: 20%;
+}
+
+ul#header_menu li{
+  font: 400 20px "Noto Sans KR";
+  color: #AEAEAE;
+
+}
+
+ul#header_menu li:hover{
+  font: 600 20px "Noto Sans KR";
+  color: black;
+  transition: ease-out 0.3s;
+}
+
+div#header_login_wrap{
+  margin-left: 10%;
+  width: 20%;
+  height: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-content: center;
+
+}
+button.login_join_btn{
+  width: 100px;
+  height: 40px;
+  border-radius: 10px;
+  background-color: #505050;
+  color: white;
+  font: 600 16px "Noto Sans KR";
+  border: none;
+}
+button.login_join_btn:hover{
+  background-color: #00137A !important;
+}
