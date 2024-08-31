@@ -25,7 +25,7 @@
     />
     <link rel="stylesheet" href="/css/reset.css" />
     <link rel="stylesheet" href="/css/header.css" />
-    <link rel="stylesheet" href="/css/admin_terminal.css" />
+    <link rel="stylesheet" href="/css/admin_company.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -54,7 +54,7 @@
               id="staticBackdropLabel"
               style="font: 900 15px Noto sans KR; color: black"
             >
-              터미널 수정
+              운송회사 수정
             </h1>
             <button
               type="button"
@@ -68,7 +68,7 @@
               "
               data-bs-dismiss="modal"
             >
-              터미널 삭제
+              삭제
             </button>
           </div>
           <div class="modal-body">
@@ -81,43 +81,14 @@
                 color: #5c5c5c;
               "
             >
-              터미널 이름
+              회사명
             </label>
             <div class="form-floating" style="margin-left: 10px">
               <input
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                value="동서울"
-                style="
-                  background-color: #f4f4f4;
-                  border: none;
-                  border-radius: 10px;
-                  padding: 0rem, 1rem;
-                  font: 600 15px Noto sans KR;
-                  height: 5vh;
-                "
-              />
-            </div>
-          </div>
-          <div class="modal-body" style="padding: 0rem 1rem 1rem 1rem">
-            <label
-              for="exampleFormControlInput1"
-              class="form-label"
-              style="
-                font: 750 14px Noto sans KR;
-                margin: 0px 0px 10px 10px;
-                color: #5c5c5c;
-              "
-            >
-              주소
-            </label>
-            <div class="form-floating" style="margin-left: 10px">
-              <input
-                type="text"
-                class="form-control"
-                id="floatingInput"
-                value="서울특별시 종로구 창경궁로 254"
+                value="중앙고속"
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -158,7 +129,6 @@
               />
             </div>
           </div>
-
           <div class="modal-footer">
             <button
               type="button"
@@ -197,7 +167,7 @@
               id="staticBackdropLabel"
               style="font: 900 15px Noto sans KR; color: black"
             >
-              터미널 등록
+              운송회사 등록
             </h1>
           </div>
           <div class="modal-body">
@@ -210,43 +180,14 @@
                 color: #5c5c5c;
               "
             >
-              터미널 이름
+              회사명
             </label>
             <div class="form-floating" style="margin-left: 10px">
               <input
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                placeholder="터미널 이름을 입력해주세요."
-                style="
-                  background-color: #f4f4f4;
-                  border: none;
-                  border-radius: 10px;
-                  padding: 0rem, 1rem;
-                  font: 600 15px Noto sans KR;
-                  height: 5vh;
-                "
-              />
-            </div>
-          </div>
-          <div class="modal-body" style="padding: 0rem 1rem 1rem 1rem">
-            <label
-              for="exampleFormControlInput1"
-              class="form-label"
-              style="
-                font: 750 14px Noto sans KR;
-                margin: 0px 0px 10px 10px;
-                color: #5c5c5c;
-              "
-            >
-              주소
-            </label>
-            <div class="form-floating" style="margin-left: 10px">
-              <input
-                type="text"
-                class="form-control"
-                id="floatingInput"
-                placeholder="주소를 입력해주세요."
+                placeholder="운송회사 이름을 입력해주세요."
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -275,7 +216,7 @@
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                placeholder="전화번호를 입력해주세요"
+                placeholder="전화번호를 입력해주세요."
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -287,7 +228,6 @@
               />
             </div>
           </div>
-
           <div class="modal-footer">
             <button
               type="button"
@@ -313,7 +253,7 @@
       <section id="admin_info"></section>
       <section id="admin_all">
         <div class="container">
-          <h4 style="font: 800 25px Noto Sans KR">터미널 관리</h4>
+          <h4 style="font: 800 25px Noto Sans KR">운송회사 관리</h4>
           <div class="main-body">
             <div class="row">
               <div class="col-lg-3">
@@ -351,7 +291,7 @@
                         <span
                           style="font: 700 20px Noto Sans KR; color: #5c5c5c"
                         >
-                          터미널 조회
+                          운송회사 조회
                         </span>
                         <button
                           type="button"
@@ -365,7 +305,7 @@
                             width: 90px;
                           "
                         >
-                          터미널 등록
+                          회사 등록
                         </button>
                       </div>
                     </div>
@@ -405,19 +345,12 @@
                             <thead id="table-title">
                               <tr>
                                 <th scope="col" id="th-1" style="width: 1rem">
-                                  터미널ID&nbsp;&nbsp;<i
-                                    class="fas fa-sort"
-                                  ></i>
+                                  회사ID&nbsp;&nbsp;<i class="fas fa-sort"></i>
                                 </th>
                                 <th scope="col" id="th-2" style="width: 1rem">
-                                  터미널이름&nbsp;&nbsp;<i
-                                    class="fas fa-sort"
-                                  ></i>
+                                  회사명&nbsp;&nbsp;<i class="fas fa-sort"></i>
                                 </th>
                                 <th scope="col" id="th-3" style="width: 5rem">
-                                  주소&nbsp;&nbsp;<i class="fas fa-sort"></i>
-                                </th>
-                                <th scope="col" id="th-4" style="width: 1rem">
                                   전화번호&nbsp;&nbsp;<i
                                     class="fas fa-sort"
                                   ></i>
@@ -430,8 +363,7 @@
                               </tr>
                               <tr>
                                 <td id="user-id">NAEK010</td>
-                                <td>동서울</td>
-                                <td>서울특별시 종로구 창경궁로 254</td>
+                                <td>중앙고속</td>
                                 <td>02-123-4567</td>
                                 <td>
                                   <button
