@@ -187,9 +187,7 @@ h6{
 .m-4{
   margin: 1.5rem 1.5rem 1.5rem 0 !important;
 }
-#user-tel{
-  width: 70px !important;
-}
+
 .form-floating>.form-control:not(:placeholder-shown) {
   padding-top: 0.625rem !important;
   padding-bottom: 0.625rem;

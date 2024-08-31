@@ -54,7 +54,7 @@
               id="staticBackdropLabel"
               style="font: 900 15px Noto sans KR; color: black"
             >
-              노선 정보 수정
+              터미널 수정
             </h1>
             <button
               type="button"
@@ -68,7 +68,7 @@
               "
               data-bs-dismiss="modal"
             >
-              노선 삭제
+              터미널 삭제
             </button>
           </div>
           <div class="modal-body">
@@ -81,7 +81,7 @@
                 color: #5c5c5c;
               "
             >
-              출발지
+              터미널 이름
             </label>
             <div class="form-floating" style="margin-left: 10px">
               <input
@@ -110,14 +110,14 @@
                 color: #5c5c5c;
               "
             >
-              도착지
+              주소
             </label>
             <div class="form-floating" style="margin-left: 10px">
               <input
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                value="부산"
+                value="서울특별시 종로구 창경궁로 254"
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -139,14 +139,14 @@
                 color: #5c5c5c;
               "
             >
-              소요 시간
+              전화번호
             </label>
             <div class="form-floating" style="margin-left: 10px">
               <input
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                value="4:30"
+                value="02-123-4567"
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -197,7 +197,7 @@
               id="staticBackdropLabel"
               style="font: 900 15px Noto sans KR; color: black"
             >
-              노선 등록
+              터미널 등록
             </h1>
           </div>
           <div class="modal-body">
@@ -210,14 +210,14 @@
                 color: #5c5c5c;
               "
             >
-              출발지
+              터미널 이름
             </label>
             <div class="form-floating" style="margin-left: 10px">
               <input
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                placeholder="출발지를 입력해주세요."
+                placeholder="터미널 이름을 입력해주세요."
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -239,14 +239,14 @@
                 color: #5c5c5c;
               "
             >
-              도착지
+              주소
             </label>
             <div class="form-floating" style="margin-left: 10px">
               <input
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                placeholder="도착지를 입력해주세요."
+                placeholder="주소를 입력해주세요."
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -268,14 +268,14 @@
                 color: #5c5c5c;
               "
             >
-              소요 시간
+              전화번호
             </label>
             <div class="form-floating" style="margin-left: 10px">
               <input
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                placeholder="소요시간을 입력해주세요.(ex. 4시간 30분)"
+                placeholder="전화번호를 입력해주세요"
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -313,7 +313,7 @@
       <section id="admin_info"></section>
       <section id="admin_all">
         <div class="container">
-          <h4 style="font: 800 25px Noto Sans KR">노선 관리</h4>
+          <h4 style="font: 800 25px Noto Sans KR">터미널 관리</h4>
           <div class="main-body">
             <div class="row">
               <div class="col-lg-3">
@@ -351,7 +351,7 @@
                         <span
                           style="font: 700 20px Noto Sans KR; color: #5c5c5c"
                         >
-                          노선 조회
+                          터미널 조회
                         </span>
                         <button
                           type="button"
@@ -362,10 +362,10 @@
                             background-color: #212954 !important;
                             font: 400 20px Noto Sans KR;
                             color: #f9fafc !important;
-                            width: 80px;
+                            width: 90px;
                           "
                         >
-                          노선 등록
+                          터미널 등록
                         </button>
                       </div>
                     </div>
@@ -388,7 +388,7 @@
                                 <input
                                   type="text"
                                   class="form-control form-input"
-                                  placeholder="노선ID를 입력해주세요"
+                                  placeholder="Search"
                                   id="search-box"
                                   style="
                                     background-color: #f9fafc;
@@ -404,27 +404,35 @@
                             <caption></caption>
                             <thead id="table-title">
                               <tr>
-                                <th scope="col" id="user-id">
-                                  노선ID&nbsp;&nbsp;<i class="fas fa-sort"></i>
-                                </th>
-                                <th scope="col" id="user-name">
-                                  출발지&nbsp;&nbsp;<i class="fas fa-sort"></i>
-                                </th>
-                                <th scope="col" id="user-tel">
-                                  도착지&nbsp;&nbsp;<i class="fas fa-sort"></i>
-                                </th>
-                                <th scope="col" id="user-email">
-                                  소요시간&nbsp;&nbsp;<i
+                                <th scope="col" id="th-1" style="width: 1rem">
+                                  터미널ID&nbsp;&nbsp;<i
                                     class="fas fa-sort"
                                   ></i>
                                 </th>
-                                <th scope="col" id="user-detail"></th>
+                                <th scope="col" id="th-2" style="width: 1rem">
+                                  터미널이름&nbsp;&nbsp;<i
+                                    class="fas fa-sort"
+                                  ></i>
+                                </th>
+                                <th scope="col" id="th-3" style="width: 5rem">
+                                  주소&nbsp;&nbsp;<i class="fas fa-sort"></i>
+                                </th>
+                                <th scope="col" id="th-4" style="width: 1rem">
+                                  전화번호&nbsp;&nbsp;<i
+                                    class="fas fa-sort"
+                                  ></i>
+                                </th>
+                                <th
+                                  scope="col"
+                                  id="th-5"
+                                  style="width: 1rem"
+                                ></th>
                               </tr>
                               <tr>
                                 <td id="user-id">NAEK010</td>
                                 <td>동서울</td>
-                                <td>부산</td>
-                                <td>4시간 30분</td>
+                                <td>서울특별시 종로구 창경궁로 254</td>
+                                <td>02-123-4567</td>
                                 <td>
                                   <button
                                     type="button"
