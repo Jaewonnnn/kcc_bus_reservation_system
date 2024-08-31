@@ -49,26 +49,132 @@
       <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="staticBackdropLabel">
-              Modal title
+            <h1
+              class="modal-title fs-5"
+              id="staticBackdropLabel"
+              style="font: 900 15px Noto sans KR; color: black"
+            >
+              회원 정보 수정
             </h1>
             <button
               type="button"
-              class="btn-close"
+              class="btn-primary"
+              style="
+                width: 5rem;
+                height: 2rem;
+                background-color: #dc2e2e;
+                border: none;
+                border-radius: 0.25rem;
+              "
               data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
+            >
+              회원 탈퇴
+            </button>
           </div>
-          <div class="modal-body">...</div>
+          <div class="modal-body">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label"
+              style="
+                font: 750 14px Noto sans KR;
+                margin: 0px 0px 10px 10px;
+                color: #5c5c5c;
+              "
+            >
+              이름
+            </label>
+            <div class="form-floating" style="margin-left: 10px">
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                value="홍길동"
+                style="
+                  background-color: #f4f4f4;
+                  border: none;
+                  border-radius: 10px;
+                  padding: 0rem, 1rem;
+                  font: 600 15px Noto sans KR;
+                  height: 5vh;
+                "
+              />
+            </div>
+          </div>
+          <div class="modal-body" style="padding: 0rem 1rem 1rem 1rem">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label"
+              style="
+                font: 750 14px Noto sans KR;
+                margin: 0px 0px 10px 10px;
+                color: #5c5c5c;
+              "
+            >
+              전화번호
+            </label>
+            <div class="form-floating" style="margin-left: 10px">
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                value="010-1234-5678"
+                style="
+                  background-color: #f4f4f4;
+                  border: none;
+                  border-radius: 10px;
+                  padding: 0rem, 1rem;
+                  font: 600 15px Noto sans KR;
+                  height: 5vh;
+                "
+              />
+            </div>
+          </div>
+          <div class="modal-body" style="padding: 0rem 1rem 1rem 1rem">
+            <label
+              for="exampleFormControlInput1"
+              class="form-label"
+              style="
+                font: 750 14px Noto sans KR;
+                margin: 0px 0px 10px 10px;
+                color: #5c5c5c;
+              "
+            >
+              이메일
+            </label>
+            <div class="form-floating" style="margin-left: 10px">
+              <input
+                type="text"
+                class="form-control"
+                id="floatingInput"
+                value="hong@gmail.com"
+                style="
+                  background-color: #f4f4f4;
+                  border: none;
+                  border-radius: 10px;
+                  padding: 0rem, 1rem;
+                  font: 600 15px Noto sans KR;
+                  height: 5vh;
+                "
+              />
+            </div>
+          </div>
+
           <div class="modal-footer">
             <button
               type="button"
               class="btn btn-secondary"
               data-bs-dismiss="modal"
             >
-              Close
+              취소
             </button>
-            <button type="button" class="btn btn-primary">Understood</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              style="background-color: #212954"
+              data-bs-dismiss="modal"
+            >
+              저장
+            </button>
           </div>
         </div>
       </div>
