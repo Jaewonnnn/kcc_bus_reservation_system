@@ -1,7 +1,7 @@
 body{
   background-color: #F4F4F4;
 }
-div#reservation_detail_wrap{
+div#reservation_seat_wrap{
   margin-top: 100px;
   padding: 50px 70px 70px 70px;
   box-sizing: border-box;
@@ -70,9 +70,9 @@ div.line{
   margin-left: 10%;
 }
 
-/* =========================버스 선택 좌측======================== */
 
-div#reservation_course_wrap{
+/* =======================좌석선택내용==================== */
+div#reservation_seat_wrap_detail{
   width: 100%;
   min-height: 200px;
   display: flex;
@@ -82,166 +82,159 @@ div#reservation_course_wrap{
   margin-top: 50px;
 }
 
-section#reservation_course{
+section#reservation_seat_select{
   width: 70%;
   min-height: 200px;
   padding: 25px 25px 150px 25px;
   box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 1px 1px 16px 3px rgba(0, 0, 0, 0.12);
-
+  position: relative;
+  background: white;
 }
 
-button#reservation_course_calander{
-  width: 120px;
-  height: 50px;
-  border-radius: 10px;
-  background-color: #eeeeee;
-  font: 400 18px "Noto Sans KR";
-  border: none;
-  cursor: pointer;
-}
-button#reservation_course_calander>i{
-  color: #00137A;
-  font: 24px;
-}
-button#reservation_course_calander:hover{
-  background-color: #00137A;
-  color: white;
-  transition: ease-out 0.2s;
-}
-button#reservation_course_calander:hover>i{
-  color: white;
-  transition: ease-out 0.2s;
-}
-
-
-div#reservation_course_menu_wrap{
+div#reservation_seat_select_info{
   width: 100%;
-  height: 50px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-between;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 16px;
-  padding-bottom: 45px;
+  height: 120px;
+  background-color: #DBFFEB;
+  border-radius: 10px 10px 0 0;
+  border: none;
+  padding: 20px 40px;
   box-sizing: border-box;
-  border-bottom: solid 1px;
-  border-color: #cccccc;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* =======================좌석선택==================== */
+
+.container {
+  margin-top: 120px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
   
 }
-div#reservation_course_menu_wrap>div{
-  width: 120px;
-  height: 100%;
-}
-ul#reservation_course_menu{
-  width: 80%;
-  height: 35px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-around;
-  margin-top: 5px;
-  /* border-bottom: solid 1px;
-  border-color: #cccccc; */
-}
-ul#reservation_course_menu>li{
-  width: 15%;
-  font: 500 18px "Noto Sans KR";
+
+div#seat_map_wrap{
+  width: 400px;
+  height: 1100px;
+  background-image: url(/img/bus_bg_big.png);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
-ul#reservation_course_list{
-  width: 100%;
-  height: 100%;
+.seat-map1 {
+  display: grid;
+  grid-template-columns: repeat(5, 50px);
+  gap: 20px;
+  position: absolute;
+  left: 35px;
+  top: 250px;
+}
+
+.seat-map2 {
+  display: grid;
+  grid-template-columns: repeat(4, 50px);
+  gap: 20px;
+  position: absolute;
+  left: 70px;
+  top: 220px;
+}
+
+.seat-map3 {
+  display: grid;
+  grid-template-columns: repeat(4, 50px);
+  gap: 20px;
+  position: absolute;
+  left: 70px;
+  top: 280px;
+}
+
+.seat {
+  width: 50px;
+  height: 50px;
+  background-color: #ddd;
   display: flex;
-  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.seat_blank{
+  display: none;
+}
+
+.seat.selected {
+  background-color: #6c5ce7;
+  color: white;
+}
+
+.seat.disabled {
+  background-color: #999;
+  cursor: not-allowed;
+}
+
+.controls {
+  display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  gap: 10px;
+}
+
+.passenger-type {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+}
+
+button {
+  padding: 5px;
+}
+button#adult-minus{
+  width: 70px;
+  height: 70px;
+  border-radius: 10px 0 0 10px;
+  border: solid 1px;
+  background-color: white;
+  font: 500 30px "Noto Sans KR";
+}
+span#adults{
+  width: 70px;
+  height: 70px;
+  border-top: solid 1px;
+  border-bottom: solid 1px;
+}
+button#adult-plus{
+  width: 70px;
+  height: 70px;
+  border-radius: 0 10px 10px 0;
+  border: solid 1px;
+  background-color: white;
+  font: 500 30px "Noto Sans KR";
+}
+
+.summary {
   margin-top: 20px;
 }
-ul#reservation_course_list>li{
-  width: 100%;
-  height: 80px;
-  padding: 13px 20px 15px 20px;
-  box-sizing: border-box;
-  border: solid 2px;
-  border-color: #cccccc;
-  border-radius: 20px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 15px;
-}
-ul.reservation_course_list_detail{
-  width: 80%;
-  height: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-}
-ul.reservation_course_list_detail>li{
-  width: 15%;
-  font: 400 16px "Noto Sans KR";
-}
-ul.reservation_course_list_detail>li:first-child{
-  /* 남기기 ㅎㅎ */
-}
-li.time{
-  width: 100px;
-  height: 50px;
-  border-radius: 10px;
-  border: none;
-  background-color: #EEEEEE;
-  font: 500 18px "Noto Sans KR" !important;
-  text-align: center;
-  padding-top: 10px;
-  box-sizing: border-box;
-}
-button.reservation_course_list_detail_btn{
-  width: 120px;
-  height: 50px;
-  background-color: #EEEEEE;
-  border-radius: 10px;
-  border: none;
-  font: 500 20px "Noto Sans KR";
-  cursor: pointer;
-}
-button.reservation_course_list_detail_btn>i{
-  margin-left: 10px;
-  font-size: 20px;
-  color: #00137A;
-}
-button.reservation_course_list_detail_btn:hover{
-  color: white;
-  background-color: #00137A;
-  transition: ease-out 0.2s;
-}
-button.reservation_course_list_detail_btn:hover>i{
-  color: white;
-  transition: ease-out 0.2s;
-}
 
 
 
-/* =========================버스 선택 우측======================== */
 
-section#reservation_course_info{
+/* =======================좌석선택결제정보==================== */
+
+section#reservation_seat_info{
   width: 27%;
-  min-height: 300px;
+  min-height: 200px;
   padding: 25px;
   box-sizing: border-box;
   border-radius: 10px;
   box-shadow: 1px 1px 16px 3px rgba(0, 0, 0, 0.12);
-
+  background: white;
 }
 
-section#reservation_course_info>h2{
+section#reservation_seat_info>h2{
   font: 600 20px "Noto Sans KR";
   margin-bottom: 30px;
 }
@@ -349,37 +342,6 @@ p#reservation_course_time{
   color: #5c5c5c;
 }
 p#reservation_course_length{
-  font: 500 18px "Noto Sans KR";
-  color: #5c5c5c;
-}
-
-div#reservation_course_pay{
-  width: 100%;
-  min-height: 100px;
-  padding-left: 10px;
-  box-sizing: border-box;
-}
-div#reservation_course_pay>h3{
-  font: 600 20px "Noto Sans KR";
-  margin-bottom: 30px;
-}
-ul#reservation_course_pay_list{
-  width: 100%;
-  min-height: 100px;
-}
-ul#reservation_course_pay_list>li{
-  width: 100%;
-  height: 30px;
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-p.reservation_course_pay_grade{
-  font: 500 18px "Noto Sans KR";
-}
-p.reservation_course_pay_price{
   font: 500 18px "Noto Sans KR";
   color: #5c5c5c;
 }
