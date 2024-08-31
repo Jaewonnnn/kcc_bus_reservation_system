@@ -10,4 +10,6 @@ public interface AdminMapper {
     public List<User> getUserList();
 
     public User getUserById(int id);
+
+    public int updateUser(User user);
 }

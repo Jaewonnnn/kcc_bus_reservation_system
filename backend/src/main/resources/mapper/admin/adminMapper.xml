@@ -11,4 +11,13 @@
     <select id="getUserById" parameterType="int" resultType="User">
         select * from member where member_seq = #{id}
     </select>
+
+    <update id="updateUser" parameterType="User">
+        UPDATE member
+        SET member_name = #{memberName},
+            member_tel = #{memberTel},
+            member_email = #{memberEmail}
+        WHERE member_seq = #{memberSeq}
+    </update>
+
 </mapper>
