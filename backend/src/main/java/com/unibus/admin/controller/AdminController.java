@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -14,13 +15,13 @@ import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/admin/")
+@RequestMapping("/admin")
 @Slf4j
 public class AdminController {
 
     private final AdminService adminService;
 
-    @GetMapping("/")
+    @GetMapping("")
     public String getAdminPage() {
         return "admin_user";
     }
@@ -31,5 +32,15 @@ public class AdminController {
         log.info("AdminController getUsers() called " + new Date());
         return adminService.getUserList();
     }
+
+    @GetMapping("/user/{userId}")
+    @ResponseBody
+    public UserDto getOneUser(@PathVariable int userId) {
+        log.info("AdminController getOneUser() called " + userId);
+        return adminService.getUserById(userId);
+    }
+
+
+
 
 }

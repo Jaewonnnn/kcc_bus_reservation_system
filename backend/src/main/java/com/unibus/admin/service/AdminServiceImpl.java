@@ -26,4 +26,9 @@ public class AdminServiceImpl implements AdminService{
 
         return userDto;
     }
+
+    @Override
+    public UserDto getUserById(int id) {
+        return UserDto.toUserDto(adminMapper.getUserById(id));
+    }
 }

@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AdminService {
     public List<UserDto> getUserList();
+
+    public UserDto getUserById(int id);
 }

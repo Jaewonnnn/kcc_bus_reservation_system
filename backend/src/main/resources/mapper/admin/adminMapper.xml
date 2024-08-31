@@ -7,4 +7,8 @@
     <select id="getUserList" resultType="User">
         select * from member
     </select>
+
+    <select id="getUserById" parameterType="int" resultType="User">
+        select * from member where member_seq = #{id}
+    </select>
 </mapper>
