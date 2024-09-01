@@ -56,4 +56,43 @@
         delete from terminal where terminal_id = #{id}
     </update>
 
+    <select id="getCompanyList" resultType="CompanyDto">
+        select * from company
+    </select>
+
+    <resultMap id="CompanyWithBusResultMap" type="CompanyDto">
+        <id property="companyId" column="companyId"/>
+        <result property="companyName" column="companyName"/>
+        <result property="companyTel" column="companyTel"/>
+        <collection property="busList" resultMap="busListMap"/>
+    </resultMap>
+    <resultMap id="busListMap" type="Bus">
+        <result property="busNumber" column="busNumber"/>
+        <result property="gradeName" column="gradeName"/>
+    </resultMap>
+
+    <select id="getCompanyById" parameterType="int" resultMap="CompanyWithBusResultMap">
+        SELECT
+            c.company_id AS companyId,
+            c.company_name AS companyName,
+            c.company_tel AS companyTel,
+            b.bus_number AS busNumber,
+            g.grade_name AS gradeName
+        FROM
+            company c
+                LEFT JOIN
+            bus b ON c.company_id = b.company_id
+                LEFT JOIN
+            bus_grade g ON b.grade_id = g.grade_id
+        WHERE
+            c.company_id = #{id}
+    </select>
+
+    <insert id="createCompany" parameterType="CompanyDto">
+        insert into company(company_id, company_name, company_tel)
+        values(company_seq.nextval, #{companyName}, #{companyTel})
+    </insert>
+
+
+
 </mapper>

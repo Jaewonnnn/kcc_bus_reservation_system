@@ -3,6 +3,7 @@ package com.unibus.admin.service;
 import com.unibus.admin.domain.City;
 import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.dto.AdminTerminalDto;
+import com.unibus.admin.dto.CompanyDto;
 import com.unibus.admin.dto.UpdateTerminalDto;
 import com.unibus.admin.dto.UserDto;
 
@@ -28,4 +29,10 @@ public interface AdminService {
     public int updateTerminal(String id, UpdateTerminalDto updateTerminalDto);
 
     public int deleteTerminal(String id);
+
+    public List<CompanyDto> getCompanyList();
+
+    public CompanyDto getCompanyById(int id);
+
+    public int createCompany(CompanyDto companyDto);
 }
