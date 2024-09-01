@@ -5,7 +5,7 @@
 
 <mapper namespace="com.unibus.admin.mapper.AdminMapper">
     <select id="getUserList" resultType="User">
-        select * from member
+        select * from member where withdraw != 0
     </select>
 
     <select id="getUserById" parameterType="int" resultType="User">
@@ -18,6 +18,12 @@
             member_tel = #{memberTel},
             member_email = #{memberEmail}
         WHERE member_seq = #{memberSeq}
+    </update>
+
+    <update id="deleteUser" parameterType="int">
+        update member
+        set withdraw = 0
+        where member_seq = #{memberSeq}
     </update>
 
 </mapper>

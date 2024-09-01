@@ -12,4 +12,6 @@ public interface AdminMapper {
     public User getUserById(int id);
 
     public int updateUser(User user);
+
+    public int deleteUser(int memberSeq);
 }

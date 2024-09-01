@@ -11,4 +11,6 @@ public interface AdminService {
     public UserDto getUserById(int id);
 
     public int updateUser(int id, UserDto userDto);
+
+    public int deleteUser(int id);
 }

@@ -48,6 +48,16 @@ public class AdminController {
         }else {
             throw new Exception("update fail");
         }
+    }
+
+    @PatchMapping("/user/delete/{userId}")
+    public String deleteUser(@PathVariable int userId) throws Exception{
+        int result = adminService.deleteUser(userId);
+        if(result == 1) {
+            return "redirect:/admin/";
+        }else{
+            throw new Exception("delete fail");
+        }
 
     }
 
