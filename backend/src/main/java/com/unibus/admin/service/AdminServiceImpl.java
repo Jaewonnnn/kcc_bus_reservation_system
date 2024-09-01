@@ -99,7 +99,6 @@ public class AdminServiceImpl implements AdminService{
     public int deleteTerminal(String id) {
         return adminMapper.deleteTerminal(id);
     }
-
     @Override
     public List<CompanyDto> getCompanyList() {
         return adminMapper.getCompanyList();
@@ -108,5 +107,10 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public CompanyDto getCompanyById(int id) {
         return adminMapper.getCompanyById(id);
+    }
+
+    @Override
+    public int createCompany(CompanyDto companyDto) {
+        return adminMapper.createCompany(companyDto);
     }
 }

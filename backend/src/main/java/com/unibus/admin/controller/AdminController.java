@@ -108,4 +108,10 @@ public class AdminController {
     public CompanyDto getCompanyById(@PathVariable int company_id){
         return adminService.getCompanyById(company_id);
     }
+
+    @PostMapping("/company")
+    public String createCompany(@RequestBody CompanyDto companyDto){
+        adminServiceImpl.createCompany(companyDto);
+        return "redirect:/admin/company";
+    }
 }

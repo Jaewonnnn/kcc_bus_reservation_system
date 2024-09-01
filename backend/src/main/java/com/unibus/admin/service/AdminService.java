@@ -33,4 +33,6 @@ public interface AdminService {
     public List<CompanyDto> getCompanyList();
 
     public CompanyDto getCompanyById(int id);
+
+    public int createCompany(CompanyDto companyDto);
 }

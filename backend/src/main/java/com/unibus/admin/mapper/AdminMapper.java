@@ -37,4 +37,7 @@ public interface AdminMapper {
     public List<CompanyDto> getCompanyList();
 
     public CompanyDto getCompanyById(int id);
+
+    public int createCompany(CompanyDto companyDto);
+
 }

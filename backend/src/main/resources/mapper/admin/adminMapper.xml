@@ -88,6 +88,11 @@
             c.company_id = #{id}
     </select>
 
+    <insert id="createCompany" parameterType="CompanyDto">
+        insert into company(company_id, company_name, company_tel)
+        values(company_seq.nextval, #{companyName}, #{companyTel})
+    </insert>
+
 
 
 </mapper>
