@@ -141,8 +141,8 @@ div#reservation_seat_select_info2>p{
 
 div#seat_map_wrap{
   width: 400px;
-  height: 1100px;
-  background-image: url(/img/bus_bg_big.png);
+  height: 900px;
+  background-image: url(/img/bus_bg.png);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
