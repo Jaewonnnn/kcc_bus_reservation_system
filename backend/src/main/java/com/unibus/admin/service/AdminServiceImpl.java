@@ -104,4 +104,9 @@ public class AdminServiceImpl implements AdminService{
     public List<CompanyDto> getCompanyList() {
         return adminMapper.getCompanyList();
     }
+
+    @Override
+    public CompanyDto getCompanyById(int id) {
+        return adminMapper.getCompanyById(id);
+    }
 }

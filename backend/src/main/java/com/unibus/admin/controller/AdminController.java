@@ -102,4 +102,10 @@ public class AdminController {
         model.addAttribute("companyList", adminService.getCompanyList());
         return "admin_company";
     }
+
+    @GetMapping("/company/{company_id}")
+    @ResponseBody
+    public CompanyDto getCompany(@PathVariable int company_id){
+        return adminService.getCompanyById(company_id);
+    }
 }

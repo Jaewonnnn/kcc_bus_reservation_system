@@ -35,4 +35,6 @@ public interface AdminMapper {
     public int deleteTerminal(String id);
 
     public List<CompanyDto> getCompanyList();
+
+    public CompanyDto getCompanyById(int id);
 }

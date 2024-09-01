@@ -31,4 +31,6 @@ public interface AdminService {
     public int deleteTerminal(String id);
 
     public List<CompanyDto> getCompanyList();
+
+    public CompanyDto getCompanyById(int id);
 }
