@@ -1,6 +1,9 @@
 package com.unibus.admin.service;
 
-import com.unibus.admin.domain.User;
+import com.unibus.admin.domain.City;
+import com.unibus.admin.domain.Terminal;
+import com.unibus.admin.dto.AdminTerminalDto;
+import com.unibus.admin.dto.UpdateTerminalDto;
 import com.unibus.admin.dto.UserDto;
 
 import java.util.List;
@@ -13,4 +16,16 @@ public interface AdminService {
     public int updateUser(int id, UserDto userDto);
 
     public int deleteUser(int id);
+
+    public List<Terminal> getTerminalList();
+
+    public AdminTerminalDto getTerminalById(String id);
+
+    public int createTerminal(AdminTerminalDto terminalDto);
+
+    public List<City> getCityList();
+
+    public int updateTerminal(String id, UpdateTerminalDto updateTerminalDto);
+
+    public int deleteTerminal(String id);
 }
