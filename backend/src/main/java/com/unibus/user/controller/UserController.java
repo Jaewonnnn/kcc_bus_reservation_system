@@ -1,16 +1,9 @@
 package com.unibus.user.controller;
 
-import com.unibus.user.domain.Member;
-import com.unibus.user.service.UserService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+@Controller
 
-@RestController
-@RequiredArgsConstructor
 public class UserController {
 
     private final UserService userService;
@@ -24,6 +17,5 @@ public class UserController {
     public String test() {
         return "hello";
     }
-
 
 }

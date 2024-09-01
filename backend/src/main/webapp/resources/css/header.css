@@ -9,6 +9,7 @@ header {
   top: 0;
   z-index: 20;
 }
+
 div#header_wrap {
   width: 100%;
   height: 100%;
@@ -19,14 +20,14 @@ div#header_wrap {
   align-content: center;
 }
 
-h1 {
+h1{
   font: 600 30px "Playfair Display";
-  color: #00137a;
+  color: #00137A;
   margin-top: 5px;
   margin-left: 10px;
 }
 
-ul#header_menu {
+ul#header_menu{
   width: 35%;
   height: 60px;
   display: flex;
@@ -37,16 +38,13 @@ ul#header_menu {
   margin-left: 20%;
 }
 
-ul#header_menu li {
+ul#header_menu li{
   font: 400 20px "Noto Sans KR";
-  color: #aeaeae;
+  color: #AEAEAE;
+
 }
 
-ul#header_menu li:hover {
-  font: 600 20px "Noto Sans KR";
-  color: black;
-  transition: ease-out 0.3s;
-}
+ul#header_menu li:hover{
 
 div#header_login_wrap {
   margin-left: 10%;
@@ -57,6 +55,7 @@ div#header_login_wrap {
   justify-content: space-around;
   align-content: center;
 }
+  
 button.login_join_btn {
   width: 100px;
   height: 40px;
@@ -66,6 +65,7 @@ button.login_join_btn {
   font: 600 16px "Noto Sans KR";
   border: none;
 }
-button.login_join_btn:hover {
-  background-color: #00137a !important;
+
+button.login_join_btn:hover{
+  background-color: #00137A !important;
 }
