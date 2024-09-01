@@ -3,8 +3,8 @@ class Headers extends HTMLElement {
     super();
     this.attachShadow({ mode: "open" });
     this.shadowRoot.innerHTML = `
-      <link rel="stylesheet" href="../../resources/css/reset.css">
-      <link rel="stylesheet" href="../../resources/css/header.css">
+      <link rel="stylesheet" href="/resources/css/reset.css">
+      <link rel="stylesheet" href="/resources/css/header.css">
       <header>
         <div id="header_wrap">
           <h1>UNIBUS</h1>
