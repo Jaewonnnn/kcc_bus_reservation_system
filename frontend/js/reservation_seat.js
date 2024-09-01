@@ -33,12 +33,12 @@ document.querySelectorAll('.seat').forEach(seat => {
 });
 
 // 인원수 조정 및 총 금액 업데이트
-document.getElementById('adult-plus').addEventListener('click', () => updatePassengerCount('adults', 1));
-document.getElementById('adult-minus').addEventListener('click', () => updatePassengerCount('adults', -1));
-document.getElementById('student-plus').addEventListener('click', () => updatePassengerCount('students', 1));
-document.getElementById('student-minus').addEventListener('click', () => updatePassengerCount('students', -1));
-document.getElementById('child-plus').addEventListener('click', () => updatePassengerCount('children', 1));
-document.getElementById('child-minus').addEventListener('click', () => updatePassengerCount('children', -1));
+document.getElementById('adult-plus').addEventListener('click', () => {updatePassengerCount('adults', 1); document.getElementById('adults_right').textContent = passengers.adults;});
+document.getElementById('adult-minus').addEventListener('click', () => {updatePassengerCount('adults', -1); document.getElementById('adults_right').textContent = passengers.adults;});
+document.getElementById('student-plus').addEventListener('click', () => {updatePassengerCount('students', 1); document.getElementById('students_right').textContent = passengers.students;});
+document.getElementById('student-minus').addEventListener('click', () => {updatePassengerCount('students', -1); document.getElementById('students_right').textContent = passengers.students;});
+document.getElementById('child-plus').addEventListener('click', () => {updatePassengerCount('children', 1); document.getElementById('children_right').textContent = passengers.children;});
+document.getElementById('child-minus').addEventListener('click', () => {updatePassengerCount('children', -1); document.getElementById('children_right').textContent = passengers.children;});
 
 function updatePassengerCount(type, delta) {
   passengers[type] = Math.max(0, passengers[type] + delta);
@@ -53,7 +53,7 @@ function updateTotalAmount() {
       (passengers.students * prices.student) +
       (passengers.children * prices.child);
 
-  document.getElementById('total-amount').textContent = totalAmount;
+  document.getElementById('total_amount').textContent = totalAmount;
 }
 
 function totalPassengers() {
