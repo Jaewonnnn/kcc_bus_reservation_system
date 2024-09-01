@@ -56,8 +56,6 @@
         delete from terminal where terminal_id = #{id}
     </update>
 
-<<<<<<< Updated upstream
-=======
     <select id="getCompanyList" resultType="CompanyDto">
         select * from company
     </select>
@@ -134,7 +132,4 @@
                 LEFT OUTER JOIN terminal te ON r.route_end_id = te.terminal_id
     </select>
 
-
-
->>>>>>> Stashed changes
 </mapper>

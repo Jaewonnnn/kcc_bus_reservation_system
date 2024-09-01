@@ -3,13 +3,11 @@ package com.unibus.admin.service;
 import com.unibus.admin.domain.City;
 import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.domain.User;
-<<<<<<< Updated upstream
 import com.unibus.admin.dto.AdminTerminalDto;
+import com.unibus.admin.dto.CompanyDto;
 import com.unibus.admin.dto.UpdateTerminalDto;
 import com.unibus.admin.dto.UserDto;
-=======
 import com.unibus.admin.dto.*;
->>>>>>> Stashed changes
 import com.unibus.admin.mapper.AdminMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -102,8 +100,7 @@ public class AdminServiceImpl implements AdminService{
     public int deleteTerminal(String id) {
         return adminMapper.deleteTerminal(id);
     }
-<<<<<<< Updated upstream
-=======
+
     @Override
     public List<CompanyDto> getCompanyList() {
         return adminMapper.getCompanyList();
@@ -136,5 +133,4 @@ public class AdminServiceImpl implements AdminService{
         return adminMapper.getRouteList();
     }
 
->>>>>>> Stashed changes
 }
