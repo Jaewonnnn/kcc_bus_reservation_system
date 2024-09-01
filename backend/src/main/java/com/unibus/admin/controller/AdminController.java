@@ -105,7 +105,7 @@ public class AdminController {
 
     @GetMapping("/company/{company_id}")
     @ResponseBody
-    public CompanyDto getCompany(@PathVariable int company_id){
+    public CompanyDto getCompanyById(@PathVariable int company_id){
         return adminService.getCompanyById(company_id);
     }
 }

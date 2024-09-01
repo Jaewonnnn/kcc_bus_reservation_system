@@ -60,8 +60,34 @@
         select * from company
     </select>
 
-    <select id="getCompanyById" parameterType="int" resultType="CompanyDto">
-        select * from company where company_id = #{id}
+    <resultMap id="CompanyWithBusResultMap" type="CompanyDto">
+        <id property="companyId" column="companyId"/>
+        <result property="companyName" column="companyName"/>
+        <result property="companyTel" column="companyTel"/>
+        <collection property="busList" resultMap="busListMap"/>
+    </resultMap>
+    <resultMap id="busListMap" type="Bus">
+        <result property="busNumber" column="busNumber"/>
+        <result property="gradeName" column="gradeName"/>
+    </resultMap>
+
+    <select id="getCompanyById" parameterType="int" resultMap="CompanyWithBusResultMap">
+        SELECT
+            c.company_id AS companyId,
+            c.company_name AS companyName,
+            c.company_tel AS companyTel,
+            b.bus_number AS busNumber,
+            g.grade_name AS gradeName
+        FROM
+            company c
+                LEFT JOIN
+            bus b ON c.company_id = b.company_id
+                LEFT JOIN
+            bus_grade g ON b.grade_id = g.grade_id
+        WHERE
+            c.company_id = #{id}
     </select>
+
+
 
 </mapper>
