@@ -9,11 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Terminal {
-    private String terminalId;
+public class City {
     private int cityId;
-    private String terminalName;
-    private String address;
-    private String tel;
-    private boolean terminalStatus;
+    private String cityName;
 }

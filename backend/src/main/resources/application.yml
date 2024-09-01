@@ -22,4 +22,4 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/admin/*.xml
-  type-aliases-package: com.unibus.admin.domain
+  type-aliases-package: com.unibus.admin.domain, com.unibus.admin.dto

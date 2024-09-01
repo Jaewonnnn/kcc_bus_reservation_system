@@ -12,12 +12,12 @@
         select * from member where member_seq = #{id}
     </select>
 
-    <update id="updateUser" parameterType="User">
+    <update id="updateUser" parameterType="UserDTO">
         UPDATE member
-        SET member_name = #{memberName},
-            member_tel = #{memberTel},
-            member_email = #{memberEmail}
-        WHERE member_seq = #{memberSeq}
+        SET member_name = #{name},
+            member_tel = #{phoneNumber},
+            member_email = #{email}
+        WHERE member_seq = #{id}
     </update>
 
     <update id="deleteUser" parameterType="int">
@@ -27,7 +27,33 @@
     </update>
 
     <select id="getTerminalList" resultType="Terminal">
-        select * from terminal
+        select * from terminal where terminal_status != 0
     </select>
+
+    <select id="getTerminalById" parameterType="String" resultType="AdminTerminalDto">
+        select terminal_id, city_id, terminal_name, address, tel from terminal where terminal_id = #{id}
+    </select>
+
+    <select id="getCityList" resultType="City">
+        select * from city
+    </select>
+
+    <insert id="createTerminal" parameterType="AdminTerminalDto">
+        insert
+        into terminal(terminal_id, terminal_name, city_id, address, tel, terminal_status)
+        values (#{terminalId}, #{terminalName}, #{cityId}, #{address}, #{tel}, 1)
+    </insert>
+
+    <update id="updateTerminal" parameterType="UpdateTerminalDto">
+        update terminal
+        set terminal_name = #{terminalName},
+            address = #{address},
+            tel = #{tel}
+        where terminal_id = #{terminalId}
+    </update>
+
+    <update id="deleteTerminal" parameterType="String">
+        delete from terminal where terminal_id = #{id}
+    </update>
 
 </mapper>

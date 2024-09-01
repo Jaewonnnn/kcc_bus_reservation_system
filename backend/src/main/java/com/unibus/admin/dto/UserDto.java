@@ -1,10 +1,7 @@
 package com.unibus.admin.dto;
 
 import com.unibus.admin.domain.User;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
