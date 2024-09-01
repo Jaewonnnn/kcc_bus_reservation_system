@@ -44,4 +44,9 @@ public class AdminServiceImpl implements AdminService{
 
         return adminMapper.updateUser(user);
     }
+
+    @Override
+    public int deleteUser(int id) {
+        return adminMapper.deleteUser(id);
+    }
 }
