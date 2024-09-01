@@ -4,6 +4,7 @@ import com.unibus.admin.domain.City;
 import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.domain.User;
 import com.unibus.admin.dto.AdminTerminalDto;
+import com.unibus.admin.dto.CompanyDto;
 import com.unibus.admin.dto.UpdateTerminalDto;
 import com.unibus.admin.dto.UserDto;
 import com.unibus.admin.mapper.AdminMapper;
@@ -97,5 +98,10 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public int deleteTerminal(String id) {
         return adminMapper.deleteTerminal(id);
+    }
+
+    @Override
+    public List<CompanyDto> getCompanyList() {
+        return adminMapper.getCompanyList();
     }
 }

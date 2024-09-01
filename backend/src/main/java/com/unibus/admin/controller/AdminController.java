@@ -1,9 +1,11 @@
 package com.unibus.admin.controller;
 
 import com.unibus.admin.dto.AdminTerminalDto;
+import com.unibus.admin.dto.CompanyDto;
 import com.unibus.admin.dto.UpdateTerminalDto;
 import com.unibus.admin.dto.UserDto;
 import com.unibus.admin.service.AdminService;
+import com.unibus.admin.service.AdminServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,7 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final AdminServiceImpl adminServiceImpl;
 
     @GetMapping("/")
     public String getAdminPage() {
@@ -92,5 +95,11 @@ public class AdminController {
             return "redirect:/admin/terminal";
         else
             throw new Exception("delete terminal failed");
+    }
+
+    @GetMapping("/company")
+    public String getCompanyList(Model model){
+        model.addAttribute("companyList", adminService.getCompanyList());
+        return "admin_company";
     }
 }

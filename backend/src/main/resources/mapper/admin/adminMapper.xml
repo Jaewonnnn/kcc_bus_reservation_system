@@ -56,4 +56,8 @@
         delete from terminal where terminal_id = #{id}
     </update>
 
+    <select id="getCompanyList" resultType="CompanyDto">
+        select * from company
+    </select>
+
 </mapper>
