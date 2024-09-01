@@ -1,8 +1,12 @@
 package com.unibus.admin.controller;
 
+<<<<<<< Updated upstream
 import com.unibus.admin.dto.AdminTerminalDto;
 import com.unibus.admin.dto.UpdateTerminalDto;
 import com.unibus.admin.dto.UserDto;
+=======
+import com.unibus.admin.dto.*;
+>>>>>>> Stashed changes
 import com.unibus.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -93,4 +97,43 @@ public class AdminController {
         else
             throw new Exception("delete terminal failed");
     }
+<<<<<<< Updated upstream
+=======
+
+    @GetMapping("/company")
+    public String getCompanyList(Model model){
+        model.addAttribute("companyList", adminService.getCompanyList());
+        return "admin_company";
+    }
+
+    @GetMapping("/company/{company_id}")
+    @ResponseBody
+    public CompanyDto getCompanyById(@PathVariable int company_id){
+        return adminService.getCompanyById(company_id);
+    }
+
+    @PostMapping("/company")
+    public String createCompany(@RequestBody CompanyDto companyDto){
+        adminServiceImpl.createCompany(companyDto);
+        return "redirect:/admin/company";
+    }
+
+    @PatchMapping("/company/{company_id}")
+    public String updateCompany(@PathVariable int company_id, @RequestBody CompanyDto companyDto){
+        adminService.updateCompany(company_id, companyDto);
+        return "redirect:/admin/company";
+    }
+
+    @DeleteMapping("/company/delete/{company_id}")
+    public String deleteCompany(@PathVariable int company_id){
+        adminService.deleteCompany(company_id);
+        return "redirect:/admin/company";
+    }
+
+    @GetMapping("/route")
+    @ResponseBody
+    public List<RouteDto> getRouteList(){
+        return adminService.getRouteList();
+    }
+>>>>>>> Stashed changes
 }

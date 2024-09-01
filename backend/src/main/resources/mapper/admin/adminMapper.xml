@@ -56,4 +56,85 @@
         delete from terminal where terminal_id = #{id}
     </update>
 
+<<<<<<< Updated upstream
+=======
+    <select id="getCompanyList" resultType="CompanyDto">
+        select * from company
+    </select>
+
+    <resultMap id="CompanyWithBusResultMap" type="CompanyDto">
+        <id property="companyId" column="companyId"/>
+        <result property="companyName" column="companyName"/>
+        <result property="companyTel" column="companyTel"/>
+        <collection property="busList" resultMap="busListMap"/>
+    </resultMap>
+    <resultMap id="busListMap" type="Bus">
+        <result property="busNumber" column="busNumber"/>
+        <result property="gradeName" column="gradeName"/>
+    </resultMap>
+
+    <select id="getCompanyById" parameterType="int" resultMap="CompanyWithBusResultMap">
+        SELECT
+            c.company_id AS companyId,
+            c.company_name AS companyName,
+            c.company_tel AS companyTel,
+            b.bus_number AS busNumber,
+            g.grade_name AS gradeName
+        FROM
+            company c
+                LEFT JOIN
+            bus b ON c.company_id = b.company_id
+                LEFT JOIN
+            bus_grade g ON b.grade_id = g.grade_id
+        WHERE
+            c.company_id = #{id}
+    </select>
+
+    <insert id="createCompany" parameterType="CompanyDto">
+        insert into company(company_id, company_name, company_tel)
+        values(company_seq.nextval, #{companyName}, #{companyTel})
+    </insert>
+
+    <update id="updateCompany" parameterType="CompanyDto">
+        update company
+        set
+            company_name = #{companyName},
+            company_tel = #{companyTel}
+        where company_id = #{companyId}
+    </update>
+
+    <delete id="deleteCompany" parameterType="int">
+        delete from company where company_id = #{id}
+    </delete>
+
+    <resultMap id="toRouteDto" type="RouteDto">
+        <id property="routeId" column="route_id"/>
+        <result property="requiredTime" column="required_time"/>
+        <result property="routeStatus" column="route_status"/>
+
+        <result property="routeStartTerminal.terminalId" column="start_terminal_id"/>
+        <result property="routeStartTerminal.terminalName" column="start_terminal_name"/>
+
+        <result property="routeEndTerminal.terminalId" column="end_terminal_id"/>
+        <result property="routeEndTerminal.terminalName" column="end_terminal_name"/>
+    </resultMap>
+
+    <select id="getRouteList" resultMap="toRouteDto">
+        SELECT
+            r.route_id,
+            r.required_time,
+            r.route_status,
+            ts.terminal_id AS start_terminal_id,
+            ts.terminal_name AS start_terminal_name,
+            te.terminal_id AS end_terminal_id,
+            te.terminal_name AS end_terminal_name
+        FROM
+            route r
+                LEFT OUTER JOIN terminal ts ON r.route_start_id = ts.terminal_id
+                LEFT OUTER JOIN terminal te ON r.route_end_id = te.terminal_id
+    </select>
+
+
+
+>>>>>>> Stashed changes
 </mapper>
