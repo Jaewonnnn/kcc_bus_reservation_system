@@ -101,17 +101,17 @@
                     </div>
                   </div>
                   <table class="table border border-1">
+                    <colgroup>
+                      <col style="width: 12%">
+                      <col style="width: 12%;">
+                      <col style="width: 12%;">
+                      <col style="width: 12%;">
+                      <col style="width: 12%;">
+                      <col style="width: 12%;">
+                      <col style="width: 12%;">
+                      <col style="width: 12%;">
+                    </colgroup>
                     <thead>
-                      <colgroup>
-                        <col style="width: 12%" />
-                        <col style="width: 12%" />
-                        <col style="width: 12%" />
-                        <col style="width: 12%" />
-                        <col style="width: 12%" />
-                        <col style="width: 12%" />
-                        <col style="width: 12%" />
-                        <col style="width: 12%" />
-                      </colgroup>
                       <tr>
                         <th scope="col" class="text-center">
                           <input
@@ -147,7 +147,53 @@
                         <td class="text-center">2매</td>
                         <td class="text-center">43,000원</td>
                         <td class="text-center">
-                          <button class="detail_btn">상세보기</button>
+                          <button class="detail_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">상세보기</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row" class="text-center">
+                          <input
+                            class="form-check-input"
+                            type="checkbox"
+                            value=""
+                            id="flexCheckDefault"
+                          />
+                        </th>
+                        <td class="text-center">2024.09.10</td>
+                        <td class="text-center">동서울</td>
+                        <td class="text-center">부산</td>
+                        <td class="text-center">13:30</td>
+                        <td class="text-center">2매</td>
+                        <td class="text-center">43,000원</td>
+                        <td class="text-center">
+                          <button class="detail_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">상세보기</button>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row" class="text-center">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        </th>
+                        <td class="text-center">2024.09.10</td>
+                        <td class="text-center">동서울</td>
+                        <td class="text-center">부산</td>
+                        <td class="text-center">13:30</td>
+                        <td class="text-center">2매</td>
+                        <td class="text-center">43,000원</td>
+                        <td class="text-center">
+                          <button class="detail_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">상세보기</button>
+                        </td>
+                      </tr><tr>
+                        <th scope="row" class="text-center">
+                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        </th>
+                        <td class="text-center">2024.09.10</td>
+                        <td class="text-center">동서울</td>
+                        <td class="text-center">부산</td>
+                        <td class="text-center">13:30</td>
+                        <td class="text-center">2매</td>
+                        <td class="text-center">43,000원</td>
+                        <td class="text-center">
+                          <button class="detail_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">상세보기</button>
                         </td>
                       </tr>
                       <tr>
@@ -185,45 +231,7 @@
                         <td class="text-center">2매</td>
                         <td class="text-center">43,000원</td>
                         <td class="text-center">
-                          <button class="detail_btn">상세보기</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="text-center">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault"
-                          />
-                        </th>
-                        <td class="text-center">2024.09.10</td>
-                        <td class="text-center">동서울</td>
-                        <td class="text-center">부산</td>
-                        <td class="text-center">13:30</td>
-                        <td class="text-center">2매</td>
-                        <td class="text-center">43,000원</td>
-                        <td class="text-center">
-                          <button class="detail_btn">상세보기</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="text-center">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault"
-                          />
-                        </th>
-                        <td class="text-center">2024.09.10</td>
-                        <td class="text-center">동서울</td>
-                        <td class="text-center">부산</td>
-                        <td class="text-center">13:30</td>
-                        <td class="text-center">2매</td>
-                        <td class="text-center">43,000원</td>
-                        <td class="text-center">
-                          <button class="detail_btn">상세보기</button>
+                          <button class="detail_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">상세보기</button>
                         </td>
                       </tr>
                     </tbody>
@@ -235,6 +243,62 @@
         </div>
       </div>
     </section>
+    
+
+     <!-- Modal -->
+     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header d-flex justify-content-between">
+            <h1 class="modal-title ms-0" id="staticBackdropLabel">승차권 상세보기</h1>
+            <button type="button" class="close_btn text-center" data-bs-dismiss="modal">닫기</button>
+          </div>
+          <div class="modal-body">
+            <table class="table table-borderless">
+              <thead>
+                <tr>
+                  <th scope="col" class="text-left">2024.09.10</th>
+                  <th scope="col" class="text-end"></th> 
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="text-left">출발지</td>
+                  <td class="text-end">동서울</td>
+                </tr>
+                <tr>
+                  <td class="text-left">도착지</td>
+                  <td class="text-end">부산</td>
+                </tr>
+                <tr>
+                  <td class="text-left">출발시간</td>
+                  <td class="text-end">12:30</td>
+                </tr>
+                <tr>
+                  <td class="text-left">매수</td>
+                  <td class="text-end">2매</td>
+                </tr>
+                <tr>
+                  <td class="text-left">좌석번호</td>
+                  <td class="text-end">21석, 22석</td>
+                </tr>
+                <tr>
+                  <td class="text-left">금액</td>
+                  <td class="text-end">43,000원</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>        
+     
+
+  
+
+
+
+
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/js/mypage_reservation_list.js"></script>

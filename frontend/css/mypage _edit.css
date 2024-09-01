@@ -1,6 +1,7 @@
 section #admin_info{
   margin-top: 100px;
 }
+
 #admin_all .header_text{
   font : 700 28px "Noto Sans KR";
 }
@@ -79,7 +80,7 @@ body{
 }
 
 .card_body_header h5 {
-  font: 600 23px "Noto Sans KR";
+  font : 600 23px "Noto Sans KR";
   color: #5C5C5C;
 }
 
@@ -97,7 +98,7 @@ body{
   padding: 0 !important;
   box-sizing: border-box;
   display: flex;
-  font : 500 20px "Noto Sans KR"
+  font : 500 20px "Noto Sans KR";
 }
 
 .user_info_id, .user_info_name {
@@ -139,49 +140,58 @@ body{
   height: auto;
 }
 
-
-
-.table tr .form-check-input {
-  border: 1px solid #a19d9d;
-}
-
-.table tr button {
-  background-color: #212954;
-  color: #FFFFFF;
+.table_div {
+  border : 1px solid #CCCCCC;
   border-radius: 10px;
-  width: 90px;
-  height: 38px;
 }
 
-.modal-dialog {
-  min-width: 600px !important;
+.table {
+  height: 560px;
 }
 
-.modal-content {
-  padding: 27px 34px;
+thead {
+  height: 80px;
 }
 
-.modal-body .table .text-left {
-  font: 600 17px "Noto Sans KR";
+.table tr th:first-child, .table tr td:first-child {
+  padding: 24px 0px 0px 94px;
+}
+
+.table tr th:not(:first-child), .table tr td:not(:first-child) {
+  padding: 26px 0px 0px 0px;
+}
+
+
+
+.table tr th, .table tr>:first-child, .name, .birth,
+.form-check-label {
+  font: 500 18px "Noto Sans KR";
+}
+
+.form-check-input {
+  width: 25px !important;
+  height: 25px !important;
+  border-radius: 18px !important;
+  margin-top: 2px !important;
+}
+
+
+.form-control {
+  width: 80px !important;
+  border: 1px solid #5C5C5C !important;
+  font: 500 18px "Noto Sans KR";
   color: #5C5C5C;
 }
 
-.modal-body .table .text-end {
-  font: 600 17px "Noto Sans KR";
-
-}
-
-.modal-title {
- font: 700 23px "Noto Sans KR";
- color: #000000;
-}
-
-.close_btn {
-  background-color: #212954;
-  color : #FFFFFF;
+.change_btn {
+  width: 150px;
+  height: 50px;
   border-radius: 10px;
-  width: 80px;
-  height: 40px;
-  font: 600 17px "Noto Sans KR";
-  line-height: 1px;
+  background-color: #212954;
+  font: 500 18px "Noto Sans KR";
+  color: #FFFFFF;
+}
+
+.input_email_area .form-control {
+  width: 130px !important;
 }
