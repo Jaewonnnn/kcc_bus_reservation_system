@@ -5,7 +5,6 @@ class Headers extends HTMLElement {
     this.shadowRoot.innerHTML = `
       <link rel="stylesheet" href="/resources/css/reset.css">
       <link rel="stylesheet" href="/resources/css/header.css">
-      <link rel="stylesheet" href="/resources/css/main.css">
       <header>
         <div id="header_wrap">
           <h1>UNIBUS</h1>
@@ -24,7 +23,7 @@ class Headers extends HTMLElement {
   }
 }
 
-customElements.define('header-component', Headers);
+customElements.define('user-header-component', Headers);
 
 document.addEventListener('DOMContentLoaded', () => {
   headerMenu();
