@@ -1,5 +1,6 @@
 package com.unibus.admin.service;
 
+import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.domain.User;
 import com.unibus.admin.dto.UserDto;
 
@@ -13,4 +14,6 @@ public interface AdminService {
     public int updateUser(int id, UserDto userDto);
 
     public int deleteUser(int id);
+
+    public List<Terminal> getTerminalList();
 }

@@ -1,5 +1,6 @@
 package com.unibus.admin.controller;
 
+import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.dto.UserDto;
 import com.unibus.admin.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -58,7 +60,12 @@ public class AdminController {
         }else{
             throw new Exception("delete fail");
         }
+    }
 
+    @GetMapping("/terminal")
+    public String getTerminalPage(Model model){
+        model.addAttribute("terminalList", adminService.getTerminalList());
+        return "admin_terminal";
     }
 
 }

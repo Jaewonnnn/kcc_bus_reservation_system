@@ -26,4 +26,8 @@
         where member_seq = #{memberSeq}
     </update>
 
+    <select id="getTerminalList" resultType="Terminal">
+        select * from terminal
+    </select>
+
 </mapper>

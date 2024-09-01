@@ -1,5 +1,6 @@
 package com.unibus.admin.service;
 
+import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.domain.User;
 import com.unibus.admin.dto.UserDto;
 import com.unibus.admin.mapper.AdminMapper;
@@ -48,5 +49,10 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public int deleteUser(int id) {
         return adminMapper.deleteUser(id);
+    }
+
+    @Override
+    public List<Terminal> getTerminalList() {
+        return adminMapper.getTerminalList();
     }
 }
