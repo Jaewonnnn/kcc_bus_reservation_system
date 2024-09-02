@@ -122,13 +122,14 @@ body{
   border-right: 2px solid #CCCCCC;
 }
 
-.more_btn {
+.more_btn, .change_member_btn {
   height: 40px;
   background-color: #212954;
   color: #FFFFFF;
   width: 100px;
   border-radius: 10px;
 }
+
 
 .card_body_main .card_body_main_header {
   width: 100%;

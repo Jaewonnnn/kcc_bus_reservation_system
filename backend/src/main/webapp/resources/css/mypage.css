@@ -54,7 +54,7 @@ body{
   height: 55px;
 }
 
-.btn_mypage {
+.btn_mypage, .password_check_btn {
   background-color: #212954;
   color: #FFFFFF;
   border-radius: 10px;
