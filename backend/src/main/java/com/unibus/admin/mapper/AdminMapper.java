@@ -45,4 +45,8 @@ public interface AdminMapper {
     public int deleteCompany(int id);
 
     public List<RouteDto> getRouteList();
+
+    public String getTerminalId(String terminalName);
+
+    public int createRoute(RouteCreateDto routeCreateDto);
 }

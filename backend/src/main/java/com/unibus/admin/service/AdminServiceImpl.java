@@ -133,4 +133,18 @@ public class AdminServiceImpl implements AdminService{
         return adminMapper.getRouteList();
     }
 
+    @Override
+    public int createRoute(RouteCreateDto routeCreateDto) {
+        String startTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteStartTerminal());
+        log.info("startTerminalId = {}", startTerminalId);
+
+        log.info("endTerminalId = {}", routeCreateDto.getRouteEndTerminal());
+        String endTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteEndTerminal());
+        log.info("endTerminalId = {}", endTerminalId);
+
+        routeCreateDto.setRouteStartTerminal(startTerminalId);
+        routeCreateDto.setRouteEndTerminal(endTerminalId);
+
+        return adminMapper.createRoute(routeCreateDto);
+    }
 }

@@ -42,4 +42,6 @@ public interface AdminService {
     public int deleteCompany(int id);
 
     public List<RouteDto> getRouteList();
+
+    public int createRoute(RouteCreateDto routeCreateDto);
 }

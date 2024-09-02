@@ -129,8 +129,13 @@ public class AdminController {
     }
 
     @GetMapping("/route")
-    @ResponseBody
-    public List<RouteDto> getRouteList(){
-        return adminService.getRouteList();
+    public String getRouteList(){
+        return "admin_route";
+    }
+
+    @PostMapping("/route")
+    public String createRoute(@RequestBody RouteCreateDto routeCreateDto){
+        adminService.createRoute(routeCreateDto);
+        return "redirect:/admin/route";
     }
 }

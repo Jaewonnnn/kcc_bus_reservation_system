@@ -132,4 +132,14 @@
                 LEFT OUTER JOIN terminal te ON r.route_end_id = te.terminal_id
     </select>
 
+    <select id="getTerminalId" parameterType="String" resultType="String">
+        select terminal_id from terminal where terminal_name = #{terminalName}
+    </select>
+
+    <insert id="createRoute" parameterType="RouteCreateDto">
+        insert into route(route_id, route_start_id, route_end_id, route_status)
+        values('NAEK123456', #{routeStartTerminal}, #{routeEndTerminal}, 1)
+    </insert>
+
+
 </mapper>
