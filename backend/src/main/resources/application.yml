@@ -3,7 +3,7 @@ server:
 
 logging:
   level:
-    org.springframework: DEBUG
+    org.springframework: INFO
 
 spring:
   mvc:
@@ -21,5 +21,5 @@ spring:
 mybatis:
   configuration:
     map-underscore-to-camel-case: true
-  mapper-locations: classpath:mapper/admin/*.xml
+  mapper-locations: classpath:mapper/admin/*.xml, classpath:mapper/user/*.xml
   type-aliases-package: com.unibus.admin.domain, com.unibus.admin.dto

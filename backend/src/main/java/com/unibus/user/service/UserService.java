@@ -11,4 +11,6 @@ public interface UserService {
     public Integer updateMember(Member member);
     public Integer updateWithdraw(Member member);
     public Boolean checkMemberId(String memberId);
+    public boolean getMemberPass(String newPass, String memberId);
+    public Boolean join(Member member);
 }

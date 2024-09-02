@@ -1,4 +1,9 @@
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -45,10 +50,9 @@
                       width="110"
                     />
                     <div class="mt-1 profile_btn_area">
-                      <h4 class="mt-2 mb-0">원승언</h4>
-                      <p>dnjstmddjs12@naver.com</p>
-                      <button class="btn_mypage fs-5 text-center mt-3 mb-3">마이페이지</button>
-                      <button class="btn_edit_member text-center fs-5 mb-3">회원정보수정</button>
+                      <h4 class="mt-2 mb-0">${member.memberName}</h4>
+                      <p>${member.memberEmail}</p>
+                      <button class="btn_mypage fs-5 text-center mt-3 mb-3" onclick="location.href='/user/mypage'">마이페이지</button>
                       <button class="btn_delete_member text-center fs-5">회원탈퇴</button>
                     </div>
                   </div>
@@ -63,6 +67,7 @@
                 <div class="card-body mt-2" id="second_card">
                   <div class="card_body_header mb-4 ps-2 d-flex justify-content-between align-items-center">
                     <div class="card_header_text"><h5 class="mb-0">회원정보수정</h5></div>
+                    <button class="change_member_btn">변경하기</button>
                   </div>
                   <div class="table_div">
                     <table class="table mt-2">
@@ -73,7 +78,7 @@
                       <thead>
                         <tr>
                           <th scope="col" class="text-left">아이디</th>
-                          <th scope="col" class="text-left">dnjstmddjs12</th>
+                          <th scope="col" class="text-left" id="memberId">${member.memberId}</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -85,11 +90,11 @@
                         </tr>
                         <tr>
                           <td class="text-left">이름</td>
-                          <td class="text-left name">원승언</td>
+                          <td class="text-left name"><input class="form-control text-center" id="memberName" type="text" placeholder="${member.memberName}"></td>
                         </tr>
                         <tr>
                           <td class="text-left">생년월일</td>
-                          <td class="text-left birth">1997년 03월 06일</td>
+                          <td class="text-left birth"><fmt:formatDate value="${member.memberBirth}" pattern="yyyy년 MM월 dd일" /></td>
                         </tr><tr>
                           <td class="text-left">성별</td>
                           <td class="text-left ">
@@ -107,11 +112,16 @@
                           <td class="text-left">핸드폰번호</td>
                           <td class="text-left">
                             <div class="input_area d-flex align-items-center">
-                              <input class="form-control text-center" type="text" placeholder="010">
+                              <input class="form-control text-center" id="firstTel" type="text" value="010" maxlength="3">
                               <i class="fa-solid fa-minus fa-xs me-2 ms-2"></i>
-                              <input class="form-control text-center" type="text" placeholder="2572">
+                              <c:set var="memberTel" value="${member.memberTel}"/>
+                              <c:set var="parts" value="${fn:split(memberTel,'-')}"/>
+                              <c:set var="middleNumber" value="${parts[1]}"/>
+                              <c:set var="lastNumber" value="${parts[2]}"/>
+
+                              <input class="form-control text-center" type="text" id="middleTel" placeholder="${middleNumber}" maxlength="4">
                               <i class="fa-solid fa-minus fa-xs me-2 ms-2"></i>
-                              <input class="form-control text-center" type="text" placeholder="4233">
+                              <input class="form-control text-center" type="text" id="lastTel" placeholder="${lastNumber}" maxlength="4">
                             </div>
                           </td>
                         </tr>
@@ -119,9 +129,13 @@
                           <td class="text-left">이메일</td>
                           <td class="text-left">
                             <div class="input_email_area d-flex align-items-center">
-                              <input class="form-control me-2 text-center" type="text" placeholder="dnjstmddjs12">
+                              <c:set var="email" value="${member.memberEmail}"/>
+                              <c:set var="parts" value="${fn:split(email, '@')}"/>
+                              <c:set var="email_first" value="${parts[0]}"/>
+                              <c:set var="email_last" value="${parts[1]}"/>
+                              <input class="form-control me-2 text-center" type="text" id="firstEmail" placeholder="${email_first}">
                               <div class="me-2">@</div>
-                              <input class="form-control me-3 text-center" type="text" placeholder="gmail.com">
+                              <input class="form-control me-3 text-center" type="text" id="lastEmail" placeholder="${email_last}">
                               <input class="form-control text-center" type="text" placeholder="직접 입력">
                             </div>
                           </td>

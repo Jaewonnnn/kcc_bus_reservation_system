@@ -25,4 +25,30 @@
     <select id="selectDuplicationByMemberId" resultType="int">
         select count(*) from member where member_id = #{memberId}
     </select>
+
+    <select id="getMemberPassByMemberId" parameterType="String" resultType="String">
+        select member_pass from member where member_id = #{memberId}
+    </select>
+
+    <insert id="save" parameterType="com.unibus.user.domain.Member">
+    <selectKey order="BEFORE" keyProperty="memberSeq" resultType="int">
+        select member_seq.nextval from dual
+    </selectKey>
+        INSERT INTO member values
+            (
+               #{memberSeq},
+               #{memberId},
+               #{memberPass},
+               #{memberName},
+               #{memberTel},
+               #{memberEmail},
+               #{memberBirth},
+               #{memberRole},
+               sysdate,
+               1
+            )
+
+
+    </insert>
+
 </mapper>

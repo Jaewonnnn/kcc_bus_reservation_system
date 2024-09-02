@@ -103,7 +103,8 @@ body {
 }
 
 .signup-section input[type="text"], .signup-section input[type="password"],
-	.signup-section input[type="email"] {
+	.signup-section input[type="email"] , .signup-section input[type="tel"]
+,.signup-section input[type="date"]{
 	width: 100%;
 	padding: 12px;
 	margin: 8px 0;
@@ -140,7 +141,7 @@ body {
 	// Function to show alert and redirect after form submission
 	function showAlertAndRedirect() {
 		alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
-		window.location.href = "${pageContext.request.contextPath}/login";
+		window.location.href = "${pageContext.request.contextPath}/user/login";
 	}
 </script>
 </head>
@@ -160,12 +161,25 @@ body {
 					class="fa fa-google"></i> Google</a> <a href="#"><i
 					class="fa fa-linkedin"></i> LinkedIn</a>
 			</div>
-			<form action="/join"
+			<form action="/user/join"
 				method="post" onsubmit="showAlertAndRedirect()">
-				<input type="text" name="username" required>
-				<input type="password" name="password" required>
-				<input type="text" name="email" required>
+				<label for="memberName">이름</label>
+				<input type="text" name="memberName" id="memberName" required>
+				<label for="memberId">아이디</label>
+				<input type="text" name="memberId" id="memberId" required>
+				<label for="memberPass">비밀번호</label>
+				<input type="password" id="memberPass" required>
+				<label for="checkMemberPass">비밀번호확인</label>
+				<input type="password" name="memberPass" id="checkMemberPass" required>
+				<label for="memberEmail">이메일</label>
+				<input type="email" name="memberEmail" id="memberEmail" required>
+				<label for="memberBirth">생일</label>
+				<input type="date" name="memberBirth" id="memberBirth" required>
+				<label for="memberTel">전화번호</label>
+				<input type="tel" name="memberTel" id="memberTel" required>
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<input type="hidden" name="memberRole" value="ROLE_USER"/>
+
 				<button type="submit">Sign Up</button>
 			</form>
 		</div>
