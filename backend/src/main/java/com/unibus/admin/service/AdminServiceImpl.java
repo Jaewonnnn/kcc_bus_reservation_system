@@ -149,9 +149,9 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public int updateRoute(String route_id, RouteCreateDto routeCreateDto) {
+    public int updateRoute(String routeId, RouteCreateDto routeCreateDto) {
 
-        routeCreateDto.setRouteId(route_id);
+        routeCreateDto.setRouteId(routeId);
 
         String startTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteStartTerminal());
         log.info("startTerminalId = {}", startTerminalId);
@@ -164,5 +164,11 @@ public class AdminServiceImpl implements AdminService{
         log.info("routeRequiredTime = {}", routeCreateDto.getRequiredTime());
 
         return adminMapper.updateRoute(routeCreateDto);
+    }
+
+    @Override
+    public int deleteRoute(String routeId) {
+        log.info("routeId = {}", routeId);
+        return adminMapper.deleteRoute(routeId);
     }
 }

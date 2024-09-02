@@ -51,4 +51,6 @@ public interface AdminMapper {
     public int createRoute(RouteCreateDto routeCreateDto);
 
     public int updateRoute(RouteCreateDto routeCreateDto);
+
+    public int deleteRoute(String routeId);
 }

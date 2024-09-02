@@ -45,5 +45,7 @@ public interface AdminService {
 
     public int createRoute(RouteCreateDto routeCreateDto);
 
-    public int updateRoute(String route_id, RouteCreateDto routeCreateDto);
+    public int updateRoute(String routeId, RouteCreateDto routeCreateDto);
+
+    public int deleteRoute(String routeId);
 }

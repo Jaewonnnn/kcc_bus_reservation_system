@@ -146,7 +146,11 @@ public class AdminController {
     }
 
     @PatchMapping("/route/delete/{route_id}")
-    public String deleteRoute(@PathVariable String route_id){
-        return "redirect:/admin/route";
+    public String deleteRoute(@PathVariable String route_id) throws Exception{
+        int result = adminService.deleteRoute(route_id);
+        if(result == 1)
+            return "redirect:/admin/route";
+        else
+            throw new Exception("delete route failed");
     }
 }

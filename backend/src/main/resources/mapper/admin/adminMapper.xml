@@ -151,4 +151,10 @@
         where route_id = #{routeId}
     </update>
 
+    <update id="deleteRoute" parameterType="String">
+        update route
+        set route_status = 0
+        where route_id = #{routeId}
+    </update>
+
 </mapper>
