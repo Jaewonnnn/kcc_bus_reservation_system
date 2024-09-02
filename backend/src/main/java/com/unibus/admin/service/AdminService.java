@@ -6,6 +6,7 @@ import com.unibus.admin.dto.AdminTerminalDto;
 import com.unibus.admin.dto.CompanyDto;
 import com.unibus.admin.dto.UpdateTerminalDto;
 import com.unibus.admin.dto.UserDto;
+import com.unibus.admin.dto.*;
 
 import java.util.List;
 
@@ -35,4 +36,16 @@ public interface AdminService {
     public CompanyDto getCompanyById(int id);
 
     public int createCompany(CompanyDto companyDto);
+
+    public int updateCompany(int id, CompanyDto companyDto);
+
+    public int deleteCompany(int id);
+
+    public List<RouteDto> getRouteList();
+
+    public int createRoute(RouteCreateDto routeCreateDto);
+
+    public int updateRoute(String routeId, RouteCreateDto routeCreateDto);
+
+    public int deleteRoute(String routeId);
 }

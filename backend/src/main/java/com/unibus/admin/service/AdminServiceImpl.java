@@ -7,6 +7,7 @@ import com.unibus.admin.dto.AdminTerminalDto;
 import com.unibus.admin.dto.CompanyDto;
 import com.unibus.admin.dto.UpdateTerminalDto;
 import com.unibus.admin.dto.UserDto;
+import com.unibus.admin.dto.*;
 import com.unibus.admin.mapper.AdminMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -99,6 +100,7 @@ public class AdminServiceImpl implements AdminService{
     public int deleteTerminal(String id) {
         return adminMapper.deleteTerminal(id);
     }
+
     @Override
     public List<CompanyDto> getCompanyList() {
         return adminMapper.getCompanyList();
@@ -112,5 +114,61 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public int createCompany(CompanyDto companyDto) {
         return adminMapper.createCompany(companyDto);
+    }
+
+    @Override
+    public int updateCompany(int id, CompanyDto companyDto) {
+        companyDto.setCompanyId(id);
+
+        return adminMapper.updateCompany(companyDto);
+    }
+
+    @Override
+    public int deleteCompany(int id) {
+        return adminMapper.deleteCompany(id);
+    }
+
+    @Override
+    public List<RouteDto> getRouteList() {
+        return adminMapper.getRouteList();
+    }
+
+    @Override
+    public int createRoute(RouteCreateDto routeCreateDto) {
+        String startTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteStartTerminal());
+        log.info("startTerminalId = {}", startTerminalId);
+
+        String endTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteEndTerminal());
+        log.info("endTerminalId = {}", endTerminalId);
+
+        routeCreateDto.setRouteStartTerminal(startTerminalId);
+        routeCreateDto.setRouteEndTerminal(endTerminalId);
+        log.info("routeRequiredTime = {}", routeCreateDto.getRequiredTime());
+
+        return adminMapper.createRoute(routeCreateDto);
+    }
+
+    @Override
+    public int updateRoute(String routeId, RouteCreateDto routeCreateDto) {
+
+        routeCreateDto.setRouteId(routeId);
+
+        String startTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteStartTerminal());
+        log.info("startTerminalId = {}", startTerminalId);
+
+        String endTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteEndTerminal());
+        log.info("endTerminalId = {}", endTerminalId);
+
+        routeCreateDto.setRouteStartTerminal(startTerminalId);
+        routeCreateDto.setRouteEndTerminal(endTerminalId);
+        log.info("routeRequiredTime = {}", routeCreateDto.getRequiredTime());
+
+        return adminMapper.updateRoute(routeCreateDto);
+    }
+
+    @Override
+    public int deleteRoute(String routeId) {
+        log.info("routeId = {}", routeId);
+        return adminMapper.deleteRoute(routeId);
     }
 }

@@ -4,6 +4,7 @@ import com.unibus.admin.dto.AdminTerminalDto;
 import com.unibus.admin.dto.CompanyDto;
 import com.unibus.admin.dto.UpdateTerminalDto;
 import com.unibus.admin.dto.UserDto;
+import com.unibus.admin.dto.*;
 import com.unibus.admin.service.AdminService;
 import com.unibus.admin.service.AdminServiceImpl;
 import lombok.RequiredArgsConstructor;
@@ -113,5 +114,43 @@ public class AdminController {
     public String createCompany(@RequestBody CompanyDto companyDto){
         adminServiceImpl.createCompany(companyDto);
         return "redirect:/admin/company";
+    }
+
+    @PatchMapping("/company/{company_id}")
+    public String updateCompany(@PathVariable int company_id, @RequestBody CompanyDto companyDto){
+        adminService.updateCompany(company_id, companyDto);
+        return "redirect:/admin/company";
+    }
+
+    @DeleteMapping("/company/delete/{company_id}")
+    public String deleteCompany(@PathVariable int company_id){
+        adminService.deleteCompany(company_id);
+        return "redirect:/admin/company";
+    }
+
+    @GetMapping("/route")
+    public String getRouteList(){
+        return "admin_route";
+    }
+
+    @PostMapping("/route")
+    public String createRoute(@RequestBody RouteCreateDto routeCreateDto){
+        adminService.createRoute(routeCreateDto);
+        return "redirect:/admin/route";
+    }
+
+    @PatchMapping("/route/{route_id}")
+    public String updateRoute(@PathVariable String route_id, @RequestBody RouteCreateDto routeCreateDto){
+        adminService.updateRoute(route_id, routeCreateDto);
+        return "redirect:/admin/route";
+    }
+
+    @PatchMapping("/route/delete/{route_id}")
+    public String deleteRoute(@PathVariable String route_id) throws Exception{
+        int result = adminService.deleteRoute(route_id);
+        if(result == 1)
+            return "redirect:/admin/route";
+        else
+            throw new Exception("delete route failed");
     }
 }

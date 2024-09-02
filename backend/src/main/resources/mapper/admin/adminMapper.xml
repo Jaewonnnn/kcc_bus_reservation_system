@@ -93,6 +93,68 @@
         values(company_seq.nextval, #{companyName}, #{companyTel})
     </insert>
 
+    <update id="updateCompany" parameterType="CompanyDto">
+        update company
+        set
+            company_name = #{companyName},
+            company_tel = #{companyTel}
+        where company_id = #{companyId}
+    </update>
 
+    <delete id="deleteCompany" parameterType="int">
+        delete from company where company_id = #{id}
+    </delete>
+
+    <resultMap id="toRouteDto" type="RouteDto">
+        <id property="routeId" column="route_id"/>
+        <result property="requiredTime" column="required_time"/>
+        <result property="routeStatus" column="route_status"/>
+
+        <result property="routeStartTerminal.terminalId" column="start_terminal_id"/>
+        <result property="routeStartTerminal.terminalName" column="start_terminal_name"/>
+
+        <result property="routeEndTerminal.terminalId" column="end_terminal_id"/>
+        <result property="routeEndTerminal.terminalName" column="end_terminal_name"/>
+    </resultMap>
+
+    <select id="getRouteList" resultMap="toRouteDto">
+        SELECT
+            r.route_id,
+            r.required_time,
+            r.route_status,
+            ts.terminal_id AS start_terminal_id,
+            ts.terminal_name AS start_terminal_name,
+            te.terminal_id AS end_terminal_id,
+            te.terminal_name AS end_terminal_name
+        FROM
+            route r
+                LEFT OUTER JOIN terminal ts ON r.route_start_id = ts.terminal_id
+                LEFT OUTER JOIN terminal te ON r.route_end_id = te.terminal_id
+    </select>
+
+    <select id="getTerminalId" parameterType="String" resultType="String">
+        select terminal_id from terminal where terminal_name = #{terminalName}
+    </select>
+
+    <insert id="createRoute" parameterType="RouteCreateDto">
+        insert into route(route_id, route_start_id, route_end_id, required_time, route_status)
+        values('NAEK123457', #{routeStartTerminal}, #{routeEndTerminal}, to_date(#{requiredTime}, 'HH24:MI'), 1)
+    </insert>
+
+    <update id="updateRoute" parameterType="RouteCreateDto">
+        update route
+        set
+            route_start_id = #{routeStartTerminal},
+            route_end_id = #{routeEndTerminal},
+            required_time = to_date(#{requiredTime}, 'HH24:MI'),
+            route_status = #{routeStatus}
+        where route_id = #{routeId}
+    </update>
+
+    <update id="deleteRoute" parameterType="String">
+        update route
+        set route_status = 0
+        where route_id = #{routeId}
+    </update>
 
 </mapper>
