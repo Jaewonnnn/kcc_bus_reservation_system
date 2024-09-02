@@ -138,4 +138,15 @@ public class AdminController {
         adminService.createRoute(routeCreateDto);
         return "redirect:/admin/route";
     }
+
+    @PatchMapping("/route/{route_id}")
+    public String updateRoute(@PathVariable String route_id, @RequestBody RouteCreateDto routeCreateDto){
+        adminService.updateRoute(route_id, routeCreateDto);
+        return "redirect:/admin/route";
+    }
+
+    @PatchMapping("/route/delete/{route_id}")
+    public String deleteRoute(@PathVariable String route_id){
+        return "redirect:/admin/route";
+    }
 }

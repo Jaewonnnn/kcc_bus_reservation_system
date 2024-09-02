@@ -138,13 +138,31 @@ public class AdminServiceImpl implements AdminService{
         String startTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteStartTerminal());
         log.info("startTerminalId = {}", startTerminalId);
 
-        log.info("endTerminalId = {}", routeCreateDto.getRouteEndTerminal());
         String endTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteEndTerminal());
         log.info("endTerminalId = {}", endTerminalId);
 
         routeCreateDto.setRouteStartTerminal(startTerminalId);
         routeCreateDto.setRouteEndTerminal(endTerminalId);
+        log.info("routeRequiredTime = {}", routeCreateDto.getRequiredTime());
 
         return adminMapper.createRoute(routeCreateDto);
+    }
+
+    @Override
+    public int updateRoute(String route_id, RouteCreateDto routeCreateDto) {
+
+        routeCreateDto.setRouteId(route_id);
+
+        String startTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteStartTerminal());
+        log.info("startTerminalId = {}", startTerminalId);
+
+        String endTerminalId = adminMapper.getTerminalId(routeCreateDto.getRouteEndTerminal());
+        log.info("endTerminalId = {}", endTerminalId);
+
+        routeCreateDto.setRouteStartTerminal(startTerminalId);
+        routeCreateDto.setRouteEndTerminal(endTerminalId);
+        log.info("routeRequiredTime = {}", routeCreateDto.getRequiredTime());
+
+        return adminMapper.updateRoute(routeCreateDto);
     }
 }

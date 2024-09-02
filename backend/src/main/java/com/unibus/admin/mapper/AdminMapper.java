@@ -49,4 +49,6 @@ public interface AdminMapper {
     public String getTerminalId(String terminalName);
 
     public int createRoute(RouteCreateDto routeCreateDto);
+
+    public int updateRoute(RouteCreateDto routeCreateDto);
 }

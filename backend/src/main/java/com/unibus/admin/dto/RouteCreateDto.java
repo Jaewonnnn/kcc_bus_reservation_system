@@ -15,7 +15,7 @@ public class RouteCreateDto {
     private String routeId;
     private String routeStartTerminal;
     private String routeEndTerminal;
-    private Date requiredTime;
+    private String requiredTime;
     private boolean routeStatus;
 
 }
