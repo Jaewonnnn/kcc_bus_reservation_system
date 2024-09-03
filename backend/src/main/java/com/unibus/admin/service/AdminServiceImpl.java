@@ -176,4 +176,9 @@ public class AdminServiceImpl implements AdminService{
     public List<AdminScheduleDto> getScheduleList() {
         return adminMapper.getScheduleList();
     }
+
+    @Override
+    public AdminScheduleDto getScheduleById(int scheduleId) {
+        return adminMapper.getScheduleById(scheduleId);
+    }
 }

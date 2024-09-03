@@ -55,4 +55,6 @@ public interface AdminMapper {
     public int deleteRoute(String routeId);
 
     public List<AdminScheduleDto> getScheduleList();
+
+    public AdminScheduleDto getScheduleById(int id);
 }

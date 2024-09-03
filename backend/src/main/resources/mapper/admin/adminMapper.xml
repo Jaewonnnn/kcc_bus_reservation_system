@@ -160,4 +160,8 @@
     <select id="getScheduleList" resultType="AdminScheduleDto">
         select * from schedule
     </select>
+
+    <select id="getScheduleById" parameterType="int" resultType="AdminScheduleDto">
+        select * from schedule where schedule_id = #{scheduleId}
+    </select>
 </mapper>
