@@ -184,7 +184,7 @@ thead {
   color: #5C5C5C;
 }
 
-.change_btn {
+.change_btn, .change_password_btn, .password_check_btn {
   width: 150px;
   height: 50px;
   border-radius: 10px;
@@ -195,4 +195,16 @@ thead {
 
 .input_email_area .form-control {
   width: 130px !important;
+}
+
+.form-control.hide_input {
+  width: 250px !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.show {
+  display: flex !important;
 }

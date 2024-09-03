@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -145,6 +146,9 @@ body {
 }
 </style>
 </head>
+<script>
+	this.window =open()
+</script>
 <body>
 	<div class="login-container">
 		<div class="signin-section">
@@ -154,10 +158,13 @@ body {
 					class="fa fa-google"></i> Google</a> <a href="#"><i
 					class="fa fa-linkedin"></i> LinkedIn</a>
 			</div>
-			<form action="/user/login" method="post">
+			<form action="/loginProcess" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<input type="text" name="username" placeholder="ID" required>
 				<input type="password" name="password" placeholder="Password" required>
+				<c:if test="${error}">
+					<p id="valid" class="alert alert-danger">${exception}</p>
+				</c:if>
 				<a href="#">비밀번호를 잊으셨습니까?</a>
 				<button type="submit">Sign In</button>
 			</form>
@@ -166,7 +173,7 @@ body {
 			<h2>Hello, Friends!</h2>
 			<p>Enter your personal details and start your journey with us</p>
 			<button
-				onclick="location.href='${pageContext.request.contextPath}/user/join'">Sign
+				onclick="location.href='${pageContext.request.contextPath}/join'">Sign
 				Up</button>
 		</div>
 	</div>

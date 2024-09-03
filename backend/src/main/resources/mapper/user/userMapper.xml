@@ -18,8 +18,12 @@
         where member_id =#{memberId}
     </update>
 
-    <update id="withdrawMemberByMemberPass">
-        update member set withdraw = 0 where member_id=#{memberId} and member_pass = #{memberPass}
+    <update id="withdrawMemberByMemberPass" parameterType="String">
+        update member set withdraw = 0 where  member_pass = #{memberPass} and member_id=#{memberId}
+    </update>
+
+    <update id="changeMemberPassByMemberId" parameterType="com.unibus.user.domain.Member">
+        update member set member_pass = #{memberPass} where member_id = #{memberId}
     </update>
 
     <select id="selectDuplicationByMemberId" resultType="int">
@@ -36,7 +40,7 @@
     </selectKey>
         INSERT INTO member values
             (
-               #{memberSeq},
+               member_seq.nextval,
                #{memberId},
                #{memberPass},
                #{memberName},
@@ -47,8 +51,9 @@
                sysdate,
                1
             )
-
-
     </insert>
 
+    <select id="getUserByUsername" parameterType="String" resultType="Member">
+        select * from member
+    </select>
 </mapper>

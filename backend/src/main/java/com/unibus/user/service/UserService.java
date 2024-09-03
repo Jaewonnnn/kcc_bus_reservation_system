@@ -4,13 +4,16 @@ import com.unibus.user.domain.Member;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.security.config.annotation.web.configurers.UrlAuthorizationConfigurer.StandardInterceptUrlRegistry;
 
 public interface UserService {
     public Member userInfo(String memberId);
     public Integer updateMember(Member member);
-    public Integer updateWithdraw(Member member);
+    public Boolean updateWithdraw(String password, String memberId);
     public Boolean checkMemberId(String memberId);
-    public boolean getMemberPass(String newPass, String memberId);
-    public Boolean join(Member member);
+    public Boolean getMemberPass(String newPass, String memberId);
+    public int join(Member member);
+    public Boolean updatePassword(Member member);
+    public boolean isMemberIdDuplicate(String memberId);
 }

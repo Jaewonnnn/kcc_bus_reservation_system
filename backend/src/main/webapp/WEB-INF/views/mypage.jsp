@@ -47,9 +47,8 @@
                     <div class="mt-1 profile_btn_area">
                       <h4 class="mt-2 mb-0">${member.memberName}</h4>
                       <p>${member.memberEmail}</p>
-                      <button class="btn_mypage fs-5 text-center mt-3 mb-3">마이페이지</button>
+                      <button class="btn_mypage fs-5 text-center mt-3 mb-3" onclick="location.href='/user/mypage'">마이페이지</button>
                       <button class="btn_edit_member text-center fs-5 mb-3" data-bs-toggle="modal" data-bs-target="#cancelModal">회원정보수정</button>
-                      <button class="btn_delete_member text-center fs-5">회원탈퇴</button>
                     </div>
                   </div>
                 </div>
