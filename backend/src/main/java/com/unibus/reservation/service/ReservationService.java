@@ -1,7 +1,7 @@
 package com.unibus.reservation.service;
 
-import com.unibus.reservation.dto.ReservationDto;
+import com.unibus.reservation.dto.ScheduleDto;
 
 public interface ReservationService {
-    ReservationDto reserveSeat(ReservationDto reservationDto);
+    public ScheduleDto getTicket(int scheduleId);
 }
