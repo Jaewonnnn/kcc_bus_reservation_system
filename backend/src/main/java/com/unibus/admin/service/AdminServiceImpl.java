@@ -171,4 +171,9 @@ public class AdminServiceImpl implements AdminService{
         log.info("routeId = {}", routeId);
         return adminMapper.deleteRoute(routeId);
     }
+
+    @Override
+    public List<AdminScheduleDto> getScheduleList() {
+        return adminMapper.getScheduleList();
+    }
 }

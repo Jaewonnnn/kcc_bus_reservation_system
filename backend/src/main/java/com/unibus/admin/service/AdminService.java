@@ -48,4 +48,6 @@ public interface AdminService {
     public int updateRoute(String routeId, RouteCreateDto routeCreateDto);
 
     public int deleteRoute(String routeId);
+
+    public List<AdminScheduleDto> getScheduleList();
 }

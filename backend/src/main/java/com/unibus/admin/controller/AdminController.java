@@ -153,4 +153,10 @@ public class AdminController {
         else
             throw new Exception("delete route failed");
     }
+
+    @GetMapping("/schedule")
+    @ResponseBody
+    public List<AdminScheduleDto> getScheduleList(){
+        return adminService.getScheduleList();
+    }
 }

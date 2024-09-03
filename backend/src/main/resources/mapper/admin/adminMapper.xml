@@ -157,4 +157,7 @@
         where route_id = #{routeId}
     </update>
 
+    <select id="getScheduleList" resultType="AdminScheduleDto">
+        select * from schedule
+    </select>
 </mapper>
