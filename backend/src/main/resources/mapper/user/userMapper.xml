@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.unibus.user.mapper.UserMapper">
+    <select id="getMemberByMemberId" resultType="com.unibus.user.domain.Member">
+        select * from member where member_id =#{memberId}
+    </select>
+
+    <update id="updateMemberByMemberId">
+        update member
+        <set>
+            <if test="memberName != null">member_name = #{memberName},</if>
+            <if test="memberTel != null">member_tel = #{memberTel},</if>
+            <if test="memberEmail != null">member_email = #{memberEmail}</if>
+        </set>
+        where member_id =#{memberId}
+    </update>
+
+    <update id="withdrawMemberByMemberPass">
+        update member set withdraw = 0 where member_id=#{memberId} and member_pass = #{memberPass}
+    </update>
+
+    <select id="selectDuplicationByMemberId" resultType="int">
+        select count(*) from member where member_id = #{memberId}
+    </select>
+
+    <select id="getMemberPassByMemberId" parameterType="String" resultType="String">
+        select member_pass from member where member_id = #{memberId}
+    </select>
+
+    <insert id="save" parameterType="com.unibus.user.domain.Member">
+    <selectKey order="BEFORE" keyProperty="memberSeq" resultType="int">
+        select member_seq.nextval from dual
+    </selectKey>
+        INSERT INTO member values
+            (
+               #{memberSeq},
+               #{memberId},
+               #{memberPass},
+               #{memberName},
+               #{memberTel},
+               #{memberEmail},
+               #{memberBirth},
+               #{memberRole},
+               sysdate,
+               1
+            )
+
+
+    </insert>
+
+</mapper>

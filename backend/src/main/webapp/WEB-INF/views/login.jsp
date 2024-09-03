@@ -154,9 +154,10 @@ body {
 					class="fa fa-google"></i> Google</a> <a href="#"><i
 					class="fa fa-linkedin"></i> LinkedIn</a>
 			</div>
-			<form action="${pageContext.request.contextPath}/login" method="post">
-				<input type="text" name="userId" placeholder="Email" required>
-				<input type="password" name="userPw" placeholder="Password" required>
+			<form action="/user/login" method="post">
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+				<input type="text" name="username" placeholder="ID" required>
+				<input type="password" name="password" placeholder="Password" required>
 				<a href="#">비밀번호를 잊으셨습니까?</a>
 				<button type="submit">Sign In</button>
 			</form>
@@ -165,7 +166,7 @@ body {
 			<h2>Hello, Friends!</h2>
 			<p>Enter your personal details and start your journey with us</p>
 			<button
-				onclick="location.href='${pageContext.request.contextPath}/membership'">Sign
+				onclick="location.href='${pageContext.request.contextPath}/user/join'">Sign
 				Up</button>
 		</div>
 	</div>

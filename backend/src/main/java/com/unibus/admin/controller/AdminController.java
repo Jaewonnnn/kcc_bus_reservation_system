@@ -1,12 +1,18 @@
 package com.unibus.admin.controller;
 
+import com.unibus.admin.dto.AdminTerminalDto;
+import com.unibus.admin.dto.CompanyDto;
+import com.unibus.admin.dto.UpdateTerminalDto;
 import com.unibus.admin.dto.UserDto;
+import com.unibus.admin.dto.*;
 import com.unibus.admin.service.AdminService;
+import com.unibus.admin.service.AdminServiceImpl;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -19,6 +25,7 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+    private final AdminServiceImpl adminServiceImpl;
 
     @GetMapping("/")
     public String getAdminPage() {
@@ -28,20 +35,17 @@ public class AdminController {
     @GetMapping("/users")
     @ResponseBody
     public ResponseEntity<List<UserDto>> getUsers() {
-        log.info("AdminController getUsers() called " + new Date());
         return new ResponseEntity<List<UserDto>>(adminService.getUserList(), HttpStatus.OK);
     }
 
     @GetMapping("/user/{userId}")
     @ResponseBody
     public ResponseEntity<UserDto> getOneUser(@PathVariable int userId) {
-        log.info("AdminController getOneUser() called " + userId);
         return new ResponseEntity<UserDto>(adminService.getUserById(userId), HttpStatus.OK);
     }
 
     @PatchMapping("/user/{userId}")
     public String updateUser(@PathVariable int userId, @RequestBody UserDto userDto) throws Exception{
-        log.info("AdminController updateUser() called " + userId);
         int result = adminService.updateUser(userId, userDto);
         if(result == 1){
             return "redirect:/admin/";
@@ -58,7 +62,95 @@ public class AdminController {
         }else{
             throw new Exception("delete fail");
         }
-
     }
 
+    @GetMapping("/terminal")
+    public String getTerminalPage(Model model){
+        model.addAttribute("terminalList", adminService.getTerminalList());
+        return "admin_terminal";
+    }
+
+    @GetMapping("/terminal/{terminal_id}")
+    @ResponseBody
+    public AdminTerminalDto getTerminal(@PathVariable String terminal_id){
+        return adminService.getTerminalById(terminal_id);
+    }
+
+    @PostMapping("/terminal")
+    public String createTerminal(@RequestBody AdminTerminalDto terminalDto){
+        adminService.createTerminal(terminalDto);
+        return "redirect:/admin/terminal";
+    }
+
+    @PatchMapping("/terminal/{terminal_id}")
+    public String updateTerminal(@PathVariable String terminal_id, @RequestBody UpdateTerminalDto updateTerminalDto){
+        log.info("updateTerminalDto = {}", updateTerminalDto + " " + new Date());
+        adminService.updateTerminal(terminal_id, updateTerminalDto);
+        return "redirect:/admin/terminal";
+    }
+
+    @PatchMapping("/terminal/delete/{terminal_id}")
+    public String deleteTerminal(@PathVariable String terminal_id) throws Exception{
+        int result = adminService.deleteTerminal(terminal_id);
+        if(result == 1)
+            return "redirect:/admin/terminal";
+        else
+            throw new Exception("delete terminal failed");
+    }
+
+    @GetMapping("/company")
+    public String getCompanyList(Model model){
+        model.addAttribute("companyList", adminService.getCompanyList());
+        return "admin_company";
+    }
+
+    @GetMapping("/company/{company_id}")
+    @ResponseBody
+    public CompanyDto getCompanyById(@PathVariable int company_id){
+        return adminService.getCompanyById(company_id);
+    }
+
+    @PostMapping("/company")
+    public String createCompany(@RequestBody CompanyDto companyDto){
+        adminServiceImpl.createCompany(companyDto);
+        return "redirect:/admin/company";
+    }
+
+    @PatchMapping("/company/{company_id}")
+    public String updateCompany(@PathVariable int company_id, @RequestBody CompanyDto companyDto){
+        adminService.updateCompany(company_id, companyDto);
+        return "redirect:/admin/company";
+    }
+
+    @DeleteMapping("/company/delete/{company_id}")
+    public String deleteCompany(@PathVariable int company_id){
+        adminService.deleteCompany(company_id);
+        return "redirect:/admin/company";
+    }
+
+    @GetMapping("/route")
+    public String getRouteList(){
+        return "admin_route";
+    }
+
+    @PostMapping("/route")
+    public String createRoute(@RequestBody RouteCreateDto routeCreateDto){
+        adminService.createRoute(routeCreateDto);
+        return "redirect:/admin/route";
+    }
+
+    @PatchMapping("/route/{route_id}")
+    public String updateRoute(@PathVariable String route_id, @RequestBody RouteCreateDto routeCreateDto){
+        adminService.updateRoute(route_id, routeCreateDto);
+        return "redirect:/admin/route";
+    }
+
+    @PatchMapping("/route/delete/{route_id}")
+    public String deleteRoute(@PathVariable String route_id) throws Exception{
+        int result = adminService.deleteRoute(route_id);
+        if(result == 1)
+            return "redirect:/admin/route";
+        else
+            throw new Exception("delete route failed");
+    }
 }

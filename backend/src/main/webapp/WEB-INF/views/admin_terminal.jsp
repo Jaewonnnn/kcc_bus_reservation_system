@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -24,9 +24,9 @@
       integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
       crossorigin="anonymous"
     />
-    <link rel="stylesheet" href="/resources/css/reset.css" />
-    <link rel="stylesheet" href="/resources/css/header.css" />
-    <link rel="stylesheet" href="/resources/css/admin_terminal.css" />
+    <link rel="stylesheet" href="../../resources/css/reset.css" />
+    <link rel="stylesheet" href="../../resources/css/header.css" />
+    <link rel="stylesheet" href="../../resources/css/admin_terminal.css" />
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
       rel="stylesheet"
@@ -324,7 +324,7 @@
                       class="d-flex flex-column align-items-center text-center"
                     >
                       <img
-                        src="/resources/img/logo.png"
+                        src="../../resources/img/logo.png"
                         alt="Admin image"
                         class="rounded-circle p-1 bg-light"
                         width="110"
@@ -485,7 +485,6 @@
     ></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <!-- <script src="/js/mypage.js"></script> -->
-    <script src="/resources/js/admin_header.js"></script>
+    <script src="../../resources/js/admin_header.js"></script>
   </body>
 </html>
