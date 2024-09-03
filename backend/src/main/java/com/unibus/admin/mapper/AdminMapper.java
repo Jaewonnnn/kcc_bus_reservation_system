@@ -57,4 +57,8 @@ public interface AdminMapper {
     public List<AdminScheduleDto> getScheduleList();
 
     public AdminScheduleDto getScheduleById(int id);
+
+    public int createSchedule(AdminScheduleDto adminScheduleDto);
+
+    public RouteDto getRouteById(String routeId);
 }

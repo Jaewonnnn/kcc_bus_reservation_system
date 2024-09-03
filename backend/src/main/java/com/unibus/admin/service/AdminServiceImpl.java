@@ -11,6 +11,7 @@ import com.unibus.admin.dto.*;
 import com.unibus.admin.mapper.AdminMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -180,5 +181,17 @@ public class AdminServiceImpl implements AdminService{
     @Override
     public AdminScheduleDto getScheduleById(int scheduleId) {
         return adminMapper.getScheduleById(scheduleId);
+    }
+
+    @Override
+    @Scheduled(cron = "0 10 9 * * ?")
+    public int createSchedule(AdminScheduleDto adminScheduleDto) {
+        RouteDto route = adminMapper.getRouteById(adminScheduleDto.getRouteId());
+
+        log.info(adminScheduleDto.getScheduleStartTime() + route.getRequiredTime());
+        adminScheduleDto.setScheduleEndTime(adminScheduleDto.getScheduleStartTime() + route.getRequiredTime());
+
+
+        return 0;
     }
 }

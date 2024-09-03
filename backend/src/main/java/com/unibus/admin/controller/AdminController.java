@@ -166,4 +166,9 @@ public class AdminController {
         return adminService.getScheduleById(scheduleId);
     }
 
+    @PostMapping("/schedule")
+    public String createSchedule(@RequestBody AdminScheduleDto adminScheduleDto){
+        int result = adminService.createSchedule(adminScheduleDto);
+        return "redirect:/admin/schedule";
+    }
 }

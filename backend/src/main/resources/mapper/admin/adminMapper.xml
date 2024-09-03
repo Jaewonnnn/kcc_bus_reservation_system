@@ -164,4 +164,13 @@
     <select id="getScheduleById" parameterType="int" resultType="AdminScheduleDto">
         select * from schedule where schedule_id = #{scheduleId}
     </select>
+
+    <insert id="createSchedule" parameterType="AdminScheduleDto">
+        insert into schedule
+        values(schedule_seq.nextval, 1, #{routeId}, #{scheduleStartTime}, #{scheduleEndTime}, #{schedulePrice}, 1)
+    </insert>
+
+    <select id="getRouteById" parameterType="String" resultType="RouteDto">
+        select * from route where route_id = #{routeId}
+    </select>
 </mapper>

@@ -52,4 +52,6 @@ public interface AdminService {
     public List<AdminScheduleDto> getScheduleList();
 
     public AdminScheduleDto getScheduleById(int scheduleId);
+
+    public int createSchedule(AdminScheduleDto adminScheduleDto);
 }
