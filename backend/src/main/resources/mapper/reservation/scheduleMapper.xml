@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.unibus.reservation.mapper.ScheduleMapper">
+
+    <!-- 배차 조회 -->
+    <select id="findSchedulesByCriteria" parameterType="ScheduleDto" resultType="com.unibus.reservation.domain.Schedule">
+        SELECT
+            SCHEDULE_ID AS scheduleId,
+            BUS_ID AS busId,
+            (SELECT ROUTE_START_ID || ' - ' || ROUTE_END_ID FROM ROUTE WHERE ROUTE_ID = SCHEDULE.ROUTE_ID) AS routeId,
+            SCHEDULE_START_TIME AS startTime,
+            SCHEDULE_END_TIME AS endTime,
+            SCHEDULE_PRICE AS price
+        FROM SCHEDULE
+        WHERE
+            ROUTE_ID = #{routeId, jdbcType=VARCHAR}
+          AND SCHEDULE_START_TIME >= TO_DATE(#{startTime, jdbcType=VARCHAR}, 'YYYY-MM-DD')
+    </select>
+
+    <!-- 배차 상세 조회 -->
+    <select id="findScheduleById" parameterType="int" resultType="com.unibus.reservation.dto.ScheduleDto">
+        SELECT
+            SCHEDULE_ID AS scheduleId,
+            BUS_ID AS busId,
+            (SELECT ROUTE_START_ID || ' - ' || ROUTE_END_ID FROM ROUTE WHERE ROUTE_ID = SCHEDULE.ROUTE_ID) AS route,
+            SCHEDULE_START_TIME AS startTime,
+            SCHEDULE_END_TIME AS endTime,
+            SCHEDULE_PRICE AS price
+        FROM SCHEDULE
+        WHERE
+            SCHEDULE_ID = #{scheduleId}
+    </select>
+
+</mapper>
