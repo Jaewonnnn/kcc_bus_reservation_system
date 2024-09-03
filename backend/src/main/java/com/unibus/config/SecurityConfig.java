@@ -28,6 +28,9 @@ public class SecurityConfig {
             "/WEB-INF/views/reservation_seat3.jsp",
             "/WEB-INF/views/payment.jsp",
             "/WEB-INF/views/payment_accept.jsp",
+            "/WEB-INF/views/payment_finish.jsp",
+            "/WEB-INF/views/payment.jsp",
+            "/WEB-INF/views/payment_accept.jsp",
             "/WEB-INF/views/payment_finish.jsp"
     };
     private static final String[] USER_JSP_LIST = {
@@ -40,10 +43,7 @@ public class SecurityConfig {
             "/WEB-INF/views/reservation_detail.jsp",
             "/WEB-INF/views/reservation_seat1.jsp",
             "/WEB-INF/views/reservation_seat2.jsp",
-            "/WEB-INF/views/reservation_seat3.jsp",
-            "/WEB-INF/views/payment.jsp",
-            "/WEB-INF/views/payment_accept.jsp",
-            "/WEB-INF/views/payment_finish.jsp"
+            "/WEB-INF/views/reservation_seat3.jsp"
     };
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
