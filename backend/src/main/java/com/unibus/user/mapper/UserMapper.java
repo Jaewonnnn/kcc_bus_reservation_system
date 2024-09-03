@@ -11,6 +11,6 @@ public interface UserMapper {
     public Integer withdrawMemberByMemberPass(@Param("memberPass") String password, @Param("memberId") String memberId);
     public Integer selectDuplicationByMemberId(String memberId);
     public String getMemberPassByMemberId(String memberId);
-    public Integer save(Member member);
+    public int save(Member member);
     public Integer changeMemberPassByMemberId(Member member);
 }

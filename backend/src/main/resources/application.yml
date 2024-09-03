@@ -1,10 +1,13 @@
 server:
   port: ${PORT_NUMBER}
-  additional-tld-skip-patterns: "*.jar"
+#  tomcat:
+#    additional-tld-skip-patterns: "*.jar"
+
 
 logging:
   level:
     org.springframework: INFO
+    org.springframework.security: DEBUG
 
 spring:
   mvc:
@@ -23,4 +26,4 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/admin/*.xml, classpath:mapper/user/*.xml
-  type-aliases-package: com.unibus.admin.domain, com.unibus.admin.dto
+  type-aliases-package: com.unibus.admin.domain, com.unibus.admin.dto, com.unibus.user.domain, com.unibus.user.dto

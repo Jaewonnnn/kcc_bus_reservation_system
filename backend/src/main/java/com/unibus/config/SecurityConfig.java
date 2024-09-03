@@ -1,59 +1,76 @@
 package com.unibus.config;
 
-import com.unibus.Exception.CustomizedResponseEntityExceptionHandler;
-import com.unibus.Exception.LoginFailureHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-
+    private static final String[] JSP_LIST = {
+            "/resources/**",
+            "/login",
+            "/membership",
+            "/main",
+            "/join",
+            "/duplicated/**",
+            "/WEB-INF/views/membership.jsp",
+            "/WEB-INF/views/login.jsp",
+            "/WEB-INF/views/main.jsp",
+            "/WEB-INF/views/reservation_detail.jsp",
+            "/WEB-INF/views/reservation_seat1.jsp",
+            "/WEB-INF/views/reservation_seat2.jsp",
+            "/WEB-INF/views/reservation_seat3.jsp",
+            "/WEB-INF/views/payment.jsp",
+            "/WEB-INF/views/payment_accept.jsp",
+            "/WEB-INF/views/payment_finish.jsp"
+    };
+    private static final String[] USER_JSP_LIST = {
+            "/user/**",
+            "/WEB-INF/views/mypage.jsp",
+            "/WEB-INF/views/mypage_edit.jsp",
+            "/WEB-INF/views/reservation_list.jsp",
+            "/WEB-INF/views/login.jsp",
+            "/WEB-INF/views/main.jsp",
+            "/WEB-INF/views/reservation_detail.jsp",
+            "/WEB-INF/views/reservation_seat1.jsp",
+            "/WEB-INF/views/reservation_seat2.jsp",
+            "/WEB-INF/views/reservation_seat3.jsp",
+            "/WEB-INF/views/payment.jsp",
+            "/WEB-INF/views/payment_accept.jsp",
+            "/WEB-INF/views/payment_finish.jsp"
+    };
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public AuthenticationFailureHandler authenticationFailureHandler() {
-        return new LoginFailureHandler();
-    }
-
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable);
 
         http.authorizeHttpRequests(auth -> auth
-                .requestMatchers("/**").permitAll()
-                .requestMatchers("/user/**").hasAnyRole("USER")
-
-
+                .requestMatchers(JSP_LIST).permitAll()
+                .requestMatchers(USER_JSP_LIST).hasAnyRole("USER", "ADMIN")
+                .requestMatchers("/admin/**").hasAnyRole("ADMIN")
+                .anyRequest().authenticated()
         );
 
-        // 로그인 설정
-        http.formLogin(form -> form
-                .loginPage("/user/login")
-                .loginProcessingUrl("/user/login")
-                .defaultSuccessUrl("/user/mypage")
-//                .failureHandler(authenticationFailureHandler())
-                .failureUrl("/user/login?error")
-                .permitAll()
-        );
-
-        // 로그아웃 설정
-        http.logout(logout -> logout
-                .logoutUrl("/user/logout")
-                .logoutSuccessUrl("/main")
-                .permitAll()
+        http.formLogin(auth -> auth
+                .loginPage("/login")
+                .defaultSuccessUrl("/main")
+                .failureUrl("/login?error=true")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .loginProcessingUrl("/loginProcess")
         );
 
         return http.build();
     }
+
 }

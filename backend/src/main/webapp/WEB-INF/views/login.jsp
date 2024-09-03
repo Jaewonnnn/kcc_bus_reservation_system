@@ -158,7 +158,7 @@ body {
 					class="fa fa-google"></i> Google</a> <a href="#"><i
 					class="fa fa-linkedin"></i> LinkedIn</a>
 			</div>
-			<form action="/user/login" method="post">
+			<form action="/loginProcess" method="post">
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<input type="text" name="username" placeholder="ID" required>
 				<input type="password" name="password" placeholder="Password" required>
@@ -173,7 +173,7 @@ body {
 			<h2>Hello, Friends!</h2>
 			<p>Enter your personal details and start your journey with us</p>
 			<button
-				onclick="location.href='${pageContext.request.contextPath}/user/join'">Sign
+				onclick="location.href='${pageContext.request.contextPath}/join'">Sign
 				Up</button>
 		</div>
 	</div>

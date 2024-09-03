@@ -4,8 +4,6 @@ import com.unibus.config.PrincipalDetail;
 import com.unibus.user.domain.Member;
 import com.unibus.user.dto.ValidPassword;
 import com.unibus.user.service.UserService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,28 +14,14 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.security.Principal;
 
 @Controller
 @RequiredArgsConstructor
-@RequestMapping("/user/*")
+@RequestMapping("/user/")
 @Slf4j
 public class UserController {
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-
-    @PostMapping("/login")
-    public String login(@RequestBody Member member, Model model) {
-//        model.addAttribute("error", error);
-//        model.addAttribute("exception", exception);
-//        System.out.println(exception);
-//        System.out.println(error);
-//        log.info("error = {}" + error);
-//        log.info("exception = {}" + exception);
-    log.info("member ={}", member);
-
-        return "login";
-    }
 
     @GetMapping("/mypage")
     public String mypage(Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
@@ -84,14 +68,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/check/{user_id}")
-    @ResponseBody
-    public ResponseEntity<Boolean> checkUserId(@PathVariable("user_id") String memberId) {
-        boolean flag = userService.checkMemberId(memberId);
-        return flag == false ? new ResponseEntity<>(false, HttpStatus.CONFLICT)
-                : new ResponseEntity<>(true, HttpStatus.OK);
-    }
-
     @PostMapping("/memberPass")
     public ResponseEntity<String> getMemberPass(@RequestBody ValidPassword password) {
         boolean flag = userService.getMemberPass(password.getPass(), password.getId());
@@ -113,19 +89,13 @@ public class UserController {
     }
 
     @PostMapping("/join")
-    public String join(Member member) throws Exception {
-        member.setMemberPass(bCryptPasswordEncoder.encode(member.getMemberPass()));
-        member.setMemberRole("ROLE_USER");
-        System.out.println(member);
-        boolean flag = userService.join(member);
-        System.out.println(flag);
-        if (flag) {
+    public String join(@RequestBody Member member) throws Exception{
+        int result = userService.join(member);
+
+        if (result == 1) {
             return "redirect:/user/login";
         } else {
-            return "redirect:/user/join?error";
+            throw new Exception("join failed");
         }
     }
-
-
-
 }

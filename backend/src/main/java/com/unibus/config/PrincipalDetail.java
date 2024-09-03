@@ -1,31 +1,31 @@
 package com.unibus.config;
 
 import com.unibus.user.domain.Member;
-import lombok.Data;
+import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-@Data
+@RequiredArgsConstructor
 public class PrincipalDetail implements UserDetails {
-    private Member member;
-    public PrincipalDetail(Member member) {
-        this.member = member;
-    }
+
+    private static final Logger log = LoggerFactory.getLogger(PrincipalDetail.class);
+    private final Member member;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         Collection<GrantedAuthority> authorities = new ArrayList<>();
-        authorities.add(new GrantedAuthority() {
-          @Override
-          public String getAuthority() {
-              return member.getMemberRole();
-          }
+        member.getRoleList().forEach(r -> {
+            log.info("role = {}", r);
+            authorities.add(() -> r);
         });
         return authorities;
     }
+
 
     @Override
     public String getPassword() {
@@ -54,6 +54,6 @@ public class PrincipalDetail implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return member.isWithdraw();
     }
 }

@@ -7,7 +7,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.Date;
 
 @Service
 @RequiredArgsConstructor
@@ -57,9 +58,27 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Boolean join(Member member) {
-        return userMapper.save(member) == 1;
+    public int join(Member member) {
+        log.info("Member = {}", member);
+        if(isMemberIdDuplicate(member.getMemberId())) {
+            member.setMemberRole("ROLE_USER");
+            member.setWithdraw(true);
+            member.setCreateDate(new Date());
+            member.setMemberPass(encoder.encode(member.getMemberPass()));
+            member.setMemberBirth(new Date());
 
+            log.info("Member = {}", member);
+            return userMapper.save(member);
+        }else
+            return 0;
+
+    }
+
+    @Override
+    public boolean isMemberIdDuplicate(String memberId) {
+        log.info("memberId = {}", memberId);
+        log.info("result = {}", userMapper.getMemberByMemberId(memberId));
+        return userMapper.getMemberByMemberId(memberId) == null ? true : false;
     }
 
     @Override
@@ -68,6 +87,4 @@ public class UserServiceImpl implements UserService{
         m.setMemberPass(member.getMemberPass());
         return userMapper.changeMemberPassByMemberId(m) > 0 ? true : false;
     }
-
-
 }

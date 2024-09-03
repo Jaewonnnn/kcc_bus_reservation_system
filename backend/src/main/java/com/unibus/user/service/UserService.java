@@ -13,6 +13,7 @@ public interface UserService {
     public Boolean updateWithdraw(String password, String memberId);
     public Boolean checkMemberId(String memberId);
     public Boolean getMemberPass(String newPass, String memberId);
-    public Boolean join(Member member);
+    public int join(Member member);
     public Boolean updatePassword(Member member);
+    public boolean isMemberIdDuplicate(String memberId);
 }
