@@ -53,7 +53,7 @@
                       <h4 class="mt-2 mb-0">${member.memberName}</h4>
                       <p>${member.memberEmail}</p>
                       <button class="btn_mypage fs-5 text-center mt-3 mb-3" onclick="location.href='/user/mypage'">마이페이지</button>
-                      <button class="btn_delete_member text-center fs-5">회원탈퇴</button>
+                      <button class="btn_delete_member text-center fs-5" data-bs-toggle="modal" data-bs-target="#cancelModal">회원탈퇴</button>
                     </div>
                   </div>
                 </div>
@@ -86,6 +86,10 @@
                           <td class="text-left">비밀번호</td>
                           <td class="text-left">
                               <button class="change_btn">비밀번호변경</button>
+                              <div class="input_hide_area hide " >
+                                <input type="password" id="hide_password_input" class="form-control hide_input" placeholder="변경할 비밀번호를 입력해주세요">
+                                <button class="change_password_btn ms-3">변경하기</button>
+                              </div>
                           </td>
                         </tr>
                         <tr>
@@ -153,6 +157,23 @@
     </section>
     
 
+    <!-- 모달창 -->
+    <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+
+              <label for="password_check" class="me-4">비밀번호 </label>
+              <input type="password" id="password_check">
+              <button class="password_check_btn ms-4" type="button">비밀번호 확인</button>
+
+          </div>
+        </div>
+      </div>
+    </div>
   
 
 

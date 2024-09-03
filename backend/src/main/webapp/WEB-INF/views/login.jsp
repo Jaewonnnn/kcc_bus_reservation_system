@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -145,6 +146,9 @@ body {
 }
 </style>
 </head>
+<script>
+	this.window =open()
+</script>
 <body>
 	<div class="login-container">
 		<div class="signin-section">
@@ -158,6 +162,9 @@ body {
 				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
 				<input type="text" name="username" placeholder="ID" required>
 				<input type="password" name="password" placeholder="Password" required>
+				<c:if test="${error}">
+					<p id="valid" class="alert alert-danger">${exception}</p>
+				</c:if>
 				<a href="#">비밀번호를 잊으셨습니까?</a>
 				<button type="submit">Sign In</button>
 			</form>

@@ -30,12 +30,14 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public Integer updateWithdraw(Member member) {
-        Member member2 = userMapper.getMemberByMemberId(member.getMemberId());
-        if(member2.getMemberPass().equals(member.getMemberPass())) {
-            return userMapper.withdrawMemberByMemberPass(member);
+    public Boolean updateWithdraw(String password, String memberId) {
+        Member member2 = userMapper.getMemberByMemberId(memberId);
+        String pass = member2.getMemberPass();
+
+        if(encoder.matches(password, pass)) {
+            return userMapper.withdrawMemberByMemberPass(pass, memberId) == 1;
         } else {
-            return 0;
+            return false;
         }
     }
 
@@ -45,15 +47,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public boolean getMemberPass(String newPass, String memberId) {
-        log.info("newPass = {}", newPass);
+    public Boolean getMemberPass(String newPass, String memberId) {
 
         String pass = userMapper.getMemberPassByMemberId(memberId);
-
-        log.info("pass = {}", pass);
-        log.info("newpass = {}", encoder.encode(newPass));
-
-        log.info("matches = {}", encoder.matches(newPass, pass));
 
         if(encoder.matches(newPass, pass))
             return true;
@@ -64,6 +60,13 @@ public class UserServiceImpl implements UserService{
     public Boolean join(Member member) {
         return userMapper.save(member) == 1;
 
+    }
+
+    @Override
+    public Boolean updatePassword(Member member) {
+        Member m = userMapper.getMemberByMemberId(member.getMemberId());
+        m.setMemberPass(member.getMemberPass());
+        return userMapper.changeMemberPassByMemberId(m) > 0 ? true : false;
     }
 
 

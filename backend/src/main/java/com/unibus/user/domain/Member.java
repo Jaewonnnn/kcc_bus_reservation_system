@@ -21,4 +21,5 @@ public class Member {
     private String memberRole;
     private Date createDate;
     private boolean withdraw;
+
 }

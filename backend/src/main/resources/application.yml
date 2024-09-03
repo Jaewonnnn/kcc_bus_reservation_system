@@ -1,5 +1,6 @@
 server:
   port: ${PORT_NUMBER}
+  additional-tld-skip-patterns: "*.jar"
 
 logging:
   level:

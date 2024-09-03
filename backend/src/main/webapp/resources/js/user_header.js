@@ -14,8 +14,11 @@ class Headers extends HTMLElement {
             <li>터미널정보</li>
           </ul>
           <div id="header_login_wrap">
-            <button class="login_join_btn">회원가입</button>
-            <button class="login_join_btn">로그인</button>
+            <button class="login_join_btn" onclick="location.href='/user/join'">회원가입</button>
+            <button class="login_join_btn" onclick="location.href='/user/login'">로그인</button>
+            <form action="/user/logout" method="post">
+                <button class="login_join_btn" type="submit">로그아웃</button>    
+            </form>
           </div>
         </div>
       </header>
