@@ -6,7 +6,7 @@
 <mapper namespace="com.unibus.reservation.mapper.TerminalMapper">
 
     <!-- 터미널 전체 조회 -->
-    <select id="findAllTerminals" resultType="TerminalDto">
+    <select id="findAllTerminals" resultType="ReservationTerminalDto">
         SELECT
             TERMINAL_ID AS terminalId,
             TERMINAL_NAME AS terminalName,

@@ -26,4 +26,4 @@ mybatis:
   configuration:
     map-underscore-to-camel-case: true
   mapper-locations: classpath:mapper/**/*.xml
-  type-aliases-package: com.unibus.admin.domain, com.unibus.admin.dto, com.unibus.user.domain, com.unibus.user.dto
+  type-aliases-package: com.unibus.admin, com.unibus.user, com.unibus.reservation

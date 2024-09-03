@@ -5,7 +5,7 @@
 
 <mapper namespace="com.unibus.reservation.mapper.ReservationMapper">
 
-    <resultMap id="BoardTicket" type="com.unibus.reservation.dto.ScheduleDto">
+    <resultMap id="BoardTicket" type="ScheduleDto">
         <id column="schedule_id" property="scheduleId"/>
         <result column="bus_id" property="busId"/>
         <result column="route_id" property="routeId"/>

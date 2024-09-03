@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.unibus.user.mapper.UserMapper">
-    <select id="getMemberByMemberId" resultType="com.unibus.user.domain.Member">
+    <select id="getMemberByMemberId" resultType="Member">
         select * from member where member_id =#{memberId}
     </select>
 
@@ -22,7 +22,7 @@
         update member set withdraw = 0 where  member_pass = #{memberPass} and member_id=#{memberId}
     </update>
 
-    <update id="changeMemberPassByMemberId" parameterType="com.unibus.user.domain.Member">
+    <update id="changeMemberPassByMemberId" parameterType="Member">
         update member set member_pass = #{memberPass} where member_id = #{memberId}
     </update>
 
@@ -34,7 +34,7 @@
         select member_pass from member where member_id = #{memberId}
     </select>
 
-    <insert id="save" parameterType="com.unibus.user.domain.Member">
+    <insert id="save" parameterType="Member">
     <selectKey order="BEFORE" keyProperty="memberSeq" resultType="int">
         select member_seq.nextval from dual
     </selectKey>

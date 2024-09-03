@@ -6,7 +6,7 @@
 <mapper namespace="com.unibus.reservation.mapper.ScheduleMapper">
 
     <!-- 배차 조회 -->
-    <select id="findSchedulesByCriteria" parameterType="ScheduleDto" resultType="com.unibus.reservation.domain.Schedule">
+    <select id="findSchedulesByCriteria" parameterType="ScheduleDto" resultType="Schedule">
         SELECT
             SCHEDULE_ID AS scheduleId,
             BUS_ID AS busId,
@@ -21,7 +21,7 @@
     </select>
 
     <!-- 배차 상세 조회 -->
-    <select id="findScheduleById" parameterType="int" resultType="com.unibus.reservation.dto.ScheduleDto">
+    <select id="findScheduleById" parameterType="int" resultType="ScheduleDto">
         SELECT
             SCHEDULE_ID AS scheduleId,
             BUS_ID AS busId,
