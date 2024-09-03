@@ -30,10 +30,9 @@
 
         <div id="main_reservation_wrap">
           <div id="main_reservation_menu">
-            <button class="selector">편도</button>
-            <button>왕복</button>
+            <button id="oneway" class="selector">편도</button>
+            <button id="roundtrip">왕복</button>
           </div>
-
           <section id="main_reservation">
             <ul id="main_reservation_list">
               <li class="main_reservation_start">
@@ -57,12 +56,12 @@
                 <p class="main_reservation_list_big">날짜 입력</p>
               </li>
 
-              <li class="main_reservation_calendar">
-                <p class="main_reservation_list_small">
-                  <i class="fa-regular fa-calendar-days"></i>오는날
-                </p>
-                <p class="main_reservation_list_big">날짜 입력</p>
-              </li>
+<%--              <li class="main_reservation_calendar">--%>
+<%--                <p class="main_reservation_list_small">--%>
+<%--                  <i class="fa-regular fa-calendar-days"></i>오는날--%>
+<%--                </p>--%>
+<%--                <p class="main_reservation_list_big">날짜 입력</p>--%>
+<%--              </li>--%>
 
               <li class="main_reservation_person">
                 <p class="main_reservation_list_small">
@@ -115,21 +114,24 @@
           <div id="modal-options">
             <div id="modal-regions">
               <ul>
-                <li>서울</li>
-                <li>인천/경기</li>
-                <li>강원</li>
-                <li>대전/충남</li>
-                <li>충북</li>
-                <li>광주/전남</li>
-                <li>전북</li>
-                <li>부산/경남</li>
-                <li>대구/경북</li>
+                <li data-region="11">서울특별시</li>
+                <li data-region="21">부산광역시</li>
+                <li data-region="22">대구광역시</li>
+                <li data-region="23">인천광역시</li>
+                <li data-region="24">광주광역시</li>
+                <li data-region="25">대전광역시</li>
+                <li data-region="26">울산광역시</li>
+                <li data-region="31000">경기도</li>
+                <li data-region="32000">강원도</li>
+                <li data-region="33000">충청북도</li>
+                <li data-region="34000">충청남도</li>
+                <li data-region="35000">전라북도</li>
+                <li data-region="36000">전라남도</li>
+                <li data-region="37000">경상북도</li>
+                <li data-region="38000">경상남도</li>
               </ul>
             </div>
-            <div id="modal-destinations">
-              <button>강릉</button>
-              <button>강진</button>
-              <button>경북도청</button>
+            <div id="terminal-buttons">
               <!-- 더 많은 목적지를 추가 -->
             </div>
           </div>
@@ -176,6 +178,7 @@
               <span id="children">0</span>
               <button id="child-plus">+</button>
             </div>
+            <buttno id="modal3-close">완료</buttno>
           </div>
         </div>
       </div>
