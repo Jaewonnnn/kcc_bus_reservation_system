@@ -48,7 +48,7 @@ public class MainController {
     }
 
     @PostMapping("/join")
-    public String join(@RequestBody Member member) throws Exception{
+    public String join(@ModelAttribute Member member) throws Exception{
         int result = userService.join(member);
 
         if (result == 1) {
@@ -67,5 +67,4 @@ public class MainController {
             return new ResponseEntity<>("중복된 아이디입니다.", HttpStatus.CONFLICT);
         }
     }
-
 }

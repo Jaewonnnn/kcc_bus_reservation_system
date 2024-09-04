@@ -1,5 +1,6 @@
 package com.unibus.admin.service;
 
+import com.unibus.admin.domain.Bus;
 import com.unibus.admin.domain.City;
 import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.domain.User;
@@ -184,14 +185,15 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    @Scheduled(cron = "0 10 9 * * ?")
     public int createSchedule(AdminScheduleDto adminScheduleDto) {
-        RouteDto route = adminMapper.getRouteById(adminScheduleDto.getRouteId());
-
-        log.info(adminScheduleDto.getScheduleStartTime() + route.getRequiredTime());
-        adminScheduleDto.setScheduleEndTime(adminScheduleDto.getScheduleStartTime() + route.getRequiredTime());
+        List<RouteDto> routeList = adminMapper.getRouteList();
 
 
         return 0;
+    }
+
+    @Override
+    public List<BusDto> getBusList() {
+        return adminMapper.getBusList();
     }
 }

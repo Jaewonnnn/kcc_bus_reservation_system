@@ -156,7 +156,16 @@ public class AdminController {
 
     @GetMapping("/schedule")
     public String getScheduleList(Model model){
+        log.info("scheduleList = {}", adminService.getScheduleList());
+        log.info("routeList = {}", adminService.getRouteList());
+        log.info("companyList = {}", adminService.getCompanyList());
+        log.info("busList = {}", adminService.getBusList());
+
         model.addAttribute("scheduleList", adminService.getScheduleList());
+        model.addAttribute("routeList", adminService.getRouteList());
+        model.addAttribute("companyList", adminService.getCompanyList());
+        model.addAttribute("busList", adminService.getBusList());
+
         return "admin_schedule";
     }
 

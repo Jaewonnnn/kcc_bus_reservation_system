@@ -173,4 +173,12 @@
     <select id="getRouteById" parameterType="String" resultType="RouteDto">
         select * from route where route_id = #{routeId}
     </select>
+
+    <select id="getBusList" resultType="BusDto">
+        select company_name, bus_number, grade_name
+        from bus b, bus_grade g, company c
+        where b.grade_id = g.grade_id
+          and b.company_id = c.company_id
+        order by company_name
+    </select>
 </mapper>

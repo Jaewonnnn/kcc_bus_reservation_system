@@ -141,7 +141,7 @@ body {
 	// Function to show alert and redirect after form submission
 	function showAlertAndRedirect() {
 		alert("회원가입이 완료되었습니다. 로그인 페이지로 이동합니다.");
-		window.location.href = "${pageContext.request.contextPath}/user/login";
+		window.location.href = "${pageContext.request.contextPath}/login";
 	}
 </script>
 </head>
@@ -151,7 +151,7 @@ body {
 			<h2>Welcome Back!</h2>
 			<p>To keep connected with us please login with your personal info</p>
 			<button
-				onclick="location.href='${pageContext.request.contextPath}/user/login'">Sign
+				onclick="location.href='${pageContext.request.contextPath}/login'">Sign
 				In</button>
 		</div>
 		<div class="signup-section">
@@ -161,8 +161,7 @@ body {
 					class="fa fa-google"></i> Google</a> <a href="#"><i
 					class="fa fa-linkedin"></i> LinkedIn</a>
 			</div>
-			<form action="/user/join"
-				method="post" onsubmit="showAlertAndRedirect()">
+			<form action="/join" method="post" onsubmit="showAlertAndRedirect()">
 				<label for="memberName">이름</label>
 				<input type="text" name="memberName" id="memberName" required>
 				<label for="memberId">아이디</label>
