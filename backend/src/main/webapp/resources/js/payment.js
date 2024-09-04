@@ -39,28 +39,24 @@ $(function () {
     IMP.init("imp16376821");
 
     let today = new Date();
+    var hours = today.getHours(); // 시
+    var minutes = today.getMinutes();  // 분
+    var seconds = today.getSeconds();  // 초
+    var milliseconds = today.getMilliseconds();
+    var makeMerchantUid = hours + minutes + seconds + milliseconds;
 
-    let hours = today.getHours(); // 시
-
-    let minutes = today.getMinutes();  // 분
-    let seconds = today.getSeconds();  // 초
-    let milliseconds = today.getMilliseconds();
-
-
-
-    let makeMerchantUid = hours + minutes + seconds + milliseconds;
     /** 카카오페이 결제 */
     function kakaoPay() {
         IMP.request_pay({
             pg: 'kakaopay',
             pay_method: 'card',
             merchant_uid: makeMerchantUid,
-            name: 'UNIBUS TICKET PRICE',
-            amount: price,
-            buyer_email: '${memberId.memberEmail}',
-            buyer_tel: '${delivery.receiverTel}',
-            buyer_addr: '${delivery.deliveryAddress}',
-            buyer_name : "${memberId.memberName}"
+            name: '안녕',
+            amount: '20000',
+            buyer_email: 'dnjstmddjs12@naver.com',
+            buyer_tel: '010-2572-4233',
+            buyer_addr: '경기도',
+            buyer_name: "원승언"
         }, function (rsp) { // callback
             if (rsp.success) {
                 console.log(rsp);
@@ -72,7 +68,7 @@ $(function () {
                 alert(msg);
 
                 $.ajax({
-                    url: '/check/payment',
+                    url: 'payment.jsp',
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(result),
