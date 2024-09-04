@@ -103,7 +103,7 @@
                 <div class="input-group mb-3">
                     <select
                             class="form-select"
-                            id="inputGroupSelect02"
+                            id="inputGroupSelectRoute"
                             style="
                   background-color: #f4f4f4;
                   border: none;
@@ -122,7 +122,7 @@
             </div>
             <div class="modal-body" style="padding: 0rem 1rem 1rem 1rem">
                 <label
-                        for="exampleFormControlInput1"
+                        for="exampleFormControlInput2"
                         class="form-label"
                         style="
                 font: 750 14px Noto sans KR;
@@ -151,7 +151,7 @@
             </div>
             <div class="modal-body">
                 <label
-                        for="exampleFormControlInput1"
+                        for="exampleFormControlInput3"
                         class="form-label"
                         style="
                 font: 750 14px Noto sans KR;
@@ -167,7 +167,7 @@
                 >
                     <select
                             class="form-select"
-                            id="inputGroupSelect02"
+                            id="inputGroupSelectDeparture"
                             style="
                   background-color: #f4f4f4;
                   border: none;
@@ -206,7 +206,7 @@
                         <input
                                 type="text"
                                 class="form-control"
-                                id="floatingInput"
+                                id="floatingInputDeparture"
                                 placeholder="00"
                                 style="
                     background-color: #f4f4f4;
@@ -222,7 +222,7 @@
             </div>
             <div class="modal-body">
                 <label
-                        for="exampleFormControlInput1"
+                        for="exampleFormControlInput4"
                         class="form-label"
                         style="
                 font: 750 14px Noto sans KR;
@@ -238,7 +238,7 @@
                 >
                     <select
                             class="form-select"
-                            id="inputGroupSelect02"
+                            id="inputGroupSelectArrival"
                             style="
                   background-color: #f4f4f4;
                   border: none;
@@ -277,7 +277,7 @@
                         <input
                                 type="text"
                                 class="form-control"
-                                id="floatingInput"
+                                id="floatingInputArrival"
                                 placeholder="00"
                                 style="
                     background-color: #f4f4f4;
@@ -292,17 +292,18 @@
                 </div>
             </div>
             <div class="modal-body">
-                <label for="exampleFormControlInput1" class="form-label" style="font: 750 14px Noto sans KR; margin: 0px 0px 10px 10px; color: #5c5c5c;">
+                <label for="exampleFormControlInput5" class="form-label" style="font: 750 14px Noto sans KR; margin: 0px 0px 10px 10px; color: #5c5c5c;">
                     운송회사
                 </label>
                 <div class="input-group mb-3" style="display: flex; align-items: center">
                     <select class="form-select" id="companySelect" style="background-color: #f4f4f4; border: none; border-radius: 10px; padding: 0rem, 1rem; margin-right: 1rem; font: 600 15px Noto sans KR; height: 5vh;">
+                        <option value="">운송 회사</option>
                         <c:forEach var="item" items="${companyList}">
                             <option value="${item.companyName}">${item.companyName}</option>
                         </c:forEach>
                     </select>
                     <select class="form-select" id="busSelect" style="background-color: #f4f4f4; border: none; border-radius: 10px; padding: 0rem, 1rem; font: 600 15px Noto sans KR; height: 5vh;">
-                        <option value="">버스 번호 선택</option>
+                        <option value="">버스 번호</option>
                     </select>
                 </div>
             </div>
@@ -322,7 +323,7 @@
                     <input
                             type="text"
                             class="form-control"
-                            id="floatingInput"
+                            id="floatingInputPrice"
                             placeholder="가격을 입력해주세요."
                             style="
                   background-color: #f4f4f4;
@@ -349,6 +350,7 @@
                         class="btn btn-primary"
                         style="background-color: #212954"
                         data-bs-dismiss="modal"
+                        onclick="submitFormData()"
                 >
                     저장
                 </button>
@@ -356,362 +358,7 @@
         </div>
     </div>
 </div>
-<!-- 등록 모달 -->
-<div
-        class="modal fade"
-        id="staticBackdrop2"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
->
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h1
-                        class="modal-title fs-5"
-                        id="staticBackdropLabel"
-                        style="font: 900 15px Noto sans KR; color: black"
-                >
-                    배차 등록
-                </h1>
-            </div>
-            <div class="modal-body">
-                <label
-                        for="exampleFormControlInput1"
-                        class="form-label"
-                        style="
-                font: 750 14px Noto sans KR;
-                margin: 0px 0px 10px 10px;
-                color: #5c5c5c;
-              "
-                >
-                    노선 선택
-                </label>
-                <div class="input-group mb-3">
-                    <select
-                            class="form-select"
-                            id="inputGroupSelect02"
-                            style="
-                  background-color: #f4f4f4;
-                  border: none;
-                  border-radius: 10px;
-                  padding: 0rem, 1rem;
-                  font: 600 15px Noto sans KR;
-                  height: 5vh;
-                "
-                    >
-                        <c:forEach var="item" items="${routeList}">
-                            <option selected>${item.routeStartTerminal.terminalName}
-                                -> ${item.routeEndTerminal.terminalName}</option>
-                        </c:forEach>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-body" style="padding: 0rem 1rem 1rem 1rem">
-                <label
-                        for="exampleFormControlInput1"
-                        class="form-label"
-                        style="
-                font: 750 14px Noto sans KR;
-                margin: 0px 0px 10px 10px;
-                color: #5c5c5c;
-              "
-                >
-                    요일 선택
-                </label>
-                <div id="dayCheckBox" style="margin-left: 10px">
-                    <input
-                            type="checkbox"
-                            class="btn-check"
-                            id="btn-check-1"
-                            autocomplete="off"
-                    />
-                    <label class="btn btn-primary" for="btn-check-1">월</label>
-                    <input
-                            type="checkbox"
-                            class="btn-check"
-                            id="btn-check-2"
-                            autocomplete="off"
-                    />
-                    <label class="btn btn-primary" for="btn-check-2">화</label>
-                    <input
-                            type="checkbox"
-                            class="btn-check"
-                            id="btn-check-3"
-                            autocomplete="off"
-                    />
-                    <label class="btn btn-primary" for="btn-check-3">수</label>
-                    <input
-                            type="checkbox"
-                            class="btn-check"
-                            id="btn-check-4"
-                            autocomplete="off"
-                    />
-                    <label class="btn btn-primary" for="btn-check-4">목</label>
-                    <input
-                            type="checkbox"
-                            class="btn-check"
-                            id="btn-check-5"
-                            autocomplete="off"
-                    />
-                    <label class="btn btn-primary" for="btn-check-5">금</label>
-                    <input
-                            type="checkbox"
-                            class="btn-check"
-                            id="btn-check-6"
-                            autocomplete="off"
-                    />
-                    <label class="btn btn-primary" for="btn-check-6">토</label>
-                    <input
-                            type="checkbox"
-                            class="btn-check"
-                            id="btn-check-7"
-                            autocomplete="off"
-                    />
-                    <label class="btn btn-primary" for="btn-check-7">일</label>
-                </div>
-            </div>
-            <div class="modal-body">
-                <label
-                        for="exampleFormControlInput1"
-                        class="form-label"
-                        style="
-                font: 750 14px Noto sans KR;
-                margin: 0px 0px 0px 10px;
-                color: #5c5c5c;
-              "
-                >
-                    출발 시간
-                </label>
-                <div
-                        class="input-group mb-3"
-                        style="display: flex; align-items: center"
-                >
-                    <select
-                            class="form-select"
-                            id="inputGroupSelect02"
-                            style="
-                  background-color: #f4f4f4;
-                  border: none;
-                  border-radius: 10px;
-                  padding: 0rem, 1rem;
-                  font: 600 15px Noto sans KR;
-                  height: 5vh;
-                "
-                    >
-                        <option selected>00</option>
-                        <option selected>01</option>
-                        <option selected>02</option>
-                        <option selected>03</option>
-                        <option selected>04</option>
-                        <option selected>05</option>
-                        <option selected>06</option>
-                        <option selected>07</option>
-                        <option selected>08</option>
-                        <option selected>09</option>
-                        <option selected>10</option>
-                        <option selected>11</option>
-                        <option selected>12</option>
-                        <option selected>13</option>
-                        <option selected>14</option>
-                        <option selected>15</option>
-                        <option selected>16</option>
-                        <option selected>17</option>
-                        <option selected>18</option>
-                        <option selected>19</option>
-                        <option selected>20</option>
-                        <option selected>21</option>
-                        <option selected>22</option>
-                        <option selected>23</option>
-                    </select>
-                    <div class="form-floating" style="margin-left: 10px">
-                        <input
-                                type="text"
-                                class="form-control"
-                                id="floatingInput"
-                                placeholder="00"
-                                style="
-                    background-color: #f4f4f4;
-                    border: none;
-                    border-radius: 10px;
-                    padding: 0rem, 1rem;
-                    font: 600 15px Noto sans KR;
-                    height: 5vh;
-                  "
-                        />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <label
-                        for="exampleFormControlInput1"
-                        class="form-label"
-                        style="
-                font: 750 14px Noto sans KR;
-                margin: 0px 0px 10px 10px;
-                color: #5c5c5c;
-              "
-                >
-                    도착 시간
-                </label>
-                <div
-                        class="input-group mb-3"
-                        style="display: flex; align-items: center"
-                >
-                    <select
-                            class="form-select"
-                            id="inputGroupSelect02"
-                            style="
-                  background-color: #f4f4f4;
-                  border: none;
-                  border-radius: 10px;
-                  padding: 0rem, 1rem;
-                  font: 600 15px Noto sans KR;
-                  height: 5vh;
-                "
-                    >
-                        <option selected>00</option>
-                        <option selected>01</option>
-                        <option selected>02</option>
-                        <option selected>03</option>
-                        <option selected>04</option>
-                        <option selected>05</option>
-                        <option selected>06</option>
-                        <option selected>07</option>
-                        <option selected>08</option>
-                        <option selected>09</option>
-                        <option selected>10</option>
-                        <option selected>11</option>
-                        <option selected>12</option>
-                        <option selected>13</option>
-                        <option selected>14</option>
-                        <option selected>15</option>
-                        <option selected>16</option>
-                        <option selected>17</option>
-                        <option selected>18</option>
-                        <option selected>19</option>
-                        <option selected>20</option>
-                        <option selected>21</option>
-                        <option selected>22</option>
-                        <option selected>23</option>
-                    </select>
-                    <div class="form-floating" style="margin-left: 10px">
-                        <input
-                                type="text"
-                                class="form-control"
-                                id="floatingInput"
-                                placeholder="00"
-                                style="
-                    background-color: #f4f4f4;
-                    border: none;
-                    border-radius: 10px;
-                    padding: 0rem, 1rem;
-                    font: 600 15px Noto sans KR;
-                    height: 5vh;
-                  "
-                        />
-                    </div>
-                </div>
-            </div>
-            <div class="modal-body">
-                <label
-                        for="exampleFormControlInput1"
-                        class="form-label"
-                        style="
-                font: 750 14px Noto sans KR;
-                margin: 0px 0px 10px 10px;
-                color: #5c5c5c;
-              "
-                >
-                    운송회사
-                </label>
-                <div
-                        class="input-group mb-3"
-                        style="display: flex; align-items: center"
-                >
-                    <select
-                            class="form-select"
-                            id="inputGroupSelect02"
-                            style="
-                  background-color: #f4f4f4;
-                  border: none;
-                  border-radius: 10px;
-                  padding: 0rem, 1rem;
-                  margin-right: 1rem;
-                  font: 600 15px Noto sans KR;
-                  height: 5vh;
-                "
-                    >
-                        <option selected>중앙고속</option>
-                    </select>
-                    <select
-                            class="form-select"
-                            id="inputGroupSelect02"
-                            style="
-                  background-color: #f4f4f4;
-                  border: none;
-                  border-radius: 10px;
-                  padding: 0rem, 1rem;
-                  font: 600 15px Noto sans KR;
-                  height: 5vh;
-                "
-                    >
-                        <option selected>경기 12바 3456</option>
-                    </select>
-                </div>
-            </div>
-            <div class="modal-body">
-                <label
-                        for="exampleFormControlInput1"
-                        class="form-label"
-                        style="
-                font: 750 14px Noto sans KR;
-                margin: 0px 0px 10px 10px;
-                color: #5c5c5c;
-              "
-                >
-                    가격
-                </label>
-                <div class="form-floating">
-                    <input
-                            type="text"
-                            class="form-control"
-                            id="floatingInput"
-                            placeholder="가격을 입력해주세요."
-                            style="
-                  background-color: #f4f4f4;
-                  border: none;
-                  border-radius: 10px;
-                  padding: 0rem, 1rem;
-                  font: 600 15px Noto sans KR;
-                  height: 5vh;
-                "
-                    />
-                </div>
-            </div>
 
-            <div class="modal-footer">
-                <button
-                        type="button"
-                        class="btn btn-secondary"
-                        data-bs-dismiss="modal"
-                >
-                    취소
-                </button>
-                <button
-                        type="button"
-                        class="btn btn-primary"
-                        style="background-color: #212954"
-                        data-bs-dismiss="modal"
-                >
-                    저장
-                </button>
-            </div>
-        </div>
-    </div>
-</div>
 <admin-header-component></admin-header-component>
 <div id="body_wrap">
     <section id="admin_info"></section>
@@ -761,7 +408,7 @@
                                                 type="button"
                                                 class="btn btn-primary"
                                                 data-bs-toggle="modal"
-                                                data-bs-target="#staticBackdrop2"
+                                                data-bs-target="#staticBackdrop"
                                                 style="
                             background-color: #212954 !important;
                             font: 400 20px Noto Sans KR;
@@ -839,7 +486,7 @@
                                                                 type="button"
                                                                 class="btn btn-primary"
                                                                 data-bs-toggle="modal"
-                                                                data-bs-target="#staticBackdrop"
+                                                                data-bs-target="#staticBackdrop-2"
                                                                 style="
                                       background-color: #212954 !important;
                                       font: 400 20px Noto Sans KR;
@@ -891,7 +538,7 @@
         const selectedCompany = this.value;
         const busSelect = document.getElementById('busSelect');
 
-        busSelect.innerHTML = '<option value="">버스 번호 선택</option>';
+        busSelect.innerHTML = '<option value="">버스 번호</option>';
 
         if (busData[selectedCompany]) {
             busData[selectedCompany].forEach(function(busNumber) {
@@ -912,6 +559,6 @@
 <script src="https://accounts.google.com/gsi/client" async defer></script>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="../../resources/js/admin_header.js"></script>
-<%--<script src="../../resources/js/admin_schedule.js"></script>--%>
+<script src="../../resources/js/admin_schedule.js"></script>
 </body>
 </html>

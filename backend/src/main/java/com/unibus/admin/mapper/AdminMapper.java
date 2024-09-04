@@ -1,6 +1,5 @@
 package com.unibus.admin.mapper;
 
-import com.unibus.admin.domain.Bus;
 import com.unibus.admin.domain.City;
 import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.domain.User;
@@ -59,7 +58,11 @@ public interface AdminMapper {
 
     public AdminScheduleDto getScheduleById(int id);
 
-    public int createSchedule(AdminScheduleDto adminScheduleDto);
+    public int createSchedule(CreateScheduleDto createScheduleDto);
 
     public List<BusDto> getBusList();
+
+    public String getRouteId(GetRouteIdVo getTerminalIdVo);
+
+    public Integer getBusId(String busNumber);
 }

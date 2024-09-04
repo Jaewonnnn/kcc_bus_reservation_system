@@ -2,6 +2,8 @@ package com.unibus.admin.dto;
 
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -9,10 +11,13 @@ import lombok.*;
 @ToString
 public class AdminScheduleDto {
     private String scheduleId;
-    private int busId;
-    private String routeId;
-    private String scheduleStartTime;
-    private String scheduleEndTime;
-    private String schedulePrice;
+    private String companyName;
+    private String busNumber;
+    private String route;
+    private String departureTime;
+    private String arrivalTime;
+    private List<String> days;
+    private String price;
     private boolean scheduleStatus;
 }
+
