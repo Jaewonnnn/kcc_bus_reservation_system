@@ -105,14 +105,14 @@ ul#main_reservation_list {
 ul#main_reservation_list > li {
   width: 19%;
   height: 100%;
-  border-right: solid 1px;
+  border-left: solid 1px;
   border-color: #cccccc;
-  padding-left: 20px;
+  padding-left: 60px;
   box-sizing: border-box;
   cursor: pointer;
 }
-ul#main_reservation_list > li:last-child {
-  border-right: none;
+ul#main_reservation_list > li:first-child {
+  border-left: none;
 }
 p.main_reservation_list_small {
   font: 400 16px "Noto Sans KR";
@@ -133,6 +133,7 @@ button#main_reservation_search {
   border-radius: 20px;
   border: none;
   background-color: #212954;
+  cursor: pointer;
 }
 button#main_reservation_search > i {
   font-size: 20px;
@@ -631,4 +632,17 @@ button#child-plus {
   bottom: 50px;
 }
 
+#modal3-close{
+  width: 150px;
+  height: 50px;
+  background-color: #cccccc;
+  border: none;
+  color: white;
+  border-radius: 10px;
+  font: 500 20px "Noto Sans KR";
+}
 
+#modal3-close:hover{
+  background-color: #212954;
+  transition: ease-out 0.3s;
+}

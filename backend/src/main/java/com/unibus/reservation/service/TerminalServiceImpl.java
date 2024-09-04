@@ -21,4 +21,12 @@ public class TerminalServiceImpl implements TerminalService {
         log.info("getAllTerminals");
         return terminalMapper.findAllTerminals();
     }
+
+
+    // 터미널 ID로 터미널 이름 조회
+    @Override
+    public String getTerminalNameById(String terminalId) {
+        log.info("getTerminalNameById: {}", terminalId);
+        return terminalMapper.findTerminalNameById(terminalId);
+    }
 }

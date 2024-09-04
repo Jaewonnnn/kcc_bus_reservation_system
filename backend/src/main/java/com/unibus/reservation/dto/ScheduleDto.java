@@ -9,11 +9,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ScheduleDto {
+
+    private String startTerminalId;
+    private String destinationTerminalId;
+    private String startTime;
     private int scheduleId;
     private int busId;
     private String routeId;
-    private String startTime;
-    private String endTime;
-    private int price;
-//    private int scheduleStatus;
+    private String scheduleStartTime;
+    private String scheduleEndTime;
+    private int schedulePrice;
+
+    private String companyName;
+    private String gradeName;
+
+
 }

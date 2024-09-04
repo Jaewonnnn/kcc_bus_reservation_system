@@ -23,6 +23,7 @@
     <user-header-component></user-header-component>
     <div id="reservation_detail_wrap">
       <div id="main_reservation_bar">
+        ${schedules}
         <ul id="main_reservation_bar">
           <li class="selector">
             <div class="main_reservation_bar_box"><i class="fa-solid fa-check"></i></div>
@@ -69,167 +70,8 @@
           
           <ul id="reservation_course_list">
             <!-- =================임시내용================ -->
-            <li>
-              <ul class="reservation_course_list_detail">
-                <li class="time">
-                  07:30
-                </li>
-                <li class="company">
-                  중앙고속
-                </li>
-                <li class="grade">
-                  우등
-                </li>
-                <li class="seat">
-                  25석
-                </li>
-              </ul>
-              <button class="reservation_course_list_detail_btn">선택<i class="fa-solid fa-caret-right"></i></button>
-            </li>
 
-            <li>
-              <ul class="reservation_course_list_detail">
-                <li class="time">
-                  07:30
-                </li>
-                <li class="company">
-                  중앙고속
-                </li>
-                <li class="grade">
-                  우등
-                </li>
-                <li class="seat">
-                  25석
-                </li>
-              </ul>
-              <button class="reservation_course_list_detail_btn">선택<i class="fa-solid fa-caret-right"></i></button>
-            </li>
 
-            <li>
-              <ul class="reservation_course_list_detail">
-                <li class="time">
-                  07:30
-                </li>
-                <li class="company">
-                  중앙고속
-                </li>
-                <li class="grade">
-                  우등
-                </li>
-                <li class="seat">
-                  25석
-                </li>
-              </ul>
-              <button class="reservation_course_list_detail_btn">선택<i class="fa-solid fa-caret-right"></i></button>
-            </li>
-
-            <li>
-              <ul class="reservation_course_list_detail">
-                <li class="time">
-                  07:30
-                </li>
-                <li class="company">
-                  중앙고속
-                </li>
-                <li class="grade">
-                  우등
-                </li>
-                <li class="seat">
-                  25석
-                </li>
-              </ul>
-              <button class="reservation_course_list_detail_btn">선택<i class="fa-solid fa-caret-right"></i></button>
-            </li>
-
-            <li>
-              <ul class="reservation_course_list_detail">
-                <li class="time">
-                  07:30
-                </li>
-                <li class="company">
-                  중앙고속
-                </li>
-                <li class="grade">
-                  우등
-                </li>
-                <li class="seat">
-                  25석
-                </li>
-              </ul>
-              <button class="reservation_course_list_detail_btn">선택<i class="fa-solid fa-caret-right"></i></button>
-            </li>
-
-            <li>
-              <ul class="reservation_course_list_detail">
-                <li class="time">
-                  07:30
-                </li>
-                <li class="company">
-                  중앙고속
-                </li>
-                <li class="grade">
-                  우등
-                </li>
-                <li class="seat">
-                  25석
-                </li>
-              </ul>
-              <button class="reservation_course_list_detail_btn">선택<i class="fa-solid fa-caret-right"></i></button>
-            </li>
-
-            <li>
-              <ul class="reservation_course_list_detail">
-                <li class="time">
-                  07:30
-                </li>
-                <li class="company">
-                  중앙고속
-                </li>
-                <li class="grade">
-                  우등
-                </li>
-                <li class="seat">
-                  25석
-                </li>
-              </ul>
-              <button class="reservation_course_list_detail_btn">선택<i class="fa-solid fa-caret-right"></i></button>
-            </li>
-
-            <li>
-              <ul class="reservation_course_list_detail">
-                <li class="time">
-                  07:30
-                </li>
-                <li class="company">
-                  중앙고속
-                </li>
-                <li class="grade">
-                  우등
-                </li>
-                <li class="seat">
-                  25석
-                </li>
-              </ul>
-              <button class="reservation_course_list_detail_btn">선택<i class="fa-solid fa-caret-right"></i></button>
-            </li>
-
-            <li>
-              <ul class="reservation_course_list_detail">
-                <li class="time">
-                  07:30
-                </li>
-                <li class="company">
-                  중앙고속
-                </li>
-                <li class="grade">
-                  우등
-                </li>
-                <li class="seat">
-                  25석
-                </li>
-              </ul>
-              <button class="reservation_course_list_detail_btn">선택<i class="fa-solid fa-caret-right"></i></button>
-            </li>
 
             <!-- =================임시내용================ -->
 
@@ -260,13 +102,13 @@
     
               <div id="reservation_course_info_wrap2">
                 <div id="reservation_course_start">
-                  <p>동서울</p>
+                  <p>${startTerminalName}</p>
                 </div>
                 <div id="reservation_course_blank">
       
                 </div>
                 <div id="reservation_course_end">
-                  <p>부산</p>
+                  <p>${destinationTerminalName}</p>
                 </div>
               </div>
 
@@ -277,11 +119,11 @@
               <ul id="reservation_course_info_otherlist">
                 <li>
                   <p class="reservation_course_info_otherlistin">소요시간</p>
-                  <p id="reservation_course_time">4시간 30분</p>
+                  <p id="reservation_course_time">NULL</p>
                 </li>
                 <li>
                   <p class="reservation_course_info_otherlistin">거리</p>
-                  <p id="reservation_course_length">386.6km</p>
+                  <p id="reservation_course_length">NULL</p>
                 </li>
               </ul>
             </div>
@@ -304,18 +146,35 @@
                 <p class="reservation_course_pay_grade">프리미엄</p>
                 <p class="reservation_course_pay_price">32,000원</p>
               </li>
+
             </ul>
           </div>
-
         </section>
       </div>
       
 
     </div>
+    <script>
+      // 서버에서 전달된 스케줄 데이터를 전역 변수로 설정
+      <%--const schedules = ${schedules};--%>
 
+      <%--const schedules = ${schedulesJson};--%>
+
+      let schedules = ${schedulesJson}
+      // console.log(a);
+
+      // JSP에서 JSON 문자열을 JavaScript 객체로 변환
+      <%--const schedules = JSON.parse('<%= schedulesJson %>');--%>
+
+
+
+
+
+
+    </script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="/resources/js/reservaton_detail.js"></script>
+    <script src="/resources/js/reservation_detail.js"></script>
     <script src="/resources/js/user_header.js"></script>
   </body>
 </html>

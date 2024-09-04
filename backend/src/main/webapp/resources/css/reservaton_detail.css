@@ -307,7 +307,7 @@ div#reservation_course_info_wrap2{
   align-items: center;
 }
 div#reservation_course_start{
-  width: 70px;
+  width: 150px;
   height: 70px;
   padding-top: 15px;
   box-sizing: border-box;
@@ -316,7 +316,7 @@ div#reservation_course_start>p{
   font: 600 25px "Noto Sans KR";
 }
 div#reservation_course_end{
-  width: 70px;
+  width: 150px;
   height: 70px;
   padding-top: 15px;
   box-sizing: border-box;

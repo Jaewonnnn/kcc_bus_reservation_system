@@ -178,7 +178,7 @@
               <span id="children">0</span>
               <button id="child-plus">+</button>
             </div>
-            <buttno id="modal3-close">완료</buttno>
+            <button id="modal3-close">완료</button>
           </div>
         </div>
       </div>

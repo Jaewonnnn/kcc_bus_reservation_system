@@ -14,4 +14,11 @@
         FROM TERMINAL
     </select>
 
+    <select id="findTerminalNameById" parameterType="String" resultType="String">
+        SELECT
+            TERMINAL_NAME
+        FROM TERMINAL
+        WHERE TERMINAL_ID = #{terminalId}
+    </select>
+
 </mapper>
