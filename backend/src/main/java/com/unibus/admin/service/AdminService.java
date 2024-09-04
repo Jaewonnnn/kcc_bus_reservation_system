@@ -1,5 +1,6 @@
 package com.unibus.admin.service;
 
+import com.unibus.admin.domain.Bus;
 import com.unibus.admin.domain.City;
 import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.dto.AdminTerminalDto;
@@ -48,4 +49,12 @@ public interface AdminService {
     public int updateRoute(String routeId, RouteCreateDto routeCreateDto);
 
     public int deleteRoute(String routeId);
+
+    public List<AdminScheduleDto> getScheduleList();
+
+    public AdminScheduleDto getScheduleById(int scheduleId);
+
+    public int createSchedule(AdminScheduleDto adminScheduleDto);
+
+    public List<BusDto> getBusList();
 }

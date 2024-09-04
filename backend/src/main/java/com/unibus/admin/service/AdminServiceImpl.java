@@ -1,5 +1,6 @@
 package com.unibus.admin.service;
 
+import com.unibus.admin.domain.Bus;
 import com.unibus.admin.domain.City;
 import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.domain.User;
@@ -11,6 +12,7 @@ import com.unibus.admin.dto.*;
 import com.unibus.admin.mapper.AdminMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -170,5 +172,28 @@ public class AdminServiceImpl implements AdminService{
     public int deleteRoute(String routeId) {
         log.info("routeId = {}", routeId);
         return adminMapper.deleteRoute(routeId);
+    }
+
+    @Override
+    public List<AdminScheduleDto> getScheduleList() {
+        return adminMapper.getScheduleList();
+    }
+
+    @Override
+    public AdminScheduleDto getScheduleById(int scheduleId) {
+        return adminMapper.getScheduleById(scheduleId);
+    }
+
+    @Override
+    public int createSchedule(AdminScheduleDto adminScheduleDto) {
+        List<RouteDto> routeList = adminMapper.getRouteList();
+
+
+        return 0;
+    }
+
+    @Override
+    public List<BusDto> getBusList() {
+        return adminMapper.getBusList();
     }
 }

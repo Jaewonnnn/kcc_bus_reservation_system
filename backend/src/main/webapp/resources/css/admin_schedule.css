@@ -195,6 +195,11 @@ h6{
   padding-bottom: 0.625rem;
 }
 input:focus{
-  /* outline: none !important/; */
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.2) !important;
 }
+.btn-check:checked + .btn {
+  background-color: #ffffff !important;
+  border-color: #ffffff !important;
+}
+
+

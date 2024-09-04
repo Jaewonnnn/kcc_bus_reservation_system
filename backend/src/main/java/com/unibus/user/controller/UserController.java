@@ -83,19 +83,6 @@ public class UserController {
                 : new ResponseEntity<>(true, HttpStatus.OK);
     }
 
-    @GetMapping("/join")
-    public String join() {
-        return "membership";
-    }
 
-    @PostMapping("/join")
-    public String join(@RequestBody Member member) throws Exception{
-        int result = userService.join(member);
 
-        if (result == 1) {
-            return "redirect:/user/login";
-        } else {
-            throw new Exception("join failed");
-        }
-    }
 }
