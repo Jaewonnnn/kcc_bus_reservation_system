@@ -5,33 +5,59 @@
 
 <mapper namespace="com.unibus.reservation.mapper.ScheduleMapper">
 
-    <!-- 배차 조회 -->
-    <select id="findSchedulesByCriteria" parameterType="ScheduleDto" resultType="com.unibus.reservation.domain.Schedule">
-        SELECT
-            SCHEDULE_ID AS scheduleId,
-            BUS_ID AS busId,
-            (SELECT ROUTE_START_ID || ' - ' || ROUTE_END_ID FROM ROUTE WHERE ROUTE_ID = SCHEDULE.ROUTE_ID) AS routeId,
-            SCHEDULE_START_TIME AS startTime,
-            SCHEDULE_END_TIME AS endTime,
-            SCHEDULE_PRICE AS price
-        FROM SCHEDULE
-        WHERE
-            ROUTE_ID = #{routeId, jdbcType=VARCHAR}
-          AND SCHEDULE_START_TIME >= TO_DATE(#{startTime, jdbcType=VARCHAR}, 'YYYY-MM-DD')
+
+<!--    &lt;!&ndash; 배차 상세 조회 &ndash;&gt;-->
+<!--    <select id="findScheduleById" parameterType="int" resultType="com.unibus.reservation.dto.ScheduleDto">-->
+<!--        SELECT-->
+<!--            SCHEDULE_ID AS scheduleId,-->
+<!--            BUS_ID AS busId,-->
+<!--            (SELECT ROUTE_START_ID || ' - ' || ROUTE_END_ID FROM ROUTE WHERE ROUTE_ID = SCHEDULE.ROUTE_ID) AS route,-->
+<!--            SCHEDULE_START_TIME AS startTime,-->
+<!--            SCHEDULE_END_TIME AS endTime,-->
+<!--            SCHEDULE_PRICE AS price-->
+<!--        FROM SCHEDULE-->
+<!--        WHERE-->
+<!--            SCHEDULE_ID = #{scheduleId}-->
+<!--    </select>-->
+
+    <select id="getSchedules" resultType="com.unibus.reservation.dto.ScheduleDto">
+        SELECT s.SCHEDULE_ID AS scheduleId,
+               s.BUS_ID AS busId,
+               s.ROUTE_ID AS routeId,
+               TO_CHAR(s.SCHEDULE_START_TIME, 'YYYY-MM-DD HH24:MI:SS') AS scheduleStartTime,
+               TO_CHAR(s.SCHEDULE_END_TIME, 'YYYY-MM-DD HH24:MI:SS') AS scheduleEndTime,
+               c.COMPANY_NAME AS companyName,
+               g.GRADE_NAME AS gradeName,
+               s.SCHEDULE_PRICE AS schedulePrice,
+               s.SCHEDULE_STATUS
+        FROM RESERVATION.SCHEDULE s
+                 JOIN RESERVATION.ROUTE r ON s.ROUTE_ID = r.ROUTE_ID
+                 JOIN BUS b ON s.BUS_ID = b.BUS_ID
+                 JOIN COMPANY c ON b.COMPANY_ID = c.COMPANY_ID
+                 JOIN BUS_GRADE g ON b.GRADE_ID = g.GRADE_ID
+        WHERE r.ROUTE_START_ID = #{startTerminalId}
+          AND r.ROUTE_END_ID = #{destinationTerminalId}
+          AND TO_CHAR(s.SCHEDULE_START_TIME, 'YYYY-MM-DD') = #{startTime}
     </select>
 
-    <!-- 배차 상세 조회 -->
-    <select id="findScheduleById" parameterType="int" resultType="com.unibus.reservation.dto.ScheduleDto">
-        SELECT
-            SCHEDULE_ID AS scheduleId,
-            BUS_ID AS busId,
-            (SELECT ROUTE_START_ID || ' - ' || ROUTE_END_ID FROM ROUTE WHERE ROUTE_ID = SCHEDULE.ROUTE_ID) AS route,
-            SCHEDULE_START_TIME AS startTime,
-            SCHEDULE_END_TIME AS endTime,
-            SCHEDULE_PRICE AS price
-        FROM SCHEDULE
-        WHERE
-            SCHEDULE_ID = #{scheduleId}
+    <select id="getScheduleDetail" resultType="com.unibus.reservation.dto.ScheduleDto">
+        SELECT s.SCHEDULE_ID AS scheduleId,
+               s.BUS_ID AS busId,
+               s.ROUTE_ID AS routeId,
+               TO_CHAR(s.SCHEDULE_START_TIME, 'YYYY-MM-DD HH24:MI:SS') AS scheduleStartTime,
+               TO_CHAR(s.SCHEDULE_END_TIME, 'YYYY-MM-DD HH24:MI:SS') AS scheduleEndTime,
+               c.COMPANY_NAME AS companyName,
+               g.GRADE_NAME AS gradeName,
+               s.SCHEDULE_PRICE AS schedulePrice,
+               s.SCHEDULE_STATUS
+        FROM RESERVATION.SCHEDULE s
+                 JOIN RESERVATION.ROUTE r ON s.ROUTE_ID = r.ROUTE_ID
+                 JOIN BUS b ON s.BUS_ID = b.BUS_ID
+                 JOIN COMPANY c ON b.COMPANY_ID = c.COMPANY_ID
+                 JOIN BUS_GRADE g ON b.GRADE_ID = g.GRADE_ID
+        WHERE r.ROUTE_START_ID = #{startTerminalId}
+          AND r.ROUTE_END_ID = #{destinationTerminalId}
+          AND TO_CHAR(s.SCHEDULE_START_TIME, 'YYYY-MM-DD') = #{startTime}
     </select>
 
 </mapper>

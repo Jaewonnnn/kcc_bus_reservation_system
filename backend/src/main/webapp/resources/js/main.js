@@ -14,6 +14,10 @@ document.addEventListener("DOMContentLoaded", function () {
   const startLocationDay = document.querySelectorAll('.main_reservation_list_big')[2]; // 출발지 날짜
   const destinationDay = document.querySelectorAll('.main_reservation_list_big')[3]; // 도착지 날짜
 
+  //------modal3
+  const reservationPersonText = document.querySelector('.main_reservation_person .main_reservation_list_big');
+  const modal3_close =document.querySelector("#modal3-close")
+
   // 출발지와 도착지 입력 부분을 가져옵니다. - 모달1선언
   const departureLi = document.querySelectorAll(".main_reservation_start");
 
@@ -201,7 +205,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function totalPassengers() {
-    return passengers.adults + passengers.students + passengers.children;
+
+    return total = passengers.adults + passengers.students + passengers.children;
+    // return reservationPersonText.textContent = `성인 ${passengers.adults}명, 중고생 ${passengers.students}명, 아동 ${passengers.children}명`;
   }
 
   function updateSeatAvailability() {
@@ -234,6 +240,13 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.style.display = 'none';
   }
 
+  modal3_close.addEventListener('click', () => {
+    // "완료" 버튼 클릭 시 인원수 업데이트
+    // 모달 닫기 (디스플레이 속성을 수정하여 모달을 숨김)
+    document.getElementById('modal3').style.display = 'none';
+    reservationPersonText.textContent = `총 ${passengers.adults + passengers.students + passengers.children}명`;
+  });
+
   // 모달 외부를 클릭했을 때 모달을 닫습니다.
   window.addEventListener("click", (event) => {
     if (event.target == modal) {
@@ -249,7 +262,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-//======================================================================modal1
+//------------------------------------------------------------------------------
   // 도시 및 터미널 버튼 컨테이너
   const terminalContainer = document.getElementById('terminal-buttons');
   const cityList = document.querySelectorAll('#modal-regions li'); // 도시 리스트
@@ -452,4 +465,96 @@ document.addEventListener("DOMContentLoaded", function () {
       document.getElementById('oneway').classList.remove('selector');
     }
   }
+
+  //---------------------------------------------------
+
+  // 터미널 이름으로 터미널 ID를 조회하는 함수
+  async function getTerminalIdByName(terminalName) {
+    try {
+      const response = await fetch(`/reservation/terminal_list`);
+      if (!response.ok) throw new Error('Error fetching terminal list');
+
+      const terminals = await response.json();
+      // 터미널 이름과 일치하는 ID를 찾아서 반환합니다.
+      const terminal = terminals.find(term => term.terminalName === terminalName);
+      return terminal ? terminal.terminalId : null;
+    } catch (error) {
+      console.error('Error fetching terminal ID:', error);
+      return null;
+    }
+  }
+
+  document.getElementById("main_reservation_search").addEventListener("click", async function () {
+    // 출발지, 도착지, 출발 시간 정보를 가져옵니다.
+    const startLocation = document.querySelectorAll(".main_reservation_list_big")[0].textContent.trim();
+    const destination = document.querySelectorAll(".main_reservation_list_big")[1].textContent.trim();
+    const startTime = document.querySelectorAll(".main_reservation_list_big")[2].textContent.trim();
+
+    // startTime을 "YYYY년 MM월 DD일" 형식에서 "YY/MM/DD" 형식으로 변환
+    function formatDate(dateStr) {
+      const match = dateStr.match(/(\d{4})년 (\d{2})월(\d{1,2})일/);
+      if (!match) {
+        console.error('Invalid date format:', dateStr);
+        return null;
+      }
+
+      const [, year, month, day] = match;
+      const formattedDate = `${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+      return formattedDate;
+    }
+
+    const formattedStartTime = formatDate(startTime);
+    if (!formattedStartTime) {
+      console.error('Error formatting startTime:', startTime);
+      return;
+    }
+
+    console.log('Formatted startTime:', formattedStartTime);
+
+    try {
+      // 터미널 이름으로 ID를 가져옵니다.
+      const startTerminalId = await getTerminalIdByName(startLocation);
+      const destinationTerminalId = await getTerminalIdByName(destination);
+
+      if (!startTerminalId || !destinationTerminalId) {
+        console.error('Failed to get terminal IDs');
+        return;
+      }
+
+      // 서버에 데이터 전송
+      const response = await fetch('/reservation/schedule_list', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          startTerminalId: startTerminalId,
+          destinationTerminalId: destinationTerminalId,
+          startTime: formattedStartTime
+        })
+      });
+
+      if (!response.ok) throw new Error('Error submitting schedule data');
+
+      const result = await response.json();
+      console.log('Server response:', result);
+
+      // 쿼리 파라미터로 변환하여 리다이렉트
+      const queryParams = new URLSearchParams({
+        startTerminalId: startTerminalId,
+        destinationTerminalId: destinationTerminalId,
+        startTime: formattedStartTime
+      }).toString();
+
+      window.location.href = `/reservation/schedule_list?${queryParams}`;
+
+    } catch (error) {
+      console.error('Error:', error);
+    }
+  });
+
+
+
+
+
 });
