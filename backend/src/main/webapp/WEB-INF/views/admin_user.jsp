@@ -34,6 +34,12 @@
       crossorigin="anonymous"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous"
+            referrerpolicy="no-referrer"
+    ></script>
     <title>Document</title>
   </head>
   <body>
@@ -68,6 +74,8 @@
                 border-radius: 0.25rem;
               "
               data-bs-dismiss="modal"
+              id="userDeleteButton"
+              onclick="confirm('정말로 삭제 하시겠습니까?')"
             >
               회원 탈퇴
             </button>
@@ -88,8 +96,9 @@
               <input
                 type="text"
                 class="form-control"
-                id="floatingInput"
-                value="홍길동"
+                id=""
+                name="name"
+                value=""
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -118,7 +127,8 @@
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                value="010-1234-5678"
+                value=""
+                name="phoneNumber"
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -147,7 +157,7 @@
                 type="text"
                 class="form-control"
                 id="floatingInput"
-                value="hong@gmail.com"
+                value=""
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -156,6 +166,7 @@
                   font: 600 15px Noto sans KR;
                   height: 5vh;
                 "
+                name="email"
               />
             </div>
           </div>
@@ -173,6 +184,8 @@
               class="btn btn-primary"
               style="background-color: #212954"
               data-bs-dismiss="modal"
+              id="saveChangesButton"
+              onclick="confirm('수정하시겠습니까?')"
             >
               저장
             </button>
@@ -267,30 +280,11 @@
                                 </th>
                                 <th scope="col" id="user-detail"></th>
                               </tr>
-                              <tr>
-                                <td id="user-id">NAEK010</td>
-                                <td>홍길동</td>
-                                <td>010-1234-5678</td>
-                                <td>hong@gmail.com</td>
-                                <td>
-                                  <button
-                                    type="button"
-                                    class="btn btn-primary"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop"
-                                    style="
-                                      background-color: #212954 !important;
-                                      font: 400 20px Noto Sans KR;
-                                      color: #f9fafc !important;
-                                      width: 50px;
-                                    "
-                                  >
-                                    수정
-                                  </button>
-                                </td>
-                              </tr>
+
                             </thead>
-                            <tbody id="table-body"></tbody>
+                            <tbody id="table-body">
+
+                            </tbody>
                           </table>
                           <div id="page">
                             <ul class="pagination">
@@ -323,7 +317,7 @@
     ></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <script src="/resources/js/mypage.js"></script>
+    <script src="/resources/js/admin_user.js"></script>
     <script src="/resources/js/admin_header.js"></script>
   </body>
 </html>

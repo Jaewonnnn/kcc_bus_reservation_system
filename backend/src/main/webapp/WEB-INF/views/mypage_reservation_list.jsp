@@ -131,110 +131,8 @@
                         <th scope="col" class="text-center"></th>
                       </tr>
                     </thead>
-                    <tbody>
-                      <tr>
-                        <th scope="row" class="text-center">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault"
-                          />
-                        </th>
-                        <td class="text-center">2024.09.10</td>
-                        <td class="text-center">동서울</td>
-                        <td class="text-center">부산</td>
-                        <td class="text-center">13:30</td>
-                        <td class="text-center">2매</td>
-                        <td class="text-center">43,000원</td>
-                        <td class="text-center">
-                          <button class="detail_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">상세보기</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="text-center">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault"
-                          />
-                        </th>
-                        <td class="text-center">2024.09.10</td>
-                        <td class="text-center">동서울</td>
-                        <td class="text-center">부산</td>
-                        <td class="text-center">13:30</td>
-                        <td class="text-center">2매</td>
-                        <td class="text-center">43,000원</td>
-                        <td class="text-center">
-                          <button class="detail_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">상세보기</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="text-center">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        </th>
-                        <td class="text-center">2024.09.10</td>
-                        <td class="text-center">동서울</td>
-                        <td class="text-center">부산</td>
-                        <td class="text-center">13:30</td>
-                        <td class="text-center">2매</td>
-                        <td class="text-center">43,000원</td>
-                        <td class="text-center">
-                          <button class="detail_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">상세보기</button>
-                        </td>
-                      </tr><tr>
-                        <th scope="row" class="text-center">
-                          <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                        </th>
-                        <td class="text-center">2024.09.10</td>
-                        <td class="text-center">동서울</td>
-                        <td class="text-center">부산</td>
-                        <td class="text-center">13:30</td>
-                        <td class="text-center">2매</td>
-                        <td class="text-center">43,000원</td>
-                        <td class="text-center">
-                          <button class="detail_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">상세보기</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="text-center">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault"
-                          />
-                        </th>
-                        <td class="text-center">2024.09.10</td>
-                        <td class="text-center">동서울</td>
-                        <td class="text-center">부산</td>
-                        <td class="text-center">13:30</td>
-                        <td class="text-center">2매</td>
-                        <td class="text-center">43,000원</td>
-                        <td class="text-center">
-                          <button class="detail_btn">상세보기</button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="text-center">
-                          <input
-                            class="form-check-input"
-                            type="checkbox"
-                            value=""
-                            id="flexCheckDefault"
-                          />
-                        </th>
-                        <td class="text-center">2024.09.10</td>
-                        <td class="text-center">동서울</td>
-                        <td class="text-center">부산</td>
-                        <td class="text-center">13:30</td>
-                        <td class="text-center">2매</td>
-                        <td class="text-center">43,000원</td>
-                        <td class="text-center">
-                          <button class="detail_btn" data-bs-toggle="modal" data-bs-target="#staticBackdrop">상세보기</button>
-                        </td>
-                      </tr>
+                    <tbody id="my-reservation-list">
+
                     </tbody>
                   </table>
                 </div>
@@ -258,34 +156,34 @@
             <table class="table table-borderless">
               <thead>
                 <tr>
-                  <th scope="col" class="text-left">2024.09.10</th>
-                  <th scope="col" class="text-end"></th> 
+                  <th scope="col" class="text-left" id="scheduleDate"></th>
+                  <th scope="col" class="text-end"></th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td class="text-left">출발지</td>
-                  <td class="text-end">동서울</td>
+                  <td class="text-end" id="startTerminalName"></td>
                 </tr>
                 <tr>
                   <td class="text-left">도착지</td>
-                  <td class="text-end">부산</td>
+                  <td class="text-end" id="endTerminalName">부산</td>
                 </tr>
                 <tr>
                   <td class="text-left">출발시간</td>
-                  <td class="text-end">12:30</td>
+                  <td class="text-end" id="startTime">12:30</td>
                 </tr>
                 <tr>
                   <td class="text-left">매수</td>
-                  <td class="text-end">2매</td>
+                  <td class="text-end" id="dataLength">2매</td>
                 </tr>
                 <tr>
                   <td class="text-left">좌석번호</td>
-                  <td class="text-end">21석, 22석</td>
+                  <td class="text-end" id="seatNumber">21석, 22석</td>
                 </tr>
                 <tr>
                   <td class="text-left">금액</td>
-                  <td class="text-end">43,000원</td>
+                  <td class="text-end" id="totalPrice"></td>
                 </tr>
               </tbody>
             </table>

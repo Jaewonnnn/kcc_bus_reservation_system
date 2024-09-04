@@ -16,6 +16,131 @@
         <result column="grade_name" property="busGradeName"/>
         <result column="company_name" property="companyName"/>
     </resultMap>
+    <select id="getReservationList" parameterType="long"  resultType="Reservation">
+        select * from reservation where member_seq = #{memberSeq}
+    </select>
+
+    <!-- 회원 예매 리스트 조회   -->
+    <resultMap id="reservationSummaryResultMap" type="com.unibus.reservation.dto.ReservationSummaryDTO">
+        <result property="scheduleDate" column="schedule_date" />
+        <result property="startTime" column="start_time" />
+        <result property="scheduleEndTime" column="schedule_end_time" />
+        <result property="startTerminalName" column="start_terminal_name" />
+        <result property="endTerminalName" column="end_terminal_name" />
+        <result property="seatNumber" column="seat_number" />
+        <result property="reservationCount" column="reservation_count" />
+        <result property="totalPrice" column="total_price" />
+    </resultMap>
+
+
+
+        <select id="findReservationsByMember"  parameterType="String" resultMap="reservationSummaryResultMap">
+        SELECT
+            TO_CHAR(s.schedule_start_time, 'YY.MM.DD') AS schedule_date,
+            TO_CHAR(s.schedule_start_time, 'HH24:MI:SS') AS start_time,
+            TO_CHAR(s.schedule_end_time, 'HH24:MI:SS') AS schedule_end_time,
+            ter_start.terminal_name AS start_terminal_name,
+            ter_end.terminal_name AS end_terminal_name,
+            COUNT(res.reservation_id) AS reservation_count,
+            SUM(res.price) AS total_price
+        FROM
+            member m
+                JOIN
+            reservation res ON m.member_seq = res.member_seq
+                JOIN
+            schedule s ON res.schedule_id = s.schedule_id
+                JOIN
+            route r ON s.route_id = r.route_id
+                JOIN
+            TERMINAL ter_start ON r.route_start_id = ter_start.terminal_id
+                JOIN
+            TERMINAL ter_end ON r.route_end_id = ter_end.terminal_id
+        WHERE
+            m.member_id = #{memberId} and res.reservation_status = 1
+        GROUP BY
+            r.route_start_id,
+            r.route_end_id,
+            ter_start.terminal_name,
+            ter_end.terminal_name,
+            s.schedule_start_time,
+            s.schedule_end_time
+    </select>
+
+
+    <!-- 비회원 예매 리스트 조회    -->
+    <select id="findReservationsByNonUser"  parameterType="String" resultMap="reservationSummaryResultMap">
+        SELECT
+            TO_CHAR(s.schedule_start_time, 'YY.MM.DD') AS schedule_date,
+            TO_CHAR(s.schedule_start_time, 'HH24:MI:SS') AS start_time,
+            TO_CHAR(s.schedule_end_time, 'HH24:MI:SS') AS schedule_end_time,
+            ter_start.terminal_name AS start_terminal_name,
+            ter_end.terminal_name AS end_terminal_name,
+            COUNT(res.reservation_id) AS reservation_count,
+            SUM(res.price) AS total_price
+        FROM
+            non_user n
+        JOIN
+            reservation res ON n.non_user_code = res.non_user_code
+        JOIN
+            schedule s ON res.schedule_id = s.schedule_id
+        JOIN
+            route r ON s.route_id = r.route_id
+        JOIN
+            TERMINAL ter_start ON r.route_start_id = ter_start.terminal_id
+        JOIN
+            TERMINAL ter_end ON r.route_end_id = ter_end.terminal_id
+        WHERE
+            n.non_user_tel = '010-7740-5366'  and res.reservation_status = 1
+        GROUP BY
+            r.route_start_id,
+            r.route_end_id,
+            ter_start.terminal_name,
+            ter_end.terminal_name,
+            s.schedule_start_time,
+            s.schedule_end_time
+    </select>
+
+    <!-- 예매내역 수정   -->
+    <update id="updateReservation" parameterType="int">
+        update  reservation
+        set reservation_status = 0
+        where reservation_id = #{reservationId}
+    </update>
+
+    <!-- 예매 상세 조회  -->
+    <select id="finDetailReservation"  parameterType="String" resultMap="reservationSummaryResultMap">
+        SELECT
+            TO_CHAR(s.schedule_start_time, 'YY.MM.DD') AS schedule_date,
+            TO_CHAR(s.schedule_start_time, 'HH24:MI:SS') AS start_time,
+            TO_CHAR(s.schedule_end_time, 'HH24:MI:SS') AS schedule_end_time,
+            ter_start.terminal_name AS start_terminal_name,
+            ter_end.terminal_name AS end_terminal_name,
+            res.seat_number,
+            COUNT(res.member_seq) AS reservation_count,
+            SUM(res.price) AS total_price
+        FROM
+            member m
+                JOIN
+            reservation res ON m.member_seq = res.member_seq
+                JOIN
+            schedule s ON res.schedule_id = s.schedule_id
+                JOIN
+            route r ON s.route_id = r.route_id
+                JOIN
+            TERMINAL ter_start ON r.route_start_id = ter_start.terminal_id
+                JOIN
+            TERMINAL ter_end ON r.route_end_id = ter_end.terminal_id
+        WHERE
+            m.member_id = #{memberId} and res.reservation_status = 1
+        GROUP BY
+            r.route_start_id,
+            r.route_end_id,
+            ter_start.terminal_name,
+            ter_end.terminal_name,
+            s.schedule_start_time,
+            s.schedule_end_time,
+            res.seat_number
+    </select>
 
     <select id="getTicketByScheduleId" resultMap="BoardTicket">
         SELECT

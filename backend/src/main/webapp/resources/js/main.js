@@ -122,15 +122,22 @@ document.addEventListener("DOMContentLoaded", function () {
         today.getFullYear() === date.getFullYear() &&
         today.getMonth() === date.getMonth();
 
-      dayDiv.onclick = function () {
-        // 여기서 값 저장 이벤트를 걸어야함 혹은 input 하나 숨겨놧다가 input에 값 전달하고 해도 됨
-        // 선택하면 값 보여주게해도됨 (날짜 잘못눌러서 다시하려해도 li다시누름 값바껴서 괜찮)
-        alert(currentDateDiv.textContent + i + "일" + " 을 선택하셨습니다.");
+      const isPastDate =
+          isCurrentMonth && i < today.getDate(); // 이전 날짜 로직
+      if (!isPastDate ) { // 이전 날짜 이전꺼는 이벤트를 안걸려고함
 
-        startLocationDay.textContent = currentDateDiv.textContent + i + "일";
+        dayDiv.onclick = function () {
+          // 여기서 값 저장 이벤트를 걸어야함 혹은 input 하나 숨겨놧다가 input에 값 전달하고 해도 됨
+          // 선택하면 값 보여주게해도됨 (날짜 잘못눌러서 다시하려해도 li다시누름 값바껴서 괜찮)
+          alert(currentDateDiv.textContent + i + "일" + " 을 선택하셨습니다.");
 
-        closeModal2();
-      };
+          startLocationDay.textContent = currentDateDiv.textContent + i + "일";
+
+          closeModal2();
+        };
+      }else{
+        dayDiv.classList.add("disabled"); // 과거 날짜는 스타일로 구분 (선택 불가 표시
+      }
 
       if (isCurrentMonth && i === today.getDate()) {
         dayDiv.classList.add("today");
@@ -298,6 +305,7 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
+
     terminals.forEach(terminal => {
       const button = document.createElement('button');
       button.className = 'terminal-button';
@@ -336,7 +344,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await fetch(url); // API 엔드포인트 URL
       if (!response.ok) throw new Error('네트워크 응답불가');
       const data = await response.json();
-
+      console.table(data)
       let filteredTerminals = data;
 
       // cityId가 제공된 경우에만 필터링 수행
@@ -494,6 +502,8 @@ document.addEventListener("DOMContentLoaded", function () {
     function formatDate(dateStr) {
       const match = dateStr.match(/(\d{4})년 (\d{2})월(\d{1,2})일/);
       if (!match) {
+        alert('날짜를 입력해주세요 ')
+
         console.error('Invalid date format:', dateStr);
         return null;
       }

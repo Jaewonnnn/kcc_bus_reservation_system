@@ -3,18 +3,22 @@ package com.unibus.reservation.domain;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
-import java.time.LocalDateTime;
+import java.util.Date;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
 public class Reservation {
-    private int reservationId;
-    private Schedule schedule;
+    private Long reservationId;
+    private String paymentImpUid;
+    private Long memberSeq;
+    private Long nonUserCode;
+    private Long scheduleId;
     private String seatNumber;
-    private int price;
-    private LocalDateTime reservationDate;
+    private Long price;
+    private Date reservationDate;
+    private Long reservationStatus;
+
 }
