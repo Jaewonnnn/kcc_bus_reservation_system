@@ -1,6 +1,7 @@
 package com.unibus.reservation.service;
 
 import com.unibus.reservation.dto.ScheduleDto;
+import com.unibus.reservation.dto.ScheduleSeatNumber;
 import com.unibus.reservation.mapper.ScheduleMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,10 @@ public class ScheduleServiceImpl implements ScheduleService {
     @Override
     public ScheduleDto getScheduleDetail(int scheduleId) {
         return scheduleMapper.getScheduleDetail(scheduleId);
+    }
+
+    @Override
+    public List<ScheduleSeatNumber> busSeatNumber(int reservationId) {
+        return scheduleMapper.busSeatNumber(reservationId);
     }
 }

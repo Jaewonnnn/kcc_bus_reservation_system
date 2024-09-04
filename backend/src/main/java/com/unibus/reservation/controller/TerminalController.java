@@ -1,5 +1,6 @@
 package com.unibus.reservation.controller;
 
+import com.unibus.admin.dto.TerminalDto;
 import com.unibus.reservation.dto.ReservationTerminalDto;
 import com.unibus.reservation.service.TerminalService;
 import lombok.extern.slf4j.Slf4j;

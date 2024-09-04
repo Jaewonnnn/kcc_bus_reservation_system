@@ -18,6 +18,8 @@ public class SecurityConfig {
             "/membership",
             "/main",
             "/join",
+            "/reservation/**",
+            "/check/**",
             "/duplicated/**",
             "/WEB-INF/views/membership.jsp",
             "/WEB-INF/views/login.jsp",

@@ -1,6 +1,7 @@
 package com.unibus.reservation.mapper;
 
 import com.unibus.reservation.dto.ScheduleDto;
+import com.unibus.reservation.dto.ScheduleSeatNumber;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -17,4 +18,8 @@ public interface ScheduleMapper {
                                    @Param("startTime") String startTime);
 
     ScheduleDto getScheduleDetail(@Param("scheduleId") int scheduleId);
+    ScheduleDto findScheduleById(int scheduleId);
+
+    // 노선별 버스 좌석 번호 확인
+    public List<ScheduleSeatNumber> busSeatNumber(int reservationId);
 }

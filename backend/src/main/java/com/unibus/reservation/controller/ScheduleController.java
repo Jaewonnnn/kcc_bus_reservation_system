@@ -2,6 +2,7 @@ package com.unibus.reservation.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.unibus.reservation.dto.ScheduleDto;
+import com.unibus.reservation.dto.ScheduleSeatNumber;
 import com.unibus.reservation.service.ScheduleService;
 import com.unibus.reservation.service.TerminalService;
 import lombok.RequiredArgsConstructor;
@@ -86,9 +87,46 @@ public class ScheduleController {
         return "reservation_detail"; // 해당 페이지로 리턴
     }
 
+    @GetMapping("/schedule/seat/{reservationId}")
+    public String getSeat(Model model,@PathVariable("reservationId") int scheduleId) {
+        List<ScheduleSeatNumber> list = getBusNumber(scheduleId);
+        if (list.isEmpty()) {
+            return "errorPage"; // 리스트가 비어있으면 에러 페이지 반환
+        }
+
+        String busGrade = list.get(0).getBusGrade();
+        model.addAttribute("seats", list.get(0).getScheduleId());
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println(list);
+        System.out.println(busGrade);
+        switch (busGrade) {
+            case "고속":
+            case "심야고속":
+            case "일반":
+            case "일반심야":
+                return "reservation_seat1";
+
+            case "우등" :
+            case "심야우등":
+                return "reservation_seat2";
 
 
+            case "프리미엄":
+            case "심야프리미엄":
+                return "reservation_seat3";
 
+
+            default:
+                return "default_seat"; // 기본적으로 반환할 뷰 이름
+        }
+    }
+
+    // 노선별 좌석 조회
+    @GetMapping("/busNumber/{reservationId}")
+    @ResponseBody
+    public List<ScheduleSeatNumber> getBusNumber(@PathVariable int reservationId) {
+        return scheduleService.busSeatNumber(reservationId);
+    }
 
 
 }
