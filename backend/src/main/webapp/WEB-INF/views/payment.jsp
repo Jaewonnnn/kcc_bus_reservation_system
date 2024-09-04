@@ -1,3 +1,7 @@
+<%@ page import="org.springframework.security.core.Authentication" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
+<%@ page import="org.springframework.security.authentication.AnonymousAuthenticationToken" %>
+<%@ page import="com.unibus.config.PrincipalDetail" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -29,15 +33,32 @@
       crossorigin="anonymous"
     />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+    <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+
     <link rel="stylesheet" href="/resources/css/reset.css" />
     <link rel="stylesheet" href="/resources/css/header.css" />
     <link rel="stylesheet" href="/resources/css/payment.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
     <title>결제 페이지</title>
+    <%
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      String username = "Guest"; // 기본값을 Guest로 설정
+
+      if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+        // 로그인된 사용자 처리
+        PrincipalDetail userDetails = (PrincipalDetail) authentication.getPrincipal();
+        username = userDetails.getUsername();
+      }
+    %>
   </head>
   <body>
     <admin-header-component></admin-header-component>
+    <div class="hidden">
+      <input type="hidden" value="<%=username%>">
+    </div>
     <div id="body_wrap">
       <!-- 탑 카드 영역 -->
       <section id="admin_info">
@@ -104,11 +125,12 @@
                 <div class="payment-info-card">
                   <div class="card-img">
                     <div>
+                      <a type="button" id="nicePayment">
                       <img
                         src="/resources/img/TossPayments_Logo_Simple_Primary.png"
                         id="toxx"
                       />
-
+                      </a>
                     </div>
                     <div><img src="/resources/img/badge_npay.svg" alt="" /></div>
                     <div><a type="button" id="kakaoPayment"><img src="/resources/img/payment_icon_yellow_large.png"/></a></div>

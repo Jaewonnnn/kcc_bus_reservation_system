@@ -11,14 +11,14 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Reservation {
-    private Long reservationId;
-    private String paymentImpUid;
-    private Long memberSeq;
-    private Long nonUserCode;
-    private Long scheduleId;
-    private String seatNumber;
-    private Long price;
+    private int reservationId;
+    private int paymentImpUid;
+    private int memberSeq;
+    private int nonUserCode;
+    private int scheduleId;
+    private int seatNumber;
+    private int price;
     private Date reservationDate;
-    private Long reservationStatus;
+    private boolean reservationStatus;
 
 }

@@ -13,6 +13,7 @@ import java.util.Collection;
 @RequiredArgsConstructor
 public class PrincipalDetail implements UserDetails {
 
+
     private static final Logger log = LoggerFactory.getLogger(PrincipalDetail.class);
     private final Member member;
 

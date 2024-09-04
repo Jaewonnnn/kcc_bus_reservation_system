@@ -1,6 +1,7 @@
 package com.unibus.reservation.mapper;
 
-import com.unibus.reservation.dto.ReservationSummaryDTO;
+import com.unibus.reservation.domain.Reservation;
+import com.unibus.reservation.dto.ReservationTicketDto;
 import com.unibus.reservation.dto.ScheduleDto;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -22,4 +23,7 @@ public interface ReservationMapper {
     // 예매 상세 조회
     public List<ReservationSummaryDTO> finDetailReservation(String memberId);
 
+    public ReservationTicketDto getTicketByScheduleId(int scheduleId);
+    public int memberSaveReservation(Reservation reservation);
+    public int nonMemberSaveReservation(Reservation reservation);
 }

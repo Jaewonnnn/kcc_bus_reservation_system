@@ -16,11 +16,14 @@ public class SecurityConfig {
             "/resources/**",
             "/login",
             "/membership",
+            "/nonUser/add",
             "/main",
-            "/join",
             "/reservation/**",
-            "/check/**",
+            "/join",
+            "/payment/**",
             "/duplicated/**",
+            "/check/**",
+            "/check/payment",
             "/WEB-INF/views/membership.jsp",
             "/WEB-INF/views/login.jsp",
             "/WEB-INF/views/main.jsp",
@@ -63,6 +66,7 @@ public class SecurityConfig {
                 .requestMatchers("/admin/**").hasAnyRole("ADMIN")
                 .anyRequest().authenticated()
         );
+
 
         http.formLogin(auth -> auth
                 .loginPage("/login")

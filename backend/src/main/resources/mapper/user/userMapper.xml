@@ -56,4 +56,13 @@
     <select id="getUserByUsername" parameterType="String" resultType="Member">
         select * from member
     </select>
+
+    <insert id="nonMemberSave" parameterType="com.unibus.user.domain.NonMember">
+            INSERT into non_user values(non_user_seq.nextval, #{nonUserTel})
+    </insert>
+
+    <select id="getNonUserCode" resultType="int">
+        select non_user_code from non_user where rownum=1 order by non_user_code desc
+    </select>
+
 </mapper>

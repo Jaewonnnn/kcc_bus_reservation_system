@@ -1,6 +1,10 @@
 package com.unibus.reservation.service;
 
-import com.unibus.reservation.dto.ScheduleDto;
+import com.unibus.reservation.domain.Payment;
+import com.unibus.reservation.domain.Reservation;
+import com.unibus.reservation.dto.ReservationTicketDto;
+import com.unibus.user.domain.Member;
+import com.unibus.user.domain.NonMember;
 
 import com.unibus.reservation.dto.ScheduleSeatNumber;
 import com.unibus.reservation.dto.ReservationSummaryDTO;
@@ -23,4 +27,6 @@ public interface ReservationService {
     public List<ReservationSummaryDTO> finDetailReservation(String memberId);
 
 
+    public ReservationTicketDto getTicket(int scheduleId);
+    public Boolean reservationSave(Reservation reservation, String memberId, NonMember nonmember, Payment payment);
 }

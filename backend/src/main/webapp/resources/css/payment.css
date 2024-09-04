@@ -326,6 +326,6 @@ select {
   text-align: center;
 }
 
-#kakaoPayment :hover {
+#kakaoPayment :hover, #nicePayment :hover {
   cursor: pointer;
 }
