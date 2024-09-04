@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @AllArgsConstructor
 @ToString
-public class Terminal {
+public class ReservationTerminal {
     private String terminalId;
     private String terminalName;
     private int cityId;

@@ -1,6 +1,6 @@
 package com.unibus.reservation.service;
 
-import com.unibus.reservation.dto.TerminalDto;
+import com.unibus.reservation.dto.ReservationTerminalDto;
 import com.unibus.reservation.mapper.TerminalMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ public class TerminalServiceImpl implements TerminalService {
     }
 
     @Override
-    public List<TerminalDto> getAllTerminals() {
+    public List<ReservationTerminalDto> getAllTerminals() {
         log.info("getAllTerminals");
         return terminalMapper.findAllTerminals();
     }

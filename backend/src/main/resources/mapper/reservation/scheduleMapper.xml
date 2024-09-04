@@ -6,6 +6,7 @@
 <mapper namespace="com.unibus.reservation.mapper.ScheduleMapper">
 
 
+
 <!--    &lt;!&ndash; 배차 상세 조회 &ndash;&gt;-->
 <!--    <select id="findScheduleById" parameterType="int" resultType="com.unibus.reservation.dto.ScheduleDto">-->
 <!--        SELECT-->
@@ -58,6 +59,7 @@
         WHERE r.ROUTE_START_ID = #{startTerminalId}
           AND r.ROUTE_END_ID = #{destinationTerminalId}
           AND TO_CHAR(s.SCHEDULE_START_TIME, 'YYYY-MM-DD') = #{startTime}
+
     </select>
 
 </mapper>

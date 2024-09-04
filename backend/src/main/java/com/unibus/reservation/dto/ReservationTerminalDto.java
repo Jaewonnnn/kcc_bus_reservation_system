@@ -5,7 +5,7 @@ import lombok.*;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class TerminalDto {
+public class ReservationTerminalDto {
     private String terminalId;
     private String terminalName;
     private int city;

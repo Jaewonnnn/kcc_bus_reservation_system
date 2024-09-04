@@ -1,8 +1,9 @@
 package com.unibus.config;
 
 import com.unibus.user.domain.Member;
-import com.unibus.user.service.UserService;
+import com.unibus.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -10,15 +11,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class PrincipalDetailService implements UserDetailsService {
-    private final UserService userService;
+    private final UserMapper userMapper;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Member member = userService.userInfo(username);
-        if (member != null) {
-            return new PrincipalDetail(member);
+
+        Member member = userMapper.getMemberByMemberId(username);
+        if(member == null){
+            throw new UsernameNotFoundException("User Not Found");
         }
-        return null;
+        return new PrincipalDetail(member);
     }
 }

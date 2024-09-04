@@ -5,6 +5,54 @@
 
 <mapper namespace="com.unibus.reservation.mapper.ReservationMapper">
 
+    <resultMap id="BoardTicket" type="ScheduleDto">
+        <id column="schedule_id" property="scheduleId"/>
+        <result column="bus_id" property="busId"/>
+        <result column="route_id" property="routeId"/>
+        <result column="start_date" property="scheduleStartDate"/>
+        <result column="schedule_price" property="schedulePrice"/>
+        <result column="start_terminal" property="startTerminal"/>
+        <result column="end_terminal" property="endTerminal"/>
+        <result column="grade_name" property="busGradeName"/>
+        <result column="company_name" property="companyName"/>
+    </resultMap>
 
+    <select id="getTicketByScheduleId" resultMap="BoardTicket">
+        SELECT
+            s.schedule_id,
+            s.bus_id,
+            s.route_id,
+            TO_CHAR(s.schedule_start_time, 'yyyy-MM-dd') AS start_date,
+            s.schedule_price,
+            ts.terminal_name AS start_terminal,
+            te.terminal_name AS end_terminal,
+            bg.grade_name,
+            c.company_name
+        FROM
+            schedule s
+                JOIN
+            route r ON s.route_id = r.route_id
+                JOIN
+            terminal ts ON r.route_start_id = ts.terminal_id
+                JOIN
+            terminal te ON r.route_end_id = te.terminal_id
+                JOIN
+            bus b ON b.bus_id = s.bus_id
+                JOIN
+            bus_grade bg ON bg.grade_id = b.grade_id
+                JOIN
+            company c ON b.company_id = c.company_id
+        where schedule_id = #{scheduleId}
+
+    </select>
+
+    <insert id="memberSaveReservation">
+        <selectKey order="BEFORE" resultType="int" keyProperty="reservationId">
+            select reservation_seq.nextval from dual
+        </selectKey>
+        INSERT INTO reservation values(
+        #{reservationId}, #{paymentId}
+        )
+    </insert>
 
 </mapper>

@@ -151,7 +151,7 @@ body {
 			<h2>Welcome Back!</h2>
 			<p>To keep connected with us please login with your personal info</p>
 			<button
-				onclick="location.href='${pageContext.request.contextPath}/login'">Sign
+				onclick="location.href='${pageContext.request.contextPath}/user/login'">Sign
 				In</button>
 		</div>
 		<div class="signup-section">
