@@ -8,10 +8,9 @@ import lombok.*;
 @NoArgsConstructor
 @ToString
 public class CreateScheduleDto {
-    private String route;
-    private String selectDate;
+    private String routeId;
     private String startTime;
     private String endTime;
-    private String busId;
+    private Integer busId;
     private String price;
 }

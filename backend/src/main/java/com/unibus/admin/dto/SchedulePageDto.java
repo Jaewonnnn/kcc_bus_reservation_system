@@ -1,18 +1,20 @@
 package com.unibus.admin.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 public class SchedulePageDto {
-    private String scheduleId;
+    private int scheduleId;
+    private String routeId;
     private String startName;
     private String endName;
-    private String requiredTime;
+    private String departureTime;
+    private String arrivalTime;
+    private String busNumber;
+    private String companyName;
     private int price;
 }
