@@ -1,5 +1,5 @@
 let currentPage = 1;
-const rowsPerPage = 10;
+const rowsPerPage = 8;
 let totalRows = 0;
 
 
