@@ -61,9 +61,4 @@
         select non_user_code from non_user where rownum=1 order by non_user_code desc
     </select>
 
-    <select id="getMemberRole" resultType="String" parameterType="String">
-        select member_role from member where member_id = #{memberId}
-    </select>
-
-
 </mapper>

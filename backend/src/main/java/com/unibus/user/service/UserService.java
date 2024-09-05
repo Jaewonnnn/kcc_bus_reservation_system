@@ -17,5 +17,4 @@ public interface UserService {
     public Boolean updatePassword(Member member);
     public boolean isMemberIdDuplicate(String memberId);
     public Boolean nonUserSave(NonMember nonMember);
-    public String getMemberRole(String memberId);
 }

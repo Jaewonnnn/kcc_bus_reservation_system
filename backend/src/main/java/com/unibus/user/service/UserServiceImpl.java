@@ -80,12 +80,6 @@ public class UserServiceImpl implements UserService{
         return userMapper.nonMemberSave(nonMember) > 0 ? true : false;
     }
 
-    @Override
-    public String getMemberRole(String memberId) {
-        String role = userMapper.getMemberRole(memberId);
-        log.info(role);
-        return role;
-    }
 
     @Override
     public Boolean updatePassword(Member member) {

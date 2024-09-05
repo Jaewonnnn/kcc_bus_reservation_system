@@ -315,7 +315,7 @@
       <section id="admin_info"></section>
       <section id="admin_all">
         <div class="container">
-          <h4 style="font: 800 25px Noto Sans KR">노선 관리</h4>
+          <h4 style="font: 800 25px Noto Sans KR">노선 등록</h4>
           <div class="main-body">
             <div class="row">
               <div class="col-lg-3">
@@ -484,6 +484,7 @@
     ></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <script src="/resources/js/admin_header.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../resources/js/admin_route.js"></script>
