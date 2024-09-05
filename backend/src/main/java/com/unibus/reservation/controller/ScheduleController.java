@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Slf4j
@@ -105,11 +106,14 @@ public class ScheduleController {
         if (seatNumbers.isEmpty()) {
             ReservationTicketDto reservationTicket = reservationService.findBus(scheduleId);
             log.info(reservationTicket.toString());
+            log.info("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
             busGrade = reservationTicket.getBusGradeName();
             // 리스트가 비어 있을 경우도 처리
         } else {
             ScheduleSeatNumber seat = seatNumbers.get(0);
             busGrade = seat.getBusGrade();
+            log.info(seat.toString());
+            log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
             model.addAttribute("seats", seat.getScheduleId());
 
         }
@@ -143,11 +147,47 @@ public class ScheduleController {
         return scheduleService.busSeatNumber(reservationId);
     }
 
+    @GetMapping("busNumber2/{scheduleId}")
+    @ResponseBody
+    public ReservationTicketDto getBusNumber2(@PathVariable int scheduleId) {
+        return  reservationService.findBus(scheduleId);
+    }
+
     //결제 동의 페이지
     @GetMapping("/payment-accept")
-    public String paymentAccept(Model model) {
-        return "payment_accept";
+    public String paymentAccept(
+            @RequestParam("seatIds") String seatIds,
+            @RequestParam("passengerCount") int passengerCount,
+            @RequestParam("totalAmount") String totalAmount,
+            @RequestParam("busGrade") String busGrade,
+            @RequestParam("startTerminal") String startTerminal,
+            @RequestParam("endTerminal") String endTerminal,
+            @RequestParam("busCompany")String busCompany,
+            @RequestParam("adults")String adults,
+            @RequestParam("students")String students,
+            @RequestParam("children")String children,
+            @RequestParam("scheduleId")String scheduleId,
+            Model model) {
+
+        List<String> seatIdList = Arrays.asList(seatIds.split(",")); // 문자열을 배열로 변환
+
+        model.addAttribute("seatIds", seatIdList);
+        model.addAttribute("passengerCount", passengerCount);
+        model.addAttribute("totalAmount", totalAmount);
+        model.addAttribute("busGrade", busGrade);
+        model.addAttribute("startTerminal", startTerminal);
+        model.addAttribute("endTerminal", endTerminal);
+        model.addAttribute("busCompany", busCompany);
+        model.addAttribute("adults", adults);
+        model.addAttribute("students", students);
+        model.addAttribute("children", children);
+        model.addAttribute("scheduleId", scheduleId);
+
+
+        return "payment_accept"; // 해당 뷰 이름으로 데이터와 함께 리턴
     }
+
+
 
 
 }

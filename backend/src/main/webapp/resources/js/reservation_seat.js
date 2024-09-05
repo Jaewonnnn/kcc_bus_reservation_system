@@ -1,8 +1,8 @@
 
 const prices = {
     adult: 10000,
-    student: 8000,
-    child: 5000
+    student: 10000,
+    child: 10000
 };
 
 let selectedSeats = []; //
@@ -13,12 +13,18 @@ let passengers = {
 };
 
 let reservedSeats = [];
+let busGrade, startTerminal, endTerminal, busCompany, scheduleId;
+
 const memberId = window.location.pathname.split('/')[4]
 console.log(memberId)
 // fetch
 fetch(`/reservation/busNumber/`+memberId)
     .then(response => response.json())
     .then(seatNumbers => {
+            if (!seatNumbers || seatNumbers.length===0){
+                console.log('일로옴')
+                return fetch(`/reservation/busNumber2/`+memberId)
+            }
         console.log(seatNumbers)
         reservedSeats = seatNumbers.map(item => parseInt(item.seatNumber));
         updateSeatAvailabilityOnInit();
@@ -26,19 +32,44 @@ fetch(`/reservation/busNumber/`+memberId)
         // 출발지와 도착지를 동적으로 설정
         const startTerminalName = seatNumbers[0].startTerminalName;
         const endTerminalName = seatNumbers[0].endTerminalName;
-
         const startTime = seatNumbers[0].startTime
         const endTime  = seatNumbers[0].endTime
-
+        scheduleId = seatNumbers[0].scheduleId
         // HTML 요소를 업데이트
 
-
+        busGrade = seatNumbers[0].busGradeName
+        startTerminal = startTerminalName
+        endTerminal = endTerminalName
+        busCompany = seatNumbers[0].busCompany
         document.getElementById('reservation_course_start').innerHTML = `<p>${startTerminalName}</p>`;
         document.getElementById('reservation_course_end').innerHTML = `<p>${endTerminalName}</p>`;
         document.getElementById('reservation_course_time').innerHTML = `<p>${calculateDuration(startTime, endTime)}</p>`
         document.querySelector('#reservation_seat_info h2').innerHTML = `${endTime.split('T')[0]}`
 
 
+    })
+    .then(response => response.json())
+    .then(data=>{
+        console.table(data)
+        updateSeatAvailabilityOnInit();
+        setupSeatClickHandlers();
+
+        // 출발지와 도착지를 동적으로 설정
+        const startTerminalName = data.startTerminal || "Unknown start terminal";
+        const endTerminalName = data.endTerminal || "Unknown end terminal";
+        const startTime = data.scheduleStartDate || "Unknown start time";
+        const endTime = data.scheduleEndDate || "Unknown end time";
+
+        busGrade = data.busGradeName
+        startTerminal = startTerminalName
+        endTerminal = endTerminalName
+        busCompany = data.companyName
+        scheduleId = data.scheduleId
+        // HTML 요소를 업데이트
+        document.getElementById('reservation_course_start').innerHTML = `<p>${startTerminalName}</p>`;
+        document.getElementById('reservation_course_end').innerHTML = `<p>${endTerminalName}</p>`;
+        document.getElementById('reservation_course_time').innerHTML = `<p>${abs(calculateDuration(endTime, startTime))}</p>`;
+        document.querySelector('#reservation_seat_info h2').innerHTML = `${endTime.split(' ')[0]}`
     })
     .catch(error => {
         console.error('Error fetching seat data:', error);
@@ -57,7 +88,8 @@ function calculateDuration(startTime, endTime) {
     const durationMinutes = Math.floor(durationMs / 60000); // 밀리초를 분으로 변환
     const hours = Math.floor(durationMinutes / 60);
     const minutes = durationMinutes % 60;
-
+    console.log("나왔음")
+    console.log(durationMinutes)
     return `${hours}시간 ${minutes}분`;
 }
 
@@ -162,19 +194,38 @@ function updateSeatAvailability() {
 }
 document.querySelector('.button2').addEventListener('click', function() {
     // 선택된 좌석 수와 승객 수를 가져옵니다.
-    const selectedSeatCount = selectedSeats.length;
+    const selectedSeatIds = selectedSeats; // 여기서 selectedSeats는 선택된 좌석의 ID 배열이라고 가정
+
+    // 좌석 ID에서 숫자만 추출
+    const seatNumbers = selectedSeatIds.map(id => id.split('-')[1]);
+
     const totalPassengerCount = totalPassengers();
 
     // 좌석 수와 승객 수 비교
     if (totalPassengerCount === 0) {
         alert("승객 수를 선택해주세요.");
-    } else if (selectedSeatCount !== totalPassengerCount) {
+    } else if (seatNumbers.length !== totalPassengerCount) {
         alert("선택한 좌석 수와 승객 수가 일치하지 않습니다.");
     } else {
-        // 조건이 충족되면 URL로 리다이렉트
-        window.location.href = "/reservation/payment-accept";
+        const queryParams = new URLSearchParams({
+            seatIds: seatNumbers.join(','),
+            passengerCount: totalPassengerCount,
+            totalAmount: document.getElementById('total_amount').textContent,
+            busGrade: busGrade,
+            startTerminal: startTerminal,
+            endTerminal: endTerminal,
+            busCompany : busCompany,
+            adults: passengers.adults,
+            students: passengers.students,
+            children: passengers.children,
+            scheduleId : scheduleId
+        }).toString();
 
+        // 조건이 충족되면 URL로 리다이렉트
+        window.location.href = `/reservation/payment-accept?${queryParams}`;
     }
 });
+
+
 
 

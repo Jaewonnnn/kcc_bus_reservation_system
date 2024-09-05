@@ -19,6 +19,12 @@
   <link rel="stylesheet" href="/resources/css/header.css" />
   <link rel="stylesheet" href="/resources/css/payment_accept.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
+  <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+          integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+          crossorigin="anonymous"
+          referrerpolicy="no-referrer"
+  ></script>
   <title>결제 페이지</title>
 </head>
 
@@ -453,7 +459,7 @@
 
   <script src="https://accounts.google.com/gsi/client" async defer></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="/resources/js/mypage.js"></script>
+  <script src="/resources/js/payment_accept.js"></script>
   <script src="/resources/js/admin_header.js"></script>
 </body>
 

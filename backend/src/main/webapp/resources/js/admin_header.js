@@ -7,7 +7,7 @@ class Headers extends HTMLElement {
       <link rel="stylesheet" href="/resources/css/header.css">
       <header>
         <div id="header_wrap">
-          <h1>UNIBUS</h1>
+           <a href="/main"><h1>UNIBUS</h1></a>
           <ul id="header_menu">
             <li>
             <a href="http://localhost:8081/admin/">회원관리</a>

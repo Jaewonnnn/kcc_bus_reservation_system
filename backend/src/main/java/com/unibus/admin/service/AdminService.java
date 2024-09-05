@@ -10,6 +10,7 @@ import com.unibus.admin.dto.UserDto;
 import com.unibus.admin.dto.*;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AdminService {
     public List<UserDto> getUserList();

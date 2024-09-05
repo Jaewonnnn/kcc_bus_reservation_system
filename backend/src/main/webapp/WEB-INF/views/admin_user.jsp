@@ -256,6 +256,7 @@
                                     background-color: #f9fafc;
                                     font: 500 13px Noto Sans KR;
                                   "
+                                  name="name"
                                 />
                                 <div id="autocomplete-results"></div>
                               </div>

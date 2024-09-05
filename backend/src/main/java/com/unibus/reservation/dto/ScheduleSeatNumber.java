@@ -17,4 +17,5 @@ public class ScheduleSeatNumber {
     private String busGrade;
     private Date startTime;
     private Date endTime;
+    private String companyName;
 }
