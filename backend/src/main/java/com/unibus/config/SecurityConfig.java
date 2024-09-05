@@ -78,6 +78,13 @@ public class SecurityConfig {
                 .loginProcessingUrl("/loginProcess")
         );
 
+        http.logout(logout -> logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login?logout=true")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID") 
+        );
+
         return http.build();
     }
 

@@ -26,10 +26,6 @@
         update member set member_pass = #{memberPass} where member_id = #{memberId}
     </update>
 
-    <select id="selectDuplicationByMemberId" resultType="int">
-        select count(*) from member where member_id = #{memberId}
-    </select>
-
     <select id="getMemberPassByMemberId" parameterType="String" resultType="String">
         select member_pass from member where member_id = #{memberId}
     </select>

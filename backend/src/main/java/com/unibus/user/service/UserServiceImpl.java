@@ -44,11 +44,6 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Boolean checkMemberId(String memberId) {
-        return userMapper.selectDuplicationByMemberId(memberId) == 1 ? false : true;
-    }
-
-    @Override
     public Boolean getMemberPass(String newPass, String memberId) {
 
         String pass = userMapper.getMemberPassByMemberId(memberId);
@@ -60,7 +55,8 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public int join(Member member) {
-        log.info("Member = {}", member);
+
+
         if(isMemberIdDuplicate(member.getMemberId())) {
             member.setMemberRole("ROLE_USER");
             member.setWithdraw(true);
@@ -68,7 +64,6 @@ public class UserServiceImpl implements UserService{
             member.setMemberPass(encoder.encode(member.getMemberPass()));
             member.setMemberBirth(new Date());
 
-            log.info("Member = {}", member);
             return userMapper.save(member);
         }else
             return 0;
@@ -77,8 +72,6 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public boolean isMemberIdDuplicate(String memberId) {
-        log.info("memberId = {}", memberId);
-        log.info("result = {}", userMapper.getMemberByMemberId(memberId));
         return userMapper.getMemberByMemberId(memberId) == null ? true : false;
     }
 
