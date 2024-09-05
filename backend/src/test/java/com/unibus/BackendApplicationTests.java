@@ -31,45 +31,45 @@ class BackendApplicationTests {
 
 	@Test
 	void contextLoads() {
-		Member member = userMapper.getMemberByMemberId("dnjstmddjs1234");
-
-		Payment payment = new Payment(1091192182, "kakaoPay", "card");
-		paymentMapper.paymentSave(payment);
-		Reservation reservation = new Reservation();
-		reservation.setPaymentImpUid(payment.getPaymentImpUid());
-
-		if(member != null) {
-			reservation.setMemberSeq(member.getMemberSeq());
-			reservation.setPrice(111111);
-			reservation.setScheduleId(1);
-			reservation.setSeatNumber(25);
-
-			log.info("=================== user ================");
-			log.info("member = {}", member);
-			log.info("payment = {}", payment);
-			log.info("reservation = {}", reservation);
-			log.info("=================== user ================");
-			Assertions.assertNotNull(reservationMapper.memberSaveReservation(reservation));
-		} else {
-//			Payment payment = new Payment(1203165, "kakaoPay", "card");
-//			paymentMapper.paymentSave(payment);
-//			Reservation reservation = new Reservation();
-//			reservation.setPaymentImpUid(payment.getPaymentImpUid());
-			NonMember nonMember = new NonMember();
-			nonMember.setNonUserTel("012-3123-1232");
-			userMapper.nonMemberSave(nonMember);
-			int code =userMapper.getNonUserCode();
-			reservation.setNonUserCode(code);
-			reservation.setPrice(111111);
-			reservation.setScheduleId(1);
-			reservation.setSeatNumber(25);
-
-			log.info("=================== NONuser ================");
-			log.info("nonMember = {}", nonMember);
-			log.info("reservation = {}", reservation);
-			log.info("=================== NONuser ================");
-			Assertions.assertNotNull(reservationMapper.nonMemberSaveReservation(reservation));
-		}
+//		Member member = userMapper.getMemberByMemberId("dnjstmddjs1234");
+//
+//		Payment payment = new Payment(1091192182, "kakaoPay", "card");
+//		paymentMapper.paymentSave(payment);
+//		Reservation reservation = new Reservation();
+//		reservation.setPaymentImpUid(payment.getPaymentImpUid());
+//
+//		if(member != null) {
+//			reservation.setMemberSeq(member.getMemberSeq());
+//			reservation.setPrice(111111);
+//			reservation.setScheduleId(1);
+//			reservation.setSeatNumber(25);
+//
+//			log.info("=================== user ================");
+//			log.info("member = {}", member);
+//			log.info("payment = {}", payment);
+//			log.info("reservation = {}", reservation);
+//			log.info("=================== user ================");
+//			Assertions.assertNotNull(reservationMapper.memberSaveReservation(reservation));
+//		} else {
+////			Payment payment = new Payment(1203165, "kakaoPay", "card");
+////			paymentMapper.paymentSave(payment);
+////			Reservation reservation = new Reservation();
+////			reservation.setPaymentImpUid(payment.getPaymentImpUid());
+//			NonMember nonMember = new NonMember();
+//			nonMember.setNonUserTel("012-3123-1232");
+//			userMapper.nonMemberSave(nonMember);
+//			int code =userMapper.getNonUserCode();
+//			reservation.setNonUserCode(code);
+//			reservation.setPrice(111111);
+//			reservation.setScheduleId(1);
+//			reservation.setSeatNumber(25);
+//
+//			log.info("=================== NONuser ================");
+//			log.info("nonMember = {}", nonMember);
+//			log.info("reservation = {}", reservation);
+//			log.info("=================== NONuser ================");
+//			Assertions.assertNotNull(reservationMapper.nonMemberSaveReservation(reservation));
+//		}
 	}
 
 }

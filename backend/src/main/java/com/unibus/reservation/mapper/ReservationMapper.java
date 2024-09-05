@@ -4,6 +4,7 @@ import com.unibus.reservation.domain.Reservation;
 import com.unibus.reservation.dto.ReservationSummaryDTO;
 import com.unibus.reservation.dto.ReservationTicketDto;
 import com.unibus.reservation.dto.ScheduleDto;
+import com.unibus.reservation.dto.Ticket;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -25,6 +26,6 @@ public interface ReservationMapper {
     public List<ReservationSummaryDTO> finDetailReservation(String memberId);
 
     public ReservationTicketDto getTicketByScheduleId(int scheduleId) ;
-    public int memberSaveReservation(Reservation reservation);
-    public int nonMemberSaveReservation(Reservation reservation);
+    public int memberSaveReservation(Ticket reservation);
+    public int nonMemberSaveReservation(Ticket reservation);
 }

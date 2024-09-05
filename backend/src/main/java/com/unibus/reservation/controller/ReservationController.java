@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.unibus.config.PrincipalDetail;
 import com.unibus.reservation.domain.Payment;
 import com.unibus.reservation.domain.Reservation;
+import com.unibus.reservation.dto.ReservationListDto;
 import com.unibus.reservation.dto.ReservationSummaryDTO;
 import com.unibus.reservation.dto.ReservationTicketDto;
 import com.unibus.reservation.service.ReservationService;
@@ -52,7 +53,7 @@ public class ReservationController {
 
     @PostMapping("/payment/{user_id}")
     @ResponseBody
-    public ResponseEntity<Boolean> reservationAdd(@PathVariable("user_id") String memberId, @RequestBody ObjectNode saveobj)
+    public ResponseEntity<Reservation> reservationAdd(@PathVariable("user_id") String memberId, @RequestBody ObjectNode saveobj)
             throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         Payment payment = mapper.treeToValue(saveobj.get("payment"), Payment.class);
@@ -67,13 +68,18 @@ public class ReservationController {
             reservation.setNonUserCode(nonMember.getNonUserCode());
             log.info("reservation={}", reservation);
             return reservationService.reservationSave(reservation,memberId,nonMember,payment) == true ?
-                    new ResponseEntity<>(true, HttpStatus.OK) : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+                    new ResponseEntity<>(reservation, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         } else {
             reservation.setMemberSeq(member.getMemberSeq());
             return reservationService.reservationSave(reservation,memberId,nonMember,payment) == true ?
-                    new ResponseEntity<>(true, HttpStatus.OK) : new ResponseEntity<>(false, HttpStatus.BAD_REQUEST);
+                    new ResponseEntity<>(reservation, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         }
 
+    }
+
+    @GetMapping("/payment/finish/{paymentImpUid} ")
+    public ResponseEntity<List<ReservationListDto>> acceptPayment(@PathVariable int paymentImpUid) throws Exception {
+        return null;
     }
     
     // 회원 예약 리스트 이동

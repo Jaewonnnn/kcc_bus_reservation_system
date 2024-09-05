@@ -1,4 +1,4 @@
-package com.unibus.reservation.domain;
+package com.unibus.reservation.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,13 +11,13 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Reservation {
+public class Ticket {
     private int reservationId;
     private int paymentImpUid;
     private int memberSeq;
     private int nonUserCode;
     private int scheduleId;
-    private String seatNumber;
+    private int seatNumber;
     private int price;
     private Date reservationDate;
     private boolean reservationStatus;

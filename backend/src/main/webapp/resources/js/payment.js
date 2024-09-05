@@ -26,6 +26,8 @@ $(document).ready(function () {
                 $('#scheduleStartDate').text(weekText);
                 $('#schedulePrice').text(price);
                 $('#price').text(price);
+                 $('#schedule_id').val(data.scheduleId);
+
         }
     })
 });
@@ -44,36 +46,68 @@ $(function () {
     var seconds = today.getSeconds();  // 초
     var milliseconds = today.getMilliseconds();
     var makeMerchantUid = hours + minutes + seconds + milliseconds;
-
     /** 카카오페이 결제 */
     function kakaoPay() {
         IMP.request_pay({
             pg: 'kakaopay',
             pay_method: 'card',
             merchant_uid: makeMerchantUid,
-            name: '안녕',
-            amount: '20000',
+            name: 'PAYMENT UNIBUS',
+            amount: parseInt($('#price').text().replace(/,/g,'') ,10),
             buyer_email: 'dnjstmddjs12@naver.com',
             buyer_tel: '010-2572-4233',
-            buyer_addr: '경기도',
+            buyer_addr: '경기도 시흥시',
             buyer_name: "원승언"
         }, function (rsp) { // callback
             if (rsp.success) {
-                console.log(rsp);
+                alert(rsp);
                 let msg = "결제가 완료되었습니다.";
-                let result = {
-                    "pg": "rsp.pg",
-                    "pay_method": "rsp.pay_method"
+
+                let count = parseInt($('.count').text());
+                let payment = {
+                    paymentImpUid: makeMerchantUid,
+                    paymentProvider: rsp.pg_provider,
+                    paymentMethod: "card"
+                };
+                console.log(payment);
+
+                let countTicket = $('#seat_number').text().split(",").length;
+
+                let reservation = {
+                    price: rsp.paid_amount / countTicket,
+                    seatNumber : $('#seat_number').text(),
+                    scheduleId : parseInt($('#schedule_id').val())
                 }
-                alert(msg);
+                console.log(reservation);
+
+                let memberId = $('#memberId').val();
+
+                let nonMember = {
+                        nonUserTel : '010-2572-4233'
+                }
+                console.log(nonMember);
+
+                let result = {
+                    payment: payment,
+                    reservation: reservation,
+                    nonMember: nonMember
+                };
+                console.log(result);
+                console.log('result:', JSON.stringify(result));
+
 
                 $.ajax({
-                    url: 'payment.jsp',
-                    type: 'POST',
+                    url: '/check/payment/' + memberId,
+                    method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(result),
-                    success: function (order) {
-                        console.log(order);
+                    success: function (ticket) {
+                            console.log(ticket);
+
+                            location.href = `/check/reservation/finish/` + ticket.paymentImpUid;
+
+
+
                     },
                     error: function (err) {
                         console.log(err);
@@ -89,61 +123,86 @@ $(function () {
 
 
 $(function () {
-    /** 나이스 페이 결제할 때 */
+
+    /** 결제할 때 필요한 요소들 */
+    let IMP = window.IMP;
+    IMP.init("imp16376821");
+
+    let today = new Date();
+    var hours = today.getHours(); // 시
+    var minutes = today.getMinutes();  // 분
+    var seconds = today.getSeconds();  // 초
+    var milliseconds = today.getMilliseconds();
+    var makeMerchantUid = hours + minutes + seconds + milliseconds;
+    /** 일반 결제 */
     function nicePay() {
         IMP.request_pay({
             pg: 'nice',
             pay_method: 'card',
             merchant_uid: makeMerchantUid,
-            name: 'PageFlow 결제',
-            amount: '${cartList[cartList.size()- 1].totalAmount}',
-            buyer_email: '${memberId.memberEmail}',
-            buyer_tel: '${delivery.receiverTel}',
-            buyer_addr: '${delivery.deliveryAddress}',
-            buyer_name : "${memberId.memberName}"
-        }, function(rsp) { // callback
+            name: 'PAYMENT UNIBUS',
+            amount: parseInt($('#price').text().replace(/,/g,'') ,10),
+            buyer_email: 'dnjstmddjs12@naver.com',
+            buyer_tel: '010-2572-4233',
+            buyer_addr: '경기도 시흥시',
+            buyer_name: "원승언"
+        }, function (rsp) { // callback
             if (rsp.success) {
-
                 alert(rsp);
                 let msg = "결제가 완료되었습니다.";
 
+                let count = parseInt($('.count').text());
+                let payment = {
+                    paymentImpUid: makeMerchantUid,
+                    paymentProvider: rsp.pg_provider,
+                    paymentMethod: "card"
+                };
+                console.log(payment);
 
-                let pointUsed = parseInt($('#myNumberInput').val(), 10) || 0;  // 사용한 포인트 금액을 숫자로 변환하고, 값이 없으면 0을 설정합니다.
-                let orderPrice = rsp.paid_amount - pointUsed;  // 주문 금액에서 사용한 포인트 금액을 뺍니다.
-                let result = {
-                    "memberId": "${memberId.memberId}",
-                    "dno": dno,
-                    "orderPrice": orderPrice,  // 최종 결제 금액을 수정합니다.
-                    "pointEarn": 0,
-                    "payment": rsp.pg_provider,
-                    "ordersBuyer": rsp.buyer_name,
-                    "pointUsed": $('#myNumberInput').val()  // 사용자가 입력한 포인트 사용량을 추가합니다.
+                let countTicket = $('#seat_number').text().split(",").length;
+
+                let reservation = {
+                    price: rsp.paid_amount / countTicket,
+                    seatNumber : $('#seat_number').text(),
+                    scheduleId : parseInt($('#schedule_id').val())
                 }
-                alert(msg);
+                console.log(reservation);
+
+                let memberId = $('#memberId').val();
+
+                let nonMember = {
+                    nonUserTel : '010-2572-4233'
+                }
+                console.log(nonMember);
+
+                let result = {
+                    payment: payment,
+                    reservation: reservation,
+                    nonMember: nonMember
+                };
+                console.log(result);
+                console.log('result:', JSON.stringify(result));
 
 
                 $.ajax({
-                    url: '/order',
-                    type: 'POST',
+                    url: '/check/payment/' + memberId,
+                    method: 'POST',
                     contentType: 'application/json',
-                    data: JSON.stringify({
-                        orderPrice: finalPrice,
-                        pointUsed: $('#myNumberInput').val(),
-                        pointEarn: $('#myNumberInput').val() > 0 ? 0 : '${cartList[cartList.size()- 1].totalPointEarnings}'
-                    }),
-                    success: function(order) {
-                        location.replace('/order/success?ono=' + order.ono);
+                    data: JSON.stringify(result),
+                    success: function (order) {
+                        console.log(order);
                     },
-                    error: function(err){
+                    error: function (err) {
                         console.log(err);
                     }
                 })
 
+
             }
         });
-
     }
     $('#nicePayment').on('click', nicePay);
+
 })
 
 

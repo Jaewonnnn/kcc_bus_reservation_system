@@ -19,7 +19,6 @@ public class ScheduleDto {
     private String scheduleStartTime;
     private String scheduleEndTime;
     private int schedulePrice;
-
     private String companyName;
     private String gradeName;
 

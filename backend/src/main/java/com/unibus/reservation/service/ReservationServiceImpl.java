@@ -3,6 +3,7 @@ package com.unibus.reservation.service;
 import com.unibus.reservation.domain.Payment;
 import com.unibus.reservation.domain.Reservation;
 import com.unibus.reservation.dto.ReservationTicketDto;
+import com.unibus.reservation.dto.Ticket;
 import com.unibus.reservation.mapper.PaymentMapper;
 import com.unibus.reservation.mapper.ReservationMapper;
 import com.unibus.user.domain.Member;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -67,26 +69,47 @@ public class ReservationServiceImpl implements ReservationService{
         Member member = userMapper.getMemberByMemberId(memberId);
         paymentMapper.paymentSave(payment);
         reservation.setPaymentImpUid(payment.getPaymentImpUid());
-        if (member == null) {
-            userMapper.nonMemberSave(nonmember);
-            int code = userMapper.getNonUserCode();
-            reservation.setNonUserCode(code);
-            int result = reservationMapper.nonMemberSaveReservation(reservation);
-            if (result > 0) {
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            reservation.setMemberSeq(member.getMemberSeq());
-            int result = reservationMapper.memberSaveReservation(reservation);
-            if(result > 0) {
-                return true;
-            } else {
-                return false;
-            }
+        String[] seat = reservation.getSeatNumber().split(","); // 71025
+        List<Integer> seatList = new ArrayList<>();
+
+        boolean flag = false;
+
+        for(String seatNum : seat){
+            seatList.add(Integer.parseInt(seatNum.trim()));
         }
+
+        Ticket ticket =new Ticket();
+        for (int i : seatList){
+            ticket.setReservationId(reservation.getReservationId());
+            ticket.setPaymentImpUid(payment.getPaymentImpUid());
+            ticket.setScheduleId(reservation.getScheduleId());
+            ticket.setSeatNumber(i);
+            ticket.setPrice(reservation.getPrice());
+
+
+
+            if (member == null) {
+                userMapper.nonMemberSave(nonmember);
+                int code = userMapper.getNonUserCode();
+                ticket.setNonUserCode(code);
+                int result = reservationMapper.nonMemberSaveReservation(ticket);
+                if (result > 0) {
+                    flag = true;
+                } else {
+                    return false;
+                }
+            } else {
+                ticket.setMemberSeq(member.getMemberSeq());
+                int result = reservationMapper.memberSaveReservation(ticket);
+                if (result > 0) {
+                    flag = true;
+                } else {
+                    return false;
+                }
+
+            }
+
+        }
+        return flag;
     }
-
-
 }
