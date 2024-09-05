@@ -139,3 +139,15 @@ body{
 #second_card {
   height: auto;
 }
+
+.table {
+  font : 600 18px "Nato Sans KR";
+}
+
+.table tr {
+  height: 70px;
+}
+
+.table tr td, .table tr th {
+  vertical-align: middle;
+}

@@ -1,11 +1,15 @@
 package com.unibus.user.controller;
 
 import com.unibus.config.PrincipalDetail;
+import com.unibus.reservation.dto.ReservationSummaryDTO;
+import com.unibus.reservation.service.ReservationService;
 import com.unibus.user.domain.Member;
 import com.unibus.user.dto.ValidPassword;
 import com.unibus.user.service.UserService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.servlet.server.Session;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -13,6 +17,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -22,10 +28,13 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
     private final UserService userService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ReservationService reservationService;
 
     @GetMapping("/mypage")
     public String mypage(Model model, @AuthenticationPrincipal PrincipalDetail principalDetail) {
         Member member = userService.userInfo(principalDetail.getUsername());
+        List<ReservationSummaryDTO> dto = reservationService.findReservationsByMember(principalDetail.getUsername());
+        model.addAttribute("reservation", dto);
         model.addAttribute("member", member);
         return "mypage";
     }

@@ -23,7 +23,7 @@
     <user-header-component></user-header-component>
     <div id="reservation_detail_wrap">
       <div id="main_reservation_bar">
-        ${schedules}
+
         <ul id="main_reservation_bar">
           <li class="selector">
             <div class="main_reservation_bar_box"><i class="fa-solid fa-check"></i></div>

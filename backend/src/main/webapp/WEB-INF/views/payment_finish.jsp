@@ -1,4 +1,11 @@
+<%@ page import="com.unibus.config.PrincipalDetail" %>
+<%@ page import="org.springframework.security.authentication.AnonymousAuthenticationToken" %>
+<%@ page import="org.springframework.security.core.Authentication" %>
+<%@ page import="org.springframework.security.core.context.SecurityContextHolder" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -34,6 +41,7 @@
   </head>
   <body>
     <admin-header-component></admin-header-component>
+    ${reservation}
     <div id="body_wrap">
       <!-- 탑 카드 영역 -->
       <section id="admin_info">
@@ -61,37 +69,59 @@
         <div class="payment-card-body">
           <div style="display: flex;justify-content: space-between;">
             <h1 style="margin-left: 45px">예매완료</h1>
-            <button class="button2" style="margin-right: 3%;">예매 확인</button>
+            <c:if test="${!username.equals('Guest')}">
+              <button class="button2" style="margin-right: 3%;" onclick="location.href='/user/mypage'">예매 확인</button>
+            </c:if>
+            <c:if test="${username.equals('Guest')}">
+              <button class="button2" style="margin-right: 3%;" onclick="location.href='/nonuser/mypage'">예매 확인</button>
+            </c:if>
           </div>
           <p style="padding: 35px 0px 20px 77px">승차권 정보</p>
           <div>
-            <div class="payment-body-card-top">2024. 09. 10 화</div>
+            <div class="payment-body-card-top" id="reservationStartDate">${r.reservationStartDate}</div>
             <div class="payment-body-card-body" style="display: flex">
               <div class="payment-body-card-body-left">
-                <div>
-                  <img src="/resources/img/start_end.png" alt="" />
+                <div id="reservation_course_info_wrap1">
+                  <div class="reservation_course_icon">
+                    <p>출발</p>
+                  </div>
+                  <div id="reservation_course_line">
+
+                  </div>
+                  <div class="reservation_course_icon">
+                    <p>도착</p>
+                  </div>
                 </div>
                 <div class="payment-left-location">
-                  <h1>동서울</h1>
-                  <h1>부산</h1>
+                  <h1 id="startTerminal">${r.startTerminal}</h1>
+                  <h1 id="endTerminal">${r.endTerminal}</h1>
                 </div>
               </div>
               <div class="payment-body-card-body-right">
                 <div>
                   <span>고속사</span>
-                  <p>(주)중앙고속</p>
+                  <p id="companyName">${r.companyName}</p>
                 </div>
                 <div>
                   <span>등급</span>
-                  <p>우등</p>
+                  <p id="busGradeName">${r.busGradeName}</p>
                 </div>
                 <div>
                   <span>매수</span>
-                  <p>일반 1명</p>
+                  <p><span id="ticketCount">${r.ticketCount}</span>명</p>
                 </div>
                 <div>
                   <span>좌석번호</span>
-                  <p>7</p>
+                  <p id="seatNumber">
+                    <c:forEach var="num" items="${r.seatNumber}" varStatus="status">
+                      ${num}<c:if test="${!status.last}"> ,</c:if>
+                    </c:forEach>
+                  </p>
+
+                </div>
+                <div>
+                  <span>결제 금액</span>
+                  <p id="totalPrice"><fmt:formatNumber value="${r.totalPrice}" pattern="#,##0"></fmt:formatNumber> 원</p>
                 </div>
               </div>
             </div>
@@ -100,10 +130,23 @@
         </div>
       </section>
     </div>
-
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script src="/resources/js/payment_finish.js"></script>
     <script src="/resources/js/admin_header.js"></script>
+    <%
+      Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+      String username = "Guest"; // 기본값을 Guest로 설정
+
+      if (authentication != null && authentication.isAuthenticated() && !(authentication instanceof AnonymousAuthenticationToken)) {
+        // 로그인된 사용자 처리
+        PrincipalDetail userDetails = (PrincipalDetail) authentication.getPrincipal();
+        username = userDetails.getUsername();
+      }
+    %>
+    <div class="hidden">
+      <input type="hidden" value="<%=username%>" id="memberId">
+    </div>
+
   </body>
 </html>

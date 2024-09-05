@@ -69,10 +69,10 @@ public class ScheduleController {
             jsonBuilder.append("\"companyName\":\"").append(schedule.getCompanyName()).append("\",");
             jsonBuilder.append("\"gradeName\":\"").append(schedule.getGradeName()).append("\",");
             if (!seatNumbers.isEmpty()){
-                log.info("오긴함?");
+
                 jsonBuilder.append("\"seatCount\":\"").append(seatNumbers.size()).append("\"");
             }else {
-                log.info("zz");
+
                 jsonBuilder.append("\"seatCount\":\"").append("0").append("\"");
             }
             jsonBuilder.append("}");

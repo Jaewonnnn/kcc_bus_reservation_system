@@ -52,7 +52,7 @@
     <user-header-component> </user-header-component>
     <section id="admin_all">
       <div class="header_area container mb-4 pt-5">
-        <h3 class="header_text ms-3">마이페이지</h3>
+        <h3 class="header_text ms-3">승차권 정보</h3>
       </div>
 
       <div class="container">
@@ -71,16 +71,10 @@
                       width="110"
                     />
                     <div class="mt-1 profile_btn_area">
-                      <h4 class="mt-2 mb-0">원승언</h4>
-                      <p>dnjstmddjs12@naver.com</p>
-                      <button class="btn_mypage fs-5 text-center mt-3 mb-3">
+                      <h4 class="mt-2 mb-0">${member.memberName}</h4>
+                      <p>${member.memberEmail}</p>
+                      <button class="btn_mypage fs-5 text-center mt-3 mb-3" onclick="location.href='/user/mypage'">
                         마이페이지
-                      </button>
-                      <button class="btn_edit_member text-center fs-5 mb-3">
-                        회원정보수정
-                      </button>
-                      <button class="btn_delete_member text-center fs-5">
-                        회원탈퇴
                       </button>
                     </div>
                   </div>
@@ -167,19 +161,19 @@
                 </tr>
                 <tr>
                   <td class="text-left">도착지</td>
-                  <td class="text-end" id="endTerminalName">부산</td>
+                  <td class="text-end" id="endTerminalName"></td>
                 </tr>
                 <tr>
                   <td class="text-left">출발시간</td>
-                  <td class="text-end" id="startTime">12:30</td>
+                  <td class="text-end" id="startTime"></td>
                 </tr>
                 <tr>
                   <td class="text-left">매수</td>
-                  <td class="text-end" id="dataLength">2매</td>
+                  <td class="text-end" id="dataLength"></td>
                 </tr>
                 <tr>
                   <td class="text-left">좌석번호</td>
-                  <td class="text-end" id="seatNumber">21석, 22석</td>
+                  <td class="text-end" id="seatNumber"></td>
                 </tr>
                 <tr>
                   <td class="text-left">금액</td>
@@ -190,8 +184,8 @@
           </div>
         </div>
       </div>
-    </div>        
-     
+    </div>
+
 
   
 
