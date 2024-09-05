@@ -5,7 +5,7 @@
 
 <mapper namespace="com.unibus.reservation.mapper.ReservationMapper">
 
-    <resultMap id="BoardTicket" type="ScheduleDto">
+    <resultMap id="BoardTicket" type="com.unibus.reservation.dto.ReservationTicketDto">
         <id column="schedule_id" property="scheduleId"/>
         <result column="bus_id" property="busId"/>
         <result column="route_id" property="routeId"/>
@@ -176,7 +176,18 @@
             select reservation_seq.nextval from dual
         </selectKey>
         INSERT INTO reservation values(
-        #{reservationId}, #{paymentId}
+            #{reservationId}, #{paymentImpUid}, #{memberSeq}, null, #{scheduleId},
+            #{seatNumber}, #{price}, sysdate, 1
+        )
+    </insert>
+
+    <insert id="nonMemberSaveReservation">
+        <selectKey order="BEFORE" resultType="int" keyProperty="reservationId">
+            select reservation_seq.nextval from dual
+        </selectKey>
+        INSERT INTO reservation values(
+        #{reservationId}, #{paymentImpUid}, null, #{nonUserCode}, #{scheduleId},
+        #{seatNumber}, #{price}, sysdate, 1
         )
     </insert>
 

@@ -1,13 +1,26 @@
 package com.unibus.reservation.controller;
 
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.unibus.config.PrincipalDetail;
+import com.unibus.reservation.domain.Payment;
 import com.unibus.reservation.domain.Reservation;
+import com.unibus.reservation.dto.ReservationListDto;
 import com.unibus.reservation.dto.ReservationSummaryDTO;
-import com.unibus.reservation.dto.ScheduleDto;
+import com.unibus.reservation.dto.ReservationTicketDto;
 import com.unibus.reservation.service.ReservationService;
-import lombok.AllArgsConstructor;
+import com.unibus.user.domain.Member;
+import com.unibus.user.domain.NonMember;
+import com.unibus.user.service.UserService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +28,60 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/check")
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Slf4j
+@RequestMapping("/check")
 public class ReservationController {
 
-    private ReservationService reservationService;
+    private final ReservationService reservationService;
+    private final UserService userService;
 
+    @GetMapping("/payment")
+    public String payment(Model model) {
+        return "payment";
+    }
+
+
+    @GetMapping("/{schedule_id}")
+    @ResponseBody
+    public ResponseEntity<ReservationTicketDto> getReservation(@PathVariable("schedule_id") int scheduleId) {
+        ReservationTicketDto dto = reservationService.getTicket(scheduleId);
+        return dto == null ? new ResponseEntity<>(null, HttpStatus.NOT_FOUND)
+                : new ResponseEntity<>(dto, HttpStatus.OK);
+    }
+
+
+    @PostMapping("/payment/{user_id}")
+    @ResponseBody
+    public ResponseEntity<Reservation> reservationAdd(@PathVariable("user_id") String memberId, @RequestBody ObjectNode saveobj)
+            throws Exception {
+        ObjectMapper mapper = new ObjectMapper();
+        Payment payment = mapper.treeToValue(saveobj.get("payment"), Payment.class);
+        Reservation reservation = mapper.treeToValue(saveobj.get("reservation"), Reservation.class);
+        NonMember nonMember = mapper.treeToValue(saveobj.get("nonMember"), NonMember.class);
+        Member member = userService.userInfo(memberId);
+
+        if(member == null){
+            log.info("nonMember ={}", nonMember);
+            log.info("memberId={}", memberId);
+            userService.nonUserSave(nonMember);
+            reservation.setNonUserCode(nonMember.getNonUserCode());
+            log.info("reservation={}", reservation);
+            return reservationService.reservationSave(reservation,memberId,nonMember,payment) == true ?
+                    new ResponseEntity<>(reservation, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        } else {
+            reservation.setMemberSeq(member.getMemberSeq());
+            return reservationService.reservationSave(reservation,memberId,nonMember,payment) == true ?
+                    new ResponseEntity<>(reservation, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+
+    }
+
+    @GetMapping("/payment/finish/{paymentImpUid} ")
+    public ResponseEntity<List<ReservationListDto>> acceptPayment(@PathVariable int paymentImpUid) throws Exception {
+        return null;
+    }
+    
     // 회원 예약 리스트 이동
     @GetMapping("/reservation/{user_id}")
     public String bookingHistory (@PathVariable String user_id, Model model) {
@@ -67,16 +127,6 @@ public class ReservationController {
         return reservationService. finDetailReservation(reservation_id);
     }
 
-    @GetMapping("/payment")
-    public String payment(Model model) {
-        return "payment";
-    }
 
-    @GetMapping("/{schedule_id}")
-    @ResponseBody
-    public ResponseEntity<ScheduleDto> getReservation(@PathVariable("schedule_id") int scheduleId) {
-        ScheduleDto dto = reservationService.getTicket(scheduleId);
-        return dto == null ? new ResponseEntity<>(null, HttpStatus.NOT_FOUND)
-                : new ResponseEntity<>(dto, HttpStatus.OK);
-    }
+    
 }

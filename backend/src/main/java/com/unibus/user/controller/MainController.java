@@ -1,6 +1,7 @@
 package com.unibus.user.controller;
 
 import com.unibus.user.domain.Member;
+import com.unibus.user.domain.NonMember;
 import com.unibus.user.mapper.UserMapper;
 import com.unibus.user.service.UserService;
 import lombok.RequiredArgsConstructor;

@@ -178,7 +178,6 @@ section#admin_info {
 .payment-info #toxx {
   width: 300px;
   height: 80px;
-  padding-top: 12%;
 }
 
 .payment-info-card > .card-img > div {
@@ -189,11 +188,17 @@ section#admin_info {
   text-align: center;
   border: 1px solid #eee;
   border-radius: 8px;
+  justify-content: center;
 }
 
 .card-img {
   display: flex;
   justify-content: space-around;
+}
+
+.card-img div:first-child {
+  display: flex;
+  align-items: center;
 }
 .card-type {
   width: 81%;
@@ -326,6 +331,11 @@ select {
   text-align: center;
 }
 
-#kakaoPayment :hover {
+#kakaoPayment :hover, #nicePayment:hover {
   cursor: pointer;
+}
+
+
+#nicePayment {
+  font : 700 25px "Nato Sans KR";
 }

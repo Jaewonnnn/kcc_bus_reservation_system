@@ -1,6 +1,7 @@
 package com.unibus.user.service;
 
 import com.unibus.user.domain.Member;
+import com.unibus.user.domain.NonMember;
 import com.unibus.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -79,6 +80,11 @@ public class UserServiceImpl implements UserService{
         log.info("memberId = {}", memberId);
         log.info("result = {}", userMapper.getMemberByMemberId(memberId));
         return userMapper.getMemberByMemberId(memberId) == null ? true : false;
+    }
+
+    @Override
+    public Boolean nonUserSave(NonMember nonMember) {
+        return userMapper.nonMemberSave(nonMember) > 0 ? true : false;
     }
 
     @Override
