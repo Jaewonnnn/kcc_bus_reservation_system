@@ -13,10 +13,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -198,10 +197,53 @@ public class AdminServiceImpl implements AdminService{
         Integer busId = adminMapper.getBusId(adminScheduleDto.getBusNumber());
         String price = adminScheduleDto.getPrice();
 
+        // 현재 날짜
+        LocalDateTime now = LocalDateTime.now();
+        now = now.withHour(Integer.parseInt(adminScheduleDto.getDepartureTime().substring(0, 2)))
+                .withMinute(Integer.parseInt(adminScheduleDto.getDepartureTime().substring(3)));
+
+        int requiredHour = Integer.parseInt(adminScheduleDto.getDepartureTime().substring(0,2))
+        - Integer.parseInt(adminScheduleDto.getArrivalTime().substring(0,2));
+
+        int requiredMinute = Integer.parseInt(adminScheduleDto.getDepartureTime().substring(3))
+                - Integer.parseInt(adminScheduleDto.getArrivalTime().substring(3));
+
+        if(requiredMinute < 0){
+            requiredMinute += 60;
+            if(requiredHour > 0)
+                requiredHour -= 1;
+        }
+
+        // 한 달 뒤 날짜
+        LocalDateTime oneMonthLater = now.plusMonths(1);
+
+        // 날짜 수 계산 (현재 날짜 포함)
+        int daysBetween = (int) (oneMonthLater.toLocalDate().toEpochDay() - now.toLocalDate().toEpochDay()) + 1;
+
+        // LocalDateTime 배열 생성
+        LocalDateTime[] dateTimeArray = new LocalDateTime[daysBetween];
+
+        // 배열에 날짜 저장
+        for (int i = 0; i < daysBetween; i++) {
+            dateTimeArray[i] = now.plusDays(i);
+        }
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+
+        CreateScheduleDto createScheduleDto = new CreateScheduleDto();
+        createScheduleDto.setRouteId(routeId);
+        createScheduleDto.setBusId(busId);
+        createScheduleDto.setPrice(price);
+        for(LocalDateTime dateTime : dateTimeArray) {
+            createScheduleDto.setStartTime(dateTime.format(formatter));
+            createScheduleDto.setEndTime(dateTime.plusHours(requiredHour).plusMinutes(requiredMinute).format(formatter));
+            scheduleList.add(createScheduleDto);
+            adminMapper.createSchedule(createScheduleDto);
+        }
+
         return 0;
     }
-
-
+    
 
     @Override
     public List<BusDto> getBusList() {

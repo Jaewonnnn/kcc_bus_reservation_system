@@ -167,10 +167,8 @@
 
     <insert id="createSchedule" parameterType="CreateScheduleDto">
         INSERT INTO schedule (SCHEDULE_ID, BUS_ID, ROUTE_ID, SCHEDULE_START_TIME, SCHEDULE_END_TIME, SCHEDULE_PRICE, SCHEDULE_STATUS)
-        VALUES (schedule_seq.nextval, #{busId}, #{routeId}, TO_DATE(#{startTime}, 'YYYY-MM-DD HH24:MI:SS'), TO_DATE(#{endTime}, 'YYYY-MM-DD HH24:MI:SS'), #{price}, 1)
+        VALUES (schedule_seq.nextval, #{busId}, #{routeId}, TO_DATE(#{startTime}, 'YYYY-MM-DD HH24:MI'), TO_DATE(#{endTime}, 'YYYY-MM-DD HH24:MI'), #{price}, 1)
     </insert>
-
-
 
 
     <select id="getRouteById" parameterType="String" resultType="RouteDto">
