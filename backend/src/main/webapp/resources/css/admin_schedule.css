@@ -202,4 +202,6 @@ input:focus{
   border-color: #ffffff !important;
 }
 
-
+table tr:hover{
+  background-color: #bdc3c7; !important;
+}

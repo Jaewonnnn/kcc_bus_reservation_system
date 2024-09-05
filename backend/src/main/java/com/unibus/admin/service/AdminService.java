@@ -50,11 +50,13 @@ public interface AdminService {
 
     public int deleteRoute(String routeId);
 
-    public List<AdminScheduleDto> getScheduleList();
+    public List<SchedulePageDto> getScheduleList();
 
-    public AdminScheduleDto getScheduleById(int scheduleId);
+    public SchedulePageDto getScheduleById(int scheduleId);
 
     public int createSchedule(AdminScheduleDto adminScheduleDto);
 
     public List<BusDto> getBusList();
+
+    public int deleteSchedule(int scheduleId);
 }

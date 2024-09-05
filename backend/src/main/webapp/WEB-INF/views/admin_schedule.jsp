@@ -53,7 +53,7 @@
     <title>Document</title>
 </head>
 <body>
-<!-- 수정 모달 -->
+<!-- 등록 모달 -->
 <div
         class="modal fade"
         id="staticBackdrop"
@@ -73,24 +73,10 @@
                 >
                     배차 정보 수정
                 </h1>
-                <button
-                        type="button"
-                        class="btn-primary"
-                        style="
-                width: 5rem;
-                height: 2rem;
-                background-color: #dc2e2e;
-                border: none;
-                border-radius: 0.25rem;
-              "
-                        data-bs-dismiss="modal"
-                >
-                    배차 삭제
-                </button>
+
             </div>
             <div class="modal-body">
                 <label
-                        for="exampleFormControlInput1"
                         class="form-label"
                         style="
                 font: 750 14px Noto sans KR;
@@ -122,7 +108,6 @@
             </div>
             <div class="modal-body" style="padding: 0rem 1rem 1rem 1rem">
                 <label
-                        for="exampleFormControlInput2"
                         class="form-label"
                         style="
                 font: 750 14px Noto sans KR;
@@ -151,7 +136,6 @@
             </div>
             <div class="modal-body">
                 <label
-                        for="exampleFormControlInput3"
                         class="form-label"
                         style="
                 font: 750 14px Noto sans KR;
@@ -222,7 +206,6 @@
             </div>
             <div class="modal-body">
                 <label
-                        for="exampleFormControlInput4"
                         class="form-label"
                         style="
                 font: 750 14px Noto sans KR;
@@ -292,7 +275,7 @@
                 </div>
             </div>
             <div class="modal-body">
-                <label for="exampleFormControlInput5" class="form-label" style="font: 750 14px Noto sans KR; margin: 0px 0px 10px 10px; color: #5c5c5c;">
+                <label class="form-label" style="font: 750 14px Noto sans KR; margin: 0px 0px 10px 10px; color: #5c5c5c;">
                     운송회사
                 </label>
                 <div class="input-group mb-3" style="display: flex; align-items: center">
@@ -309,7 +292,6 @@
             </div>
             <div class="modal-body">
                 <label
-                        for="exampleFormControlInput1"
                         class="form-label"
                         style="
                 font: 750 14px Noto sans KR;
@@ -324,6 +306,278 @@
                             type="text"
                             class="form-control"
                             id="floatingInputPrice"
+                            placeholder="가격을 입력해주세요."
+                            style="
+                  background-color: #f4f4f4;
+                  border: none;
+                  border-radius: 10px;
+                  padding: 0rem, 1rem;
+                  font: 600 15px Noto sans KR;
+                  height: 5vh;
+                "
+                    />
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button
+                        type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal"
+                >
+                    취소
+                </button>
+                <button
+                        type="button"
+                        class="btn btn-primary"
+                        style="background-color: #212954"
+                        data-bs-dismiss="modal"
+                        onclick="submitFormData()"
+                >
+                    저장
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 수정 모달 -->
+<div
+        class="modal fade"
+        id="staticBackdrop-2"
+        data-bs-backdrop="static"
+        data-bs-keyboard="false"
+        tabindex="-1"
+        aria-labelledby="staticBackdropLabel"
+        aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1
+                        class="modal-title fs-5"
+                        id="staticBackdropLabel2"
+                        style="font: 900 15px Noto sans KR; color: black"
+                >
+                    배차 정보 수정
+                </h1>
+                <button
+                        type="button"
+                        class="btn-primary"
+                        style="
+                width: 5rem;
+                height: 2rem;
+                background-color: #dc2e2e;
+                border: none;
+                border-radius: 0.25rem;"
+                data-bs-dismiss="modal"
+                onclick="deleteSchedule()"
+                >
+                    배차 삭제
+                </button>
+            </div>
+            <div class="modal-body">
+                <label
+                        class="form-label"
+                        style="
+                font: 750 14px Noto sans KR;
+                margin: 0px 0px 10px 10px;
+                color: #5c5c5c;
+              "
+                >
+                    노선 선택
+                </label>
+                <div class="input-group mb-3">
+                    <select
+                            class="form-select"
+                            id="updateGroupSelectRoute"
+                            style="
+                  background-color: #f4f4f4;
+                  border: none;
+                  border-radius: 10px;
+                  padding: 0rem, 1rem;
+                  font: 600 15px Noto sans KR;
+                  height: 5vh;
+                "
+                    >
+                        <c:forEach var="item" items="${routeList}">
+                            <option selected>${item.routeStartTerminal.terminalName}
+                                -> ${item.routeEndTerminal.terminalName}</option>
+                        </c:forEach>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-body">
+                <label
+                        class="form-label"
+                        style="
+                font: 750 14px Noto sans KR;
+                margin: 0px 0px 0px 10px;
+                color: #5c5c5c;
+              "
+                >
+                    출발 시간
+                </label>
+                <div
+                        class="input-group mb-3"
+                        style="display: flex; align-items: center"
+                >
+                    <select
+                            id="startTimeSelecter"
+                            class="form-select"
+                            style="
+                  background-color: #f4f4f4;
+                  border: none;
+                  border-radius: 10px;
+                  padding: 0rem, 1rem;
+                  font: 600 15px Noto sans KR;
+                  height: 5vh;
+                "
+                    >
+                        <option selected>00</option>
+                        <option>01</option>
+                        <option>02</option>
+                        <option>03</option>
+                        <option>04</option>
+                        <option>05</option>
+                        <option>06</option>
+                        <option>07</option>
+                        <option>08</option>
+                        <option>09</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                        <option>21</option>
+                        <option>22</option>
+                        <option>23</option>
+                    </select>
+                    <div class="form-floating" style="margin-left: 10px">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="floatingUpdateDepature"
+                                placeholder="00"
+                                style="
+                    background-color: #f4f4f4;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 0rem, 1rem;
+                    font: 600 15px Noto sans KR;
+                    height: 5vh;
+                  "
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <label
+                        class="form-label"
+                        style="
+                font: 750 14px Noto sans KR;
+                margin: 0px 0px 10px 10px;
+                color: #5c5c5c;
+              "
+                >
+                    도착 시간
+                </label>
+                <div
+                        class="input-group mb-3"
+                        style="display: flex; align-items: center"
+                >
+                    <select
+                            class="form-select"
+                            id="endTimeSelecter"
+                            style="
+                  background-color: #f4f4f4;
+                  border: none;
+                  border-radius: 10px;
+                  padding: 0rem, 1rem;
+                  font: 600 15px Noto sans KR;
+                  height: 5vh;
+                "
+                    >
+                        <option selected>00</option>
+                        <option selected>01</option>
+                        <option selected>02</option>
+                        <option selected>03</option>
+                        <option selected>04</option>
+                        <option selected>05</option>
+                        <option selected>06</option>
+                        <option selected>07</option>
+                        <option selected>08</option>
+                        <option selected>09</option>
+                        <option selected>10</option>
+                        <option selected>11</option>
+                        <option selected>12</option>
+                        <option selected>13</option>
+                        <option selected>14</option>
+                        <option selected>15</option>
+                        <option selected>16</option>
+                        <option selected>17</option>
+                        <option selected>18</option>
+                        <option selected>19</option>
+                        <option selected>20</option>
+                        <option selected>21</option>
+                        <option selected>22</option>
+                        <option selected>23</option>
+                    </select>
+                    <div class="form-floating" style="margin-left: 10px">
+                        <input
+                                type="text"
+                                class="form-control"
+                                id="floatingUpdateArrival"
+                                placeholder="00"
+                                style="
+                    background-color: #f4f4f4;
+                    border: none;
+                    border-radius: 10px;
+                    padding: 0rem, 1rem;
+                    font: 600 15px Noto sans KR;
+                    height: 5vh;
+                  "
+                        />
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <label class="form-label" style="font: 750 14px Noto sans KR; margin: 0px 0px 10px 10px; color: #5c5c5c;">
+                    운송회사
+                </label>
+                <div class="input-group mb-3" style="display: flex; align-items: center">
+                    <select class="form-select" id="companySelect-1" style="background-color: #f4f4f4; border: none; border-radius: 10px; padding: 0rem, 1rem; margin-right: 1rem; font: 600 15px Noto sans KR; height: 5vh;">
+                        <option value="">운송 회사</option>
+                        <c:forEach var="item" items="${companyList}">
+                            <option value="${item.companyName}">${item.companyName}</option>
+                        </c:forEach>
+                    </select>
+                    <select class="form-select" id="busSelect-1" style="background-color: #f4f4f4; border: none; border-radius: 10px; padding: 0rem, 1rem; font: 600 15px Noto sans KR; height: 5vh;">
+                        <option value="">버스 번호</option>
+                    </select>
+                </div>
+            </div>
+            <div class="modal-body">
+                <label
+                        class="form-label"
+                        style="
+                font: 750 14px Noto sans KR;
+                margin: 0px 0px 10px 10px;
+                color: #5c5c5c;
+              "
+                >
+                    가격
+                </label>
+                <div class="form-floating">
+                    <input
+                            type="text"
+                            class="form-control"
+                            id="floatingUpdatePrice"
                             placeholder="가격을 입력해주세요."
                             style="
                   background-color: #f4f4f4;
@@ -441,10 +695,7 @@
                                                                 class="form-control form-input"
                                                                 placeholder="배차ID를 입력해주세요"
                                                                 id="search-box"
-                                                                style="
-                                    background-color: #f9fafc;
-                                    font: 500 13px Noto Sans KR;
-                                  "
+                                                                style=" background-color: #f9fafc; font: 500 13px Noto Sans KR;"
                                                         />
                                                     </div>
                                                 </div>
@@ -452,54 +703,58 @@
                                         </div>
                                         <div class="table-responsive mt-4">
                                             <table class="table table-hover align-middle">
-                                                <caption></caption>
-                                                <thead id="table-title">
+                                                <thead id="table-head">
                                                 <tr>
-                                                    <th scope="col" id="schedule-id">
+                                                    <th scope="col" id="route-id" class="col-md-1">
+                                                        노선ID&nbsp;&nbsp;<i class="fas fa-sort"></i>
+                                                    </th>
+                                                    <th scope="col" id="schedule-id" class="col-md-2">
                                                         배차ID&nbsp;&nbsp;<i class="fas fa-sort"></i>
                                                     </th>
-                                                    <th scope="col" id="schedule-start-location">
+                                                    <th scope="col" id="schedule-start-location" class="col-md-2">
                                                         출발지&nbsp;&nbsp;<i class="fas fa-sort"></i>
                                                     </th>
-                                                    <th scope="col" id="schedule-end-location">
+                                                    <th scope="col" id="schedule-end-location" class="col-md-2">
                                                         도착지&nbsp;&nbsp;<i class="fas fa-sort"></i>
                                                     </th>
-                                                    <th scope="col" id="schedule-required-time">
-                                                        소요시간&nbsp;&nbsp;<i class="fas fa-sort"></i>
+                                                    <th scope="col" id="schedule-departure-time" class="col-md-2">
+                                                        출발 시간&nbsp;&nbsp;<i class="fas fa-sort"></i>
                                                     </th>
-                                                    <th scope="col" id="schedule-price">
+                                                    <th scope="col" id="schedule-arrival-time" class="col-md-2">
+                                                        도착 시간&nbsp;&nbsp;<i class="fas fa-sort"></i>
+                                                    </th>
+                                                    <th scope="col" id="schedule-price" class="col-md-1">
                                                         가격&nbsp;&nbsp;<i class="fas fa-sort"></i>
                                                     </th>
-                                                    <th scope="col" id="schedule-detail"></th>
+                                                    <th scope="col" id="schedule-detail" ></th>
                                                 </tr>
-                                                <tr>
-                                                    <c:forEach var="item" items="${scheduleList}">
+                                                </thead>
 
-                                                    </c:forEach>
-                                                    <td id="user-id">NAEK010</td>
-                                                    <td>동서울</td>
-                                                    <td>부산</td>
-                                                    <td>4시간 30분</td>
-                                                    <td>25,000원</td>
+                                            <tbody id="table-body">
+                                            <c:forEach var="item" items="${scheduleList}">
+                                                <tr>
+                                                    <td id="schedule-id-value" >${item.scheduleId}</td>
+                                                    <td id="user-id">${item.routeId}</td>
+                                                    <td>${item.startName}</td>
+                                                    <td>${item.endName}</td>
+                                                    <td>${item.departureTime}</td>
+                                                    <td>${item.arrivalTime}</td>
+                                                    <td>${item.price}</td>
                                                     <td>
                                                         <button
                                                                 type="button"
                                                                 class="btn btn-primary"
                                                                 data-bs-toggle="modal"
                                                                 data-bs-target="#staticBackdrop-2"
-                                                                style="
-                                      background-color: #212954 !important;
-                                      font: 400 20px Noto Sans KR;
-                                      color: #f9fafc !important;
-                                      width: 50px;
-                                    "
+                                                                style="background-color: #212954 !important; font: 400 20px Noto Sans KR; color: #f9fafc !important; width: 50px;"
+                                                                onclick="getFormData(this)"
                                                         >
                                                             수정
                                                         </button>
                                                     </td>
                                                 </tr>
-                                                </thead>
-                                                <tbody id="table-body"></tbody>
+                                            </c:forEach>
+                                            </tbody>
                                             </table>
                                             <div id="page">
                                                 <ul class="pagination">
@@ -549,6 +804,21 @@
             });
         }
     });
+    document.getElementById('companySelect-1').addEventListener('change', function() {
+        const selectedCompany = this.value;
+        const busSelect = document.getElementById('busSelect-1');
+
+        busSelect.innerHTML = '<option value="">버스 번호</option>';
+
+        if (busData[selectedCompany]) {
+            busData[selectedCompany].forEach(function(busNumber) {
+                const option = document.createElement('option');
+                option.value = busNumber;
+                option.textContent = busNumber;
+                busSelect.appendChild(option);
+            });
+        }
+    });
 </script>
 
 <script
@@ -560,5 +830,6 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="../../resources/js/admin_header.js"></script>
 <script src="../../resources/js/admin_schedule.js"></script>
+<script src="../../resources/js/admin_paging.js"></script>
 </body>
 </html>

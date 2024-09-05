@@ -171,7 +171,8 @@ public class AdminController {
 
     @GetMapping("/schedule/{scheduleId}")
     @ResponseBody
-    public AdminScheduleDto getScheduleById(@PathVariable int scheduleId){
+    public SchedulePageDto getScheduleById(@PathVariable int scheduleId){
+
         return adminService.getScheduleById(scheduleId);
     }
 
@@ -180,5 +181,14 @@ public class AdminController {
         log.info("adminScheduleDto = {}", adminScheduleDto + " " + new Date());
         int result = adminService.createSchedule(adminScheduleDto);
         return "redirect:/admin/schedule";
+    }
+
+    @PatchMapping("/schedule/delete/{scheduleId}")
+    public ResponseEntity<String> deleteSchedule(@PathVariable int scheduleId){
+        int result = adminService.deleteSchedule(scheduleId);
+        if(result == 1)
+            return new ResponseEntity<String>("delete success", HttpStatus.OK);
+        else
+            return new ResponseEntity<String>("delete fail", HttpStatus.BAD_REQUEST);
     }
 }

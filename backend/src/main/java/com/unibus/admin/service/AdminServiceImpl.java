@@ -1,5 +1,6 @@
 package com.unibus.admin.service;
 
+import com.unibus.admin.domain.AdminSchedule;
 import com.unibus.admin.domain.City;
 import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.domain.User;
@@ -176,13 +177,53 @@ public class AdminServiceImpl implements AdminService{
     }
 
     @Override
-    public List<AdminScheduleDto> getScheduleList() {
-        return adminMapper.getScheduleList();
+    public List<SchedulePageDto> getScheduleList() {
+        List<AdminSchedule> list = adminMapper.getScheduleList();
+        log.info("list = {}", list);
+        List<SchedulePageDto> newList = new ArrayList<>();
+
+        for (AdminSchedule adminScheduleDto : list) {
+            SchedulePageDto schedulePageDto = new SchedulePageDto();
+            GetRouteIdVo getRouteIdVo = adminMapper.getTerminalName(adminScheduleDto.getRouteId());
+
+            schedulePageDto.setScheduleId(adminScheduleDto.getScheduleId());
+            schedulePageDto.setStartName(getRouteIdVo.getDepartureName());
+            schedulePageDto.setEndName(getRouteIdVo.getArrivalName());
+            schedulePageDto.setRouteId(adminScheduleDto.getRouteId());
+            schedulePageDto.setArrivalTime(adminScheduleDto.getScheduleEndTime());
+            schedulePageDto.setDepartureTime(adminScheduleDto.getScheduleStartTime());
+            schedulePageDto.setPrice(adminScheduleDto.getSchedulePrice());
+
+            newList.add(schedulePageDto);
+        }
+        log.info("newList = {}", newList);
+
+        return newList;
     }
 
+
     @Override
-    public AdminScheduleDto getScheduleById(int scheduleId) {
-        return adminMapper.getScheduleById(scheduleId);
+    public SchedulePageDto getScheduleById(int scheduleId) {
+        log.info("schedule = {}", adminMapper.getScheduleById(scheduleId));
+        AdminSchedule adminScheduleDto = adminMapper.getScheduleById(scheduleId);
+        log.info("adminScheduleDto = {}", adminScheduleDto);
+
+        SchedulePageDto schedulePageDto = new SchedulePageDto();
+        GetRouteIdVo getRouteIdVo = adminMapper.getTerminalName(adminScheduleDto.getRouteId());
+
+        schedulePageDto.setScheduleId(adminScheduleDto.getScheduleId());
+        schedulePageDto.setStartName(getRouteIdVo.getDepartureName());
+        schedulePageDto.setEndName(getRouteIdVo.getArrivalName());
+        schedulePageDto.setRouteId(adminScheduleDto.getRouteId());
+        schedulePageDto.setArrivalTime(adminScheduleDto.getScheduleEndTime());
+        schedulePageDto.setDepartureTime(adminScheduleDto.getScheduleStartTime());
+        schedulePageDto.setPrice(adminScheduleDto.getSchedulePrice());
+
+        CompanyAndBusDto companyAndBusDto = adminMapper.getCompanyAndBus(adminScheduleDto.getBusId());
+        schedulePageDto.setCompanyName(companyAndBusDto.getCompanyName());
+        schedulePageDto.setBusNumber(companyAndBusDto.getBusNumber());
+
+        return schedulePageDto;
     }
 
     @Override
@@ -234,6 +275,7 @@ public class AdminServiceImpl implements AdminService{
         createScheduleDto.setRouteId(routeId);
         createScheduleDto.setBusId(busId);
         createScheduleDto.setPrice(price);
+
         for(LocalDateTime dateTime : dateTimeArray) {
             createScheduleDto.setStartTime(dateTime.format(formatter));
             createScheduleDto.setEndTime(dateTime.plusHours(requiredHour).plusMinutes(requiredMinute).format(formatter));
@@ -243,10 +285,15 @@ public class AdminServiceImpl implements AdminService{
 
         return 0;
     }
-    
+
 
     @Override
     public List<BusDto> getBusList() {
         return adminMapper.getBusList();
+    }
+
+    @Override
+    public int deleteSchedule(int scheduleId) {
+        return adminMapper.deleteSchedule(scheduleId);
     }
 }
