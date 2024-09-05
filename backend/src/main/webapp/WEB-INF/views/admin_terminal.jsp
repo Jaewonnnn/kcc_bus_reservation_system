@@ -1,3 +1,4 @@
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="ko">
@@ -47,7 +48,7 @@
       aria-labelledby="staticBackdropLabel"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog modal-dialog-centered" id="terminalId">
         <div class="modal-content">
           <div class="modal-header">
             <h1
@@ -60,6 +61,7 @@
             <button
               type="button"
               class="btn-primary"
+              id="delete-terminal"
               style="
                 width: 5rem;
                 height: 2rem;
@@ -88,7 +90,7 @@
               <input
                 type="text"
                 class="form-control"
-                id="floatingInput"
+                id="terminalName"
                 value="동서울"
                 style="
                   background-color: #f4f4f4;
@@ -117,7 +119,7 @@
               <input
                 type="text"
                 class="form-control"
-                id="floatingInput"
+                id="address"
                 value="서울특별시 종로구 창경궁로 254"
                 style="
                   background-color: #f4f4f4;
@@ -146,8 +148,8 @@
               <input
                 type="text"
                 class="form-control"
-                id="floatingInput"
-                value="02-123-4567"
+                id="phoneNumber"
+                value="전화번호를 입력하세요"
                 style="
                   background-color: #f4f4f4;
                   border: none;
@@ -169,6 +171,7 @@
               취소
             </button>
             <button
+              id="saveTerminal"
               type="button"
               class="btn btn-primary"
               style="background-color: #212954"
@@ -217,7 +220,7 @@
               <input
                 type="text"
                 class="form-control"
-                id="floatingInput"
+                id="insertTerminalName"
                 placeholder="터미널 이름을 입력해주세요."
                 style="
                   background-color: #f4f4f4;
@@ -246,7 +249,7 @@
               <input
                 type="text"
                 class="form-control"
-                id="floatingInput"
+                id="insertTerminalAddress"
                 placeholder="주소를 입력해주세요."
                 style="
                   background-color: #f4f4f4;
@@ -275,7 +278,7 @@
               <input
                 type="text"
                 class="form-control"
-                id="floatingInput"
+                id="insertTerminalPhoneNumber"
                 placeholder="전화번호를 입력해주세요"
                 style="
                   background-color: #f4f4f4;
@@ -302,6 +305,7 @@
               class="btn btn-primary"
               style="background-color: #212954"
               data-bs-dismiss="modal"
+              id="saveTerminalBtn"
             >
               저장
             </button>
@@ -429,42 +433,42 @@
                                   style="width: 1rem"
                                 ></th>
                               </tr>
-                              <tr>
-                                <td id="user-id">NAEK010</td>
-                                <td>동서울</td>
-                                <td>서울특별시 종로구 창경궁로 254</td>
-                                <td>02-123-4567</td>
+                            </thead>
+                            <tbody id="table-body">
+                            <!-- JSTL을 사용한 반복문으로 터미널 정보 출력 -->
+                            <c:forEach var="terminal" items="${terminalList}">
+                              <tr class="terminal-list">
+                                <td id="user-id">${terminal.terminalId}</td>
+                                <td id="terminal-name">${terminal.terminalName}</td>
+                                <td id="terminal-address">${terminal.address}</td>
+                                <td id="terminal-tel">${terminal.tel}</td>
                                 <td>
                                   <button
-                                    type="button"
-                                    class="btn btn-primary"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop"
-                                    style="
-                                      background-color: #212954 !important;
-                                      font: 400 20px Noto Sans KR;
-                                      color: #f9fafc !important;
-                                      width: 50px;
-                                    "
+                                          type="button"
+                                          class="btn btn-primary"
+                                          data-bs-toggle="modal"
+                                          data-bs-target="#staticBackdrop"
+                                          style="
+                                        background-color: #212954 !important;
+                                        font: 400 20px Noto Sans KR;
+                                        color: #f9fafc !important;
+                                        width: 50px;
+                                      "
                                   >
                                     수정
                                   </button>
                                 </td>
                               </tr>
-                            </thead>
-                            <tbody id="table-body"></tbody>
+                            </c:forEach>
+
+
+                            </tbody>
                           </table>
-                          <div id="page">
+                          <div id="pagination" class="mt-4">
                             <ul class="pagination">
-                              <li class="page-item">
-                                <a class="page-link prev" href="#"> <<</a>
-                              </li>
-                              <li class="page-item" id="page-number">
-                                <a class="page-link" href="#">1</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link next" href="#">>></a>
-                              </li>
+                              <li class="page-item"><a class="page-link prev" href="#"> <<</a></li>
+                              <li class="page-item" id="page-number"><a class="page-link" href="#">1</a></li>
+                              <li class="page-item"><a class="page-link next" href="#"> >></a></li>
                             </ul>
                           </div>
                         </div>
@@ -485,6 +489,8 @@
     ></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="../../resources/js/admin_header.js"></script>
+    <script src="/resources/js/admin_terminal.js"></script>
   </body>
 </html>

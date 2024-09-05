@@ -23,6 +23,7 @@ public class SecurityConfig {
             "/payment/**",
             "/duplicated/**",
             "/check/**",
+            "/admin/**",
             "/check/payment",
             "/WEB-INF/views/membership.jsp",
             "/WEB-INF/views/login.jsp",

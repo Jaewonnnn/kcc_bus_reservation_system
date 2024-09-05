@@ -565,6 +565,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
+  //--------------------------------swiper
+  const progressCircle = document.querySelector(".autoplay-progress svg");
+  const progressContent = document.querySelector(".autoplay-progress span");
+  var swiper = new Swiper(".mySwiper", {
+    spaceBetween: 0,
+    loop: true,
+    centeredSlides: true,
+    autoplay: {
+      delay: 3500,
+      disableOnInteraction: false
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true
+    }
+  });
 
 
 });
