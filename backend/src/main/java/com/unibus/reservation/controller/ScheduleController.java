@@ -26,11 +26,6 @@ public class ScheduleController {
     private final TerminalService terminalService;
     private final ReservationService reservationService;
 
-//    public ScheduleController(ScheduleService scheduleService) {
-//        this.scheduleService = scheduleService;
-//        this.terminalService = terminalService;
-//    }
-
 
     @PostMapping("/schedule_list")
     @ResponseBody
@@ -99,6 +94,8 @@ public class ScheduleController {
 
         return "reservation_detail"; // 해당 페이지로 리턴
     }
+
+
     @GetMapping("/schedule/seat/{reservationId}")
     public String getSeat(Model model, @PathVariable("reservationId") int scheduleId) {
         List<ScheduleSeatNumber> seatNumbers = getBusNumber(scheduleId);

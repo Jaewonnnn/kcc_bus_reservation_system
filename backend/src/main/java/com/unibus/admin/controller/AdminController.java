@@ -1,5 +1,6 @@
 package com.unibus.admin.controller;
 
+import com.unibus.admin.domain.Terminal;
 import com.unibus.admin.dto.AdminTerminalDto;
 import com.unibus.admin.dto.CompanyDto;
 import com.unibus.admin.dto.UpdateTerminalDto;
@@ -64,32 +65,32 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/terminal")
+    @GetMapping("/terminal") //조회
     public String getTerminalPage(Model model){
         model.addAttribute("terminalList", adminService.getTerminalList());
         return "admin_terminal";
     }
 
-    @GetMapping("/terminal/{terminalId}")
+    @GetMapping("/terminal/{terminalId}") //상세조회
     @ResponseBody
     public AdminTerminalDto getTerminal(@PathVariable String terminalId){
         return adminService.getTerminalById(terminalId);
     }
 
-    @PostMapping("/terminal")
+    @PostMapping("/terminal") //생성
     public String createTerminal(@RequestBody AdminTerminalDto terminalDto){
         adminService.createTerminal(terminalDto);
         return "redirect:/admin/terminal";
     }
 
-    @PatchMapping("/terminal/{terminalId}")
+    @PatchMapping("/terminal/{terminalId}") //수정
     public String updateTerminal(@PathVariable String terminalId, @RequestBody UpdateTerminalDto updateTerminalDto){
         log.info("updateTerminalDto = {}", updateTerminalDto + " " + new Date());
         adminService.updateTerminal(terminalId, updateTerminalDto);
         return "redirect:/admin/terminal";
     }
 
-    @PatchMapping("/terminal/delete/{terminalId}")
+    @PatchMapping("/terminal/delete/{terminalId}") //삭제
     public String deleteTerminal(@PathVariable String terminalId) throws Exception{
         int result = adminService.deleteTerminal(terminalId);
         if(result == 1)

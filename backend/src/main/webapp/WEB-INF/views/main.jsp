@@ -22,9 +22,12 @@
   <body>
     <header-component></header-component>
     <div id="main_wrap">
-      <section id="main">
-        <div id="main_view">
-          <img src="/resources/img/main_view.jpg">
+      <section id="main" class="swiper mySwiper">
+        <div id="main_view" class="swiper-wrapper">
+          <img src="/resources/img/main_view.jpg" class="swiper-slide">
+          <img src="/resources/img/main_view2.jpg" class="swiper-slide">
+          <img src="/resources/img/main_view3.jpg" class="swiper-slide">
+          <img src="/resources/img/main_view4.jpg" class="swiper-slide">
           <div></div>
         </div>
 

@@ -23,7 +23,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
 
     private final AdminMapper adminMapper;
 
@@ -32,7 +32,7 @@ public class AdminServiceImpl implements AdminService{
         List<User> users = adminMapper.getUserList();
         List<UserDto> userDto = new ArrayList<>();
 
-        for(User user : users) {
+        for (User user : users) {
             userDto.add(UserDto.toUserDto(user));
         }
 
@@ -72,25 +72,34 @@ public class AdminServiceImpl implements AdminService{
 
         boolean flag = false;
 
-        log.info("address = {}", address[0] + " " + address[1]);
-        for(City city : cityList) {
-            if(city.getCityName().contains(address[0]) || city.getCityName().contains(address[1])) {
+        // 주소 배열의 길이를 체크하여 안전하게 접근
+        String addressPart1 = (address.length > 0) ? address[0] : "";
+        String addressPart2 = (address.length > 1) ? address[1] : "";
+
+        log.info("address = {} {}", addressPart1, addressPart2);
+
+        for (City city : cityList) {
+            if (city.getCityName().contains(addressPart1) || city.getCityName().contains(addressPart2)) {
                 terminalDto.setCityId(city.getCityId());
                 log.info("cityId = {}", city.getCityId());
                 flag = true;
                 break;
             }
         }
-        if(!flag) log.info("ERROR!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        if (!flag) {
+            log.info("ERROR: City not found for address.");
+        }
 
         log.info("terminalDto = {}", terminalDto);
 
         return adminMapper.createTerminal(terminalDto);
     }
 
+
     @Override
     public List<City> getCityList() {
-        log.info("cityList = {}", adminMapper.getCityList().get(0).getCityName());
+//        log.info("cityList = {}", adminMapper.getCityList().get(0).getCityName());
         return adminMapper.getCityList();
     }
 
