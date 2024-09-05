@@ -5,6 +5,8 @@ import com.unibus.reservation.domain.Reservation;
 import com.unibus.reservation.dto.ReservationTicketDto;
 import com.unibus.reservation.dto.Ticket;
 import com.unibus.reservation.mapper.PaymentMapper;
+import com.unibus.reservation.dto.ReservationTicketDto;
+import com.unibus.reservation.dto.ScheduleDto;
 import com.unibus.reservation.mapper.ReservationMapper;
 import com.unibus.user.domain.Member;
 import com.unibus.user.domain.NonMember;
@@ -33,10 +35,16 @@ public class ReservationServiceImpl implements ReservationService{
 
     @Override
     public ReservationTicketDto getTicket(int scheduleId) {
-        log.info("schduleId = {}", scheduleId);
-        log.info("ScheduleDto = {}", reservationMapper.getTicketByScheduleId(scheduleId));
-      return reservationMapper.getTicketByScheduleId(scheduleId);
+        return reservationMapper.getTicketByScheduleId(scheduleId);
     }
+
+    public ReservationTicketDto findBus(int scheduleId) {
+        log.info("schduleId = {}", scheduleId);
+        log.info("ScheduleDto = {}", reservationMapper.findBus(scheduleId));
+      return reservationMapper.findBus(scheduleId);
+    }
+
+
 
     // 회원 예약 조회
     @Override

@@ -11,7 +11,7 @@ import java.util.List;
 
 @Mapper
 public interface ReservationMapper {
-
+    public ReservationTicketDto findBus(int scheduleId);
 
     // 회원 예약 조회
     public List<ReservationSummaryDTO> findReservationsByMember(String memberId);

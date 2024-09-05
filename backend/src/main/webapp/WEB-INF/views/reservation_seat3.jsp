@@ -198,10 +198,7 @@
                   <p class="reservation_course_info_otherlistin">소요시간</p>
                   <p id="reservation_course_time">4시간 30분</p>
                 </li>
-                <li>
-                  <p class="reservation_course_info_otherlistin">거리</p>
-                  <p id="reservation_course_length">386.6km</p>
-                </li>
+
               </ul>
             </div>
 
@@ -231,7 +228,7 @@
           </div>
 
         </section>
-
+        <button class="button2">결제 하기</button>
       </div>
 
 

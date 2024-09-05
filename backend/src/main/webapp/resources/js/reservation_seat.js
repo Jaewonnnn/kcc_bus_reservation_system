@@ -24,16 +24,42 @@ fetch(`/reservation/busNumber/`+memberId)
         updateSeatAvailabilityOnInit();
         setupSeatClickHandlers();
         // 출발지와 도착지를 동적으로 설정
-        const startTerminalName = seatNumbers[0].startTerminalName; // 예시로 첫 번째 좌석의 데이터를 사용
+        const startTerminalName = seatNumbers[0].startTerminalName;
         const endTerminalName = seatNumbers[0].endTerminalName;
 
+        const startTime = seatNumbers[0].startTime
+        const endTime  = seatNumbers[0].endTime
+
         // HTML 요소를 업데이트
+
+
         document.getElementById('reservation_course_start').innerHTML = `<p>${startTerminalName}</p>`;
         document.getElementById('reservation_course_end').innerHTML = `<p>${endTerminalName}</p>`;
+        document.getElementById('reservation_course_time').innerHTML = `<p>${calculateDuration(startTime, endTime)}</p>`
+        document.querySelector('#reservation_seat_info h2').innerHTML = `${endTime.split('T')[0]}`
+
+
     })
     .catch(error => {
         console.error('Error fetching seat data:', error);
     });
+
+function calculateDuration(startTime, endTime) {
+    const start = new Date(startTime);
+    const end = new Date(endTime);
+
+    const durationMs = end - start;
+    if (isNaN(durationMs)) {
+        console.error('Invalid date(s) for duration calculation');
+        return 'Invalid Duration';
+    }
+
+    const durationMinutes = Math.floor(durationMs / 60000); // 밀리초를 분으로 변환
+    const hours = Math.floor(durationMinutes / 60);
+    const minutes = durationMinutes % 60;
+
+    return `${hours}시간 ${minutes}분`;
+}
 
 function updateSeatAvailabilityOnInit() {
     const seatElements = document.querySelectorAll('.seat');
@@ -71,12 +97,13 @@ function setupSeatClickHandlers() {
 
 
 // 인원수 조정 및 총 금액 업데이트
-document.getElementById('adult-plus').addEventListener('click', () => updatePassengerCount('adults', 1));
-document.getElementById('adult-minus').addEventListener('click', () => updatePassengerCount('adults', -1));
-document.getElementById('student-plus').addEventListener('click', () => updatePassengerCount('students', 1));
-document.getElementById('student-minus').addEventListener('click', () => updatePassengerCount('students', -1));
-document.getElementById('child-plus').addEventListener('click', () => updatePassengerCount('children', 1));
-document.getElementById('child-minus').addEventListener('click', () => updatePassengerCount('children', -1));
+document.getElementById('adult-plus').addEventListener('click', () => {updatePassengerCount('adults', 1); document.getElementById('adults_right').textContent = passengers.adults;});
+document.getElementById('adult-minus').addEventListener('click', () => {updatePassengerCount('adults', -1); document.getElementById('adults_right').textContent = passengers.adults;});
+document.getElementById('student-plus').addEventListener('click', () => {updatePassengerCount('students', 1); document.getElementById('students_right').textContent = passengers.students;});
+document.getElementById('student-minus').addEventListener('click', () => {updatePassengerCount('students', -1); document.getElementById('students_right').textContent = passengers.students;});
+document.getElementById('child-plus').addEventListener('click', () => {updatePassengerCount('children', 1); document.getElementById('children_right').textContent = passengers.children;});
+document.getElementById('child-minus').addEventListener('click', () => {updatePassengerCount('children', -1); document.getElementById('children_right').textContent = passengers.children;});
+
 
 function totalPassengers() {
     return Object.values(passengers).reduce((total, num) => total + num, 0);
@@ -133,5 +160,21 @@ function updateSeatAvailability() {
         }
     });
 }
+document.querySelector('.button2').addEventListener('click', function() {
+    // 선택된 좌석 수와 승객 수를 가져옵니다.
+    const selectedSeatCount = selectedSeats.length;
+    const totalPassengerCount = totalPassengers();
+
+    // 좌석 수와 승객 수 비교
+    if (totalPassengerCount === 0) {
+        alert("승객 수를 선택해주세요.");
+    } else if (selectedSeatCount !== totalPassengerCount) {
+        alert("선택한 좌석 수와 승객 수가 일치하지 않습니다.");
+    } else {
+        // 조건이 충족되면 URL로 리다이렉트
+        window.location.href = "/reservation/payment-accept";
+
+    }
+});
 
 

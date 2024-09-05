@@ -27,7 +27,7 @@ function calculateDuration(startTime, endTime) {
 function populateReservationCourseList(schedules) {
     const listElement = document.getElementById('reservation_course_list');
     listElement.innerHTML = '';
-
+    console.log(schedules)
     if (schedules.length > 0) {
         const firstSchedule = schedules[0];
         const duration = calculateDuration(firstSchedule.scheduleStartTime, firstSchedule.scheduleEndTime);
@@ -58,13 +58,33 @@ function populateReservationCourseList(schedules) {
 
         const seatItem = document.createElement('li');
         seatItem.className = 'seat';
-        seatItem.textContent = '미정';
+        switch (schedule.gradeName) {
+            case "고속":
+            case "심야고속":
+            case "일반":
+            case "일반심야":
+                seatItem.textContent = schedule.seatCount + "/45";
+                break;
+            case "우등":
+            case "심야우등":
+                seatItem.textContent = schedule.seatCount + "/28";
+                break;
+            case "프리미엄":
+            case "심야프리미엄":
+                seatItem.textContent = schedule.seatCount + "/21";
+                break;
+        }
+
+        const goDate = document.querySelector('#reservation_course_info h2')
+        goDate.textContent = schedule.scheduleStartTime.split(' ')[0]
+
         detailList.appendChild(seatItem);
 
         const button = document.createElement('button');
         button.className = 'reservation_course_list_detail_btn';
         button.innerHTML = `선택<i class="fa-solid fa-caret-right"></i>`;
         button.addEventListener('click', () => {
+            location.href = '/reservation/schedule/seat/' +schedule.scheduleId
             updatePaymentInfo(schedule);
             const duration = calculateDuration(schedule.scheduleStartTime, schedule.scheduleEndTime);
             updateDurationInfo(duration); // 소요시간 정보 업데이트

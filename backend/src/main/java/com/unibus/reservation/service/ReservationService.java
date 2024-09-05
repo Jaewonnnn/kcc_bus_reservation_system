@@ -2,13 +2,18 @@ package com.unibus.reservation.service;
 
 import com.unibus.reservation.domain.Payment;
 import com.unibus.reservation.domain.Reservation;
+import com.unibus.reservation.dto.ReservationTicketDto;
+import com.unibus.reservation.dto.ScheduleDto;
+
+import com.unibus.reservation.dto.ScheduleSeatNumber;
 import com.unibus.reservation.dto.ReservationSummaryDTO;
 import com.unibus.reservation.dto.ReservationTicketDto;
 import com.unibus.user.domain.NonMember;
 
 import java.util.List;
 public interface ReservationService {
-    
+
+    public ReservationTicketDto findBus(int scheduleId);
 
     // 회원 예약 조회
     public  List<ReservationSummaryDTO> findReservationsByMember(String memberId);

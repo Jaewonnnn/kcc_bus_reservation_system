@@ -250,13 +250,14 @@
                                 <input
                                   type="text"
                                   class="form-control form-input"
-                                  placeholder="Search"
+                                  placeholder="이름, 연락처, 이메일"
                                   id="search-box"
                                   style="
                                     background-color: #f9fafc;
                                     font: 500 13px Noto Sans KR;
                                   "
                                 />
+                                <div id="autocomplete-results"></div>
                               </div>
                             </div>
                           </div>
