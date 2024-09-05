@@ -21,6 +21,7 @@
         <result column="bus_id" property="busId"/>
         <result column="route_id" property="routeId"/>
         <result column="start_date" property="scheduleStartDate"/>
+        <result column="end_date" property="scheduleEndDate"/>
         <result column="schedule_price" property="schedulePrice"/>
         <result column="start_terminal" property="startTerminal"/>
         <result column="end_terminal" property="endTerminal"/>
@@ -47,6 +48,7 @@
 
         <select id="findReservationsByMember" resultMap="reservationSummaryResultMap">
             SELECT
+                res.reservation_date,
                 res.payment_imp_uid,
                 TO_CHAR(s.schedule_start_time, 'YY.MM.DD') AS schedule_date,
                 TO_CHAR(s.schedule_start_time, 'HH24:MI:SS') AS start_time,
@@ -76,7 +78,9 @@
                 ter_end.terminal_name,
                 s.schedule_start_time,
                 s.schedule_end_time,
-                res.payment_imp_uid
+                res.payment_imp_uid,
+                res.reservation_date
+            ORDER BY res.reservation_date
     </select>
 
 
@@ -194,7 +198,8 @@
             s.schedule_id,
             s.bus_id,
             s.route_id,
-            TO_CHAR(s.schedule_start_time, 'yyyy-MM-dd') AS start_date,
+            TO_CHAR(s.schedule_start_time, 'yyyy-MM-dd HH24:MI:SS') AS start_date,
+            TO_CHAR(s.schedule_end_time, 'yyyy-MM-dd HH24:MI:SS') AS end_date,
             s.schedule_price,
             ts.terminal_name AS start_terminal,
             te.terminal_name AS end_terminal,

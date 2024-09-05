@@ -8,12 +8,12 @@ class Headers extends HTMLElement {
       <link rel="stylesheet" href="/resources/css/main.css">
       <header>
         <div id="header_wrap">
-          <h1>UNIBUS</h1>
+          <a href="/main"><h1>UNIBUS</h1></a>
           <ul id="header_menu">
-            <li>승차권예매</li>
-            <li>조회/취소</li>
-            <li>터미널정보</li>
-          </ul>
+            <a href="/main"> <li>승차권예매</li></a>
+            <a href="/user/mypage"><li>조회/취소</li></a>
+            <a href="/main"><li>터미널정보</li></a>
+          </ul>  
           <div id="header_login_wrap">
             <button class="login_join_btn">회원가입</button>
             <button class="login_join_btn">로그인</button>

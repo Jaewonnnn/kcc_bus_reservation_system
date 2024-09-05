@@ -102,7 +102,7 @@
                   <span>등급</span>
                   <p id="busGradeName"></p>
                 </div>
-                <div>
+                <div id="people">
                   <span>매수</span>
                   <p>일반 <span class="count">1</span> 명</p>
                 </div>
@@ -295,6 +295,6 @@
     <div class="hidden">
       <input type="hidden" value="<%=username%>" id="memberId">
     </div>
-
+    <script src="/resources/js/payment_last.js"></script>
   </body>
 </html>

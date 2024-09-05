@@ -36,11 +36,33 @@ public class ReservationController {
     private final UserService userService;
 
     @GetMapping("/payment")
-    public String payment(Model model) {
+    public String payment(Model model,
+                          @RequestParam(required = false) String seatIds,
+                          @RequestParam(required = false) Integer passengerCount,
+                          @RequestParam(required = false) Integer totalAmount,
+                          @RequestParam(required = false) String busGrade,
+                          @RequestParam(required = false) String startTerminal,
+                          @RequestParam(required = false) String endTerminal,
+                          @RequestParam(required = false) Integer adults,
+                          @RequestParam(required = false) Integer students,
+                          @RequestParam(required = false) Integer children,
+                          @RequestParam(required = false) String scheduleId) {
+        model.addAttribute("seatIds", seatIds);
+        model.addAttribute("passengerCount", passengerCount);
+        model.addAttribute("totalAmount", totalAmount);
+        model.addAttribute("busGrade", busGrade);
+        model.addAttribute("startTerminal", startTerminal);
+        model.addAttribute("endTerminal", endTerminal);
+        model.addAttribute("adults", adults);
+        model.addAttribute("students", students);
+        model.addAttribute("children", children);
+        model.addAttribute("scheduleId", scheduleId);
+
         return "payment";
     }
 
-    
+
+
     @GetMapping("/{schedule_id}")
     @ResponseBody
     public ResponseEntity<ReservationTicketDto> getReservation(@PathVariable("schedule_id") int scheduleId) {
@@ -66,7 +88,7 @@ public class ReservationController {
             log.info("memberId={}", memberId);
             userService.nonUserSave(nonMember);
             reservation.setNonUserCode(nonMember.getNonUserCode());
-            log.info("reservation={}", reservation);
+            log.info("reservation={}", reservation.getSeatNumber());
             return reservationService.reservationSave(reservation,memberId,nonMember,payment) == true ?
                     new ResponseEntity<>(reservation, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
         } else {

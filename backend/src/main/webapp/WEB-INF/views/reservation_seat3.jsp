@@ -227,8 +227,8 @@
             <p><span id="total_amount">0</span>원</p>
           </div>
 
+          <button class="button2">결제 하기</button>
         </section>
-        <button class="button2">결제 하기</button>
       </div>
 
 

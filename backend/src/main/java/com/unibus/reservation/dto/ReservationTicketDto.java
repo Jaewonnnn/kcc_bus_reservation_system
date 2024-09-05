@@ -12,6 +12,7 @@ public class ReservationTicketDto {
     private int busId;
     private String routeId;
     private String scheduleStartDate;
+    private String scheduleEndDate;
     private int schedulePrice;
     private String startTerminal;
     private String endTerminal;

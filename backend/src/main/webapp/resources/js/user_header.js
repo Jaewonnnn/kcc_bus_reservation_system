@@ -9,9 +9,9 @@ class Headers extends HTMLElement {
         <div id="header_wrap">
           <a href="/main"><h1>UNIBUS</h1></a>
           <ul id="header_menu">
-            <li>승차권예매</li>
-            <li>조회/취소</li>
-            <li>터미널정보</li>
+            <a href="/main"> <li>승차권예매</li></a>
+            <a href="/user/mypage"><li>조회/취소</li></a>
+            <a href="/main"><li>터미널정보</li></a>
           </ul>         
           <div id="header_login_wrap">
             <button class="login_join_btn" onclick="location.href='/join'">회원가입</button>
