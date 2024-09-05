@@ -12,16 +12,9 @@ import java.util.Date;
 @ControllerAdvice
 public class CustomizedResponseEntityExceptionHandler extends ResponseEntityExceptionHandler {
 
-
     @ExceptionHandler(Exception.class)
     public final ResponseEntity handleAllExceptions(Exception ex, WebRequest request) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity(exceptionResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
-
-//    @ExceptionHandler(UserNotFoundException.class)
-//    public final ResponseEntity handleUserNotFoundExceptions(Exception ex, WebRequest request) {
-//        ExceptionResponse exceptionResponse = new ExceptionResponse(new Date(), ex.getMessage(), request.getDescription(false));
-//        return new ResponseEntity(exceptionResponse, HttpStatus.NOT_FOUND);
-//    }
 }

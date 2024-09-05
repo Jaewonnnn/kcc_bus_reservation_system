@@ -1,0 +1,153 @@
+section #admin_info{
+  margin-top: 100px;
+}
+
+#admin_all .header_text{
+  font : 700 28px "Noto Sans KR";
+}
+
+.header_area {
+  margin: 0 auto;
+}
+
+#admin_all{
+  margin-top: 100px;
+  height: 100%;
+  width: 100%;
+  background-color: #f4f4f4;
+}
+.mt-3 h4{
+  margin-bottom: 2vh;
+}
+.mt-3 p{
+  color: #5c5c5c;
+}
+
+body{
+  background: #f7f7ff;
+  margin-top:20px;
+}
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 0 solid transparent;
+  border-radius: 15px !important;
+  margin-bottom: 1.5rem;
+  box-shadow: 0px 0px 15px 2px rgba(0, 0, 0, 0.1);
+}
+
+.col-lg-9 .card .card-body {
+  height: 300px;
+}
+
+.me-2 {
+  margin-right: .5rem!important;
+}
+
+.profile_btn_area button {
+  width: 200px;
+  height: 55px;
+}
+
+.btn_mypage, .password_check_btn {
+  background-color: #212954;
+  color: #FFFFFF;
+  border-radius: 10px;
+  
+}
+
+.btn_edit_member, .btn_delete_member {
+  background-color: #FFFFFF;
+  border: 2px solid #212954;
+  border-radius: 10px;
+  color: #212954
+}
+
+.profile_btn_area button {
+  font : 500 20px "Noto Sans KR";
+}
+
+.card_body_main {
+  border: 2px solid #CCCCCC;
+  border-radius: 10px;
+  height: 180px;
+  width: 800px;
+}
+
+.card_body_header h5 {
+  font : 600 23px "Noto Sans KR";
+  color: #5C5C5C;
+}
+
+.user_info{
+  width: 100%;
+  height: 180px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  
+}
+.user_info>div{
+  height: 50%;
+  padding: 0 !important;
+  box-sizing: border-box;
+  display: flex;
+  font : 500 20px "Noto Sans KR";
+}
+
+.user_info_id, .user_info_name {
+  width: 45% !important;
+}
+
+.user_info_pn, .user_info_email {
+  width: 55% !important;
+}
+
+.id_area {
+  border-right: 2px solid #CCCCCC;
+  border-bottom: 2px solid #CCCCCC;
+}
+
+.tel_area {
+  border-bottom: 2px solid #CCCCCC;
+}
+
+.name_area {
+  border-right: 2px solid #CCCCCC;
+}
+
+.more_btn {
+  height: 40px;
+  background-color: #212954;
+  color: #FFFFFF;
+  width: 100px;
+  border-radius: 10px;
+}
+
+.card_body_main .card_body_main_header {
+  width: 100%;
+  height: 35%;
+  border-bottom: 2px solid #CCCCCC;
+}
+
+#second_card {
+  height: auto;
+}
+
+.table {
+  font : 600 18px "Nato Sans KR";
+}
+
+.table tr {
+  height: 70px;
+}
+
+.table tr td, .table tr th {
+  vertical-align: middle;
+}

@@ -4,7 +4,61 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.unibus.user.mapper.UserMapper">
-    <select id="getUserList" resultType="Member">
+    <select id="getMemberByMemberId" resultType="Member">
+        select * from member where member_id =#{memberId}
+    </select>
+
+    <update id="updateMemberByMemberId">
+        update member
+        <set>
+            <if test="memberName != null">member_name = #{memberName},</if>
+            <if test="memberTel != null">member_tel = #{memberTel},</if>
+            <if test="memberEmail != null">member_email = #{memberEmail}</if>
+        </set>
+        where member_id =#{memberId}
+    </update>
+
+    <update id="withdrawMemberByMemberPass" parameterType="String">
+        update member set withdraw = 0 where  member_pass = #{memberPass} and member_id=#{memberId}
+    </update>
+
+    <update id="changeMemberPassByMemberId" parameterType="Member">
+        update member set member_pass = #{memberPass} where member_id = #{memberId}
+    </update>
+
+    <select id="getMemberPassByMemberId" parameterType="String" resultType="String">
+        select member_pass from member where member_id = #{memberId}
+    </select>
+
+    <insert id="save" parameterType="Member">
+    <selectKey order="BEFORE" keyProperty="memberSeq" resultType="int">
+        select member_seq.nextval from dual
+    </selectKey>
+        INSERT INTO member values
+            (
+               member_seq.nextval,
+               #{memberId},
+               #{memberPass},
+               #{memberName},
+               #{memberTel},
+               #{memberEmail},
+               #{memberBirth},
+               #{memberRole},
+               sysdate,
+               1
+            )
+    </insert>
+
+    <select id="getUserByUsername" parameterType="String" resultType="Member">
         select * from member
     </select>
+
+    <insert id="nonMemberSave" parameterType="com.unibus.user.domain.NonMember">
+            INSERT into non_user values(non_user_seq.nextval, #{nonUserTel})
+    </insert>
+
+    <select id="getNonUserCode" resultType="int">
+        select non_user_code from non_user where rownum=1 order by non_user_code desc
+    </select>
+
 </mapper>

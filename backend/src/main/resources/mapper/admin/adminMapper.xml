@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.unibus.admin.mapper.AdminMapper">
+    <select id="getUserList" resultType="User">
+        select * from member where withdraw != 0
+    </select>
+
+    <select id="getUserById" parameterType="int" resultType="User">
+        select * from member where member_seq = #{id}
+    </select>
+
+    <update id="updateUser" parameterType="UserDTO">
+        UPDATE member
+        SET member_name = #{name},
+            member_tel = #{phoneNumber},
+            member_email = #{email}
+        WHERE member_seq = #{id}
+    </update>
+
+    <update id="deleteUser" parameterType="int">
+        update member
+        set withdraw = 0
+        where member_seq = #{memberSeq}
+    </update>
+
+    <select id="getTerminalList" resultType="Terminal">
+        select * from terminal where terminal_status != 0
+    </select>
+
+    <select id="getTerminalById" parameterType="String" resultType="AdminTerminalDto">
+        select terminal_id, city_id, terminal_name, address, tel from terminal where terminal_id = #{id}
+    </select>
+
+    <select id="getCityList" resultType="City">
+        select * from city
+    </select>
+
+    <insert id="createTerminal" parameterType="AdminTerminalDto">
+        insert
+        into terminal(terminal_id, terminal_name, city_id, address, tel, terminal_status)
+        values (#{terminalId}, #{terminalName}, #{cityId}, #{address}, #{tel}, 1)
+    </insert>
+
+    <update id="updateTerminal" parameterType="UpdateTerminalDto">
+        update terminal
+        set terminal_name = #{terminalName},
+            address = #{address},
+            tel = #{tel}
+        where terminal_id = #{terminalId}
+    </update>
+
+    <update id="deleteTerminal" parameterType="String">
+        delete from terminal where terminal_id = #{id}
+    </update>
+
+    <select id="getCompanyList" resultType="CompanyDto">
+        select * from company
+    </select>
+
+    <resultMap id="CompanyWithBusResultMap" type="CompanyDto">
+        <id property="companyId" column="companyId"/>
+        <result property="companyName" column="companyName"/>
+        <result property="companyTel" column="companyTel"/>
+        <collection property="busList" resultMap="busListMap"/>
+    </resultMap>
+    <resultMap id="busListMap" type="Bus">
+        <result property="busNumber" column="busNumber"/>
+        <result property="gradeName" column="gradeName"/>
+    </resultMap>
+
+    <select id="getCompanyById" parameterType="int" resultMap="CompanyWithBusResultMap">
+        SELECT
+            c.company_id AS companyId,
+            c.company_name AS companyName,
+            c.company_tel AS companyTel,
+            b.bus_number AS busNumber,
+            g.grade_name AS gradeName
+        FROM
+            company c
+                LEFT JOIN
+            bus b ON c.company_id = b.company_id
+                LEFT JOIN
+            bus_grade g ON b.grade_id = g.grade_id
+        WHERE
+            c.company_id = #{id}
+    </select>
+
+    <insert id="createCompany" parameterType="CompanyDto">
+        insert into company(company_id, company_name, company_tel)
+        values(company_seq.nextval, #{companyName}, #{companyTel})
+    </insert>
+
+    <update id="updateCompany" parameterType="CompanyDto">
+        update company
+        set
+            company_name = #{companyName},
+            company_tel = #{companyTel}
+        where company_id = #{companyId}
+    </update>
+
+    <delete id="deleteCompany" parameterType="int">
+        delete from company where company_id = #{id}
+    </delete>
+
+    <resultMap id="toRouteDto" type="RouteDto">
+        <id property="routeId" column="route_id"/>
+        <result property="requiredTime" column="required_time"/>
+        <result property="routeStatus" column="route_status"/>
+
+        <result property="routeStartTerminal.terminalId" column="start_terminal_id"/>
+        <result property="routeStartTerminal.terminalName" column="start_terminal_name"/>
+
+        <result property="routeEndTerminal.terminalId" column="end_terminal_id"/>
+        <result property="routeEndTerminal.terminalName" column="end_terminal_name"/>
+    </resultMap>
+
+    <select id="getRouteList" resultMap="toRouteDto">
+        SELECT
+            r.route_id,
+            r.required_time,
+            r.route_status,
+            ts.terminal_id AS start_terminal_id,
+            ts.terminal_name AS start_terminal_name,
+            te.terminal_id AS end_terminal_id,
+            te.terminal_name AS end_terminal_name
+        FROM
+            route r
+                LEFT OUTER JOIN terminal ts ON r.route_start_id = ts.terminal_id
+                LEFT OUTER JOIN terminal te ON r.route_end_id = te.terminal_id
+    </select>
+
+    <select id="getTerminalId" parameterType="String" resultType="String">
+        select terminal_id from terminal where terminal_name = #{terminalName}
+    </select>
+
+    <insert id="createRoute" parameterType="RouteCreateDto">
+        insert into route(route_id, route_start_id, route_end_id, required_time, route_status)
+        values('NAEK123457', #{routeStartTerminal}, #{routeEndTerminal}, to_date(#{requiredTime}, 'HH24:MI'), 1)
+    </insert>
+
+    <update id="updateRoute" parameterType="RouteCreateDto">
+        update route
+        set
+            route_start_id = #{routeStartTerminal},
+            route_end_id = #{routeEndTerminal},
+            required_time = to_date(#{requiredTime}, 'HH24:MI'),
+            route_status = #{routeStatus}
+        where route_id = #{routeId}
+    </update>
+
+    <update id="deleteRoute" parameterType="String">
+        update route
+        set route_status = 0
+        where route_id = #{routeId}
+    </update>
+
+    <select id="getScheduleList" resultType="AdminSchedule">
+        SELECT
+            schedule_id,
+            bus_id,
+            route_id,
+            TO_CHAR(schedule_start_time, 'yyyy-mm-dd HH24:MI') AS schedule_start_time,
+            TO_CHAR(schedule_end_time, 'yyyy-mm-dd HH24:MI') AS schedule_end_time,
+            schedule_price
+        FROM
+            schedule
+        where schedule_status != 0
+    </select>
+
+    <select id="getScheduleById" parameterType="int" resultType="AdminSchedule">
+        select
+            schedule_id,
+            bus_id,
+            route_id,
+            TO_CHAR(schedule_start_time, 'yyyy-mm-dd HH24:MI') AS schedule_start_time,
+            TO_CHAR(schedule_end_time, 'yyyy-mm-dd HH24:MI') AS schedule_end_time,
+            schedule_price
+        from
+            schedule where schedule_id = #{scheduleId}
+    </select>
+
+    <insert id="createSchedule" parameterType="CreateScheduleDto">
+        INSERT INTO schedule (SCHEDULE_ID, BUS_ID, ROUTE_ID, SCHEDULE_START_TIME, SCHEDULE_END_TIME, SCHEDULE_PRICE, SCHEDULE_STATUS)
+        VALUES (schedule_seq.nextval, #{busId}, #{routeId}, TO_DATE(#{startTime}, 'YYYY-MM-DD HH24:MI'), TO_DATE(#{endTime}, 'YYYY-MM-DD HH24:MI'), #{price}, 1)
+    </insert>
+
+
+    <select id="getRouteById" parameterType="String" resultType="RouteDto">
+        select * from route where route_id = #{routeId}
+    </select>
+
+    <select id="getBusList" resultType="BusDto">
+        select company_name, bus_number, grade_name
+        from bus b, bus_grade g, company c
+        where b.grade_id = g.grade_id
+          and b.company_id = c.company_id
+        order by company_name
+    </select>
+
+    <select id="getRouteId" parameterType="GetRouteIdVo" resultType="String">
+        select route_id from route
+        where route_start_id = (select terminal_id from terminal where terminal_name = #{departureName})
+          and route_end_id = (select terminal_id from terminal where terminal_name = #{arrivalName})
+    </select>
+
+    <select id="getBusId" parameterType="String" resultType="Integer">
+        select bus_id from bus where bus_number = #{busNumber}
+    </select>
+
+    <select id="getTerminalName" parameterType="String" resultType="GetRouteIdVo">
+        SELECT
+            t1.terminal_name AS departureName,
+            t2.terminal_name AS arrivalName
+        FROM
+            route r
+                JOIN
+            terminal t1 ON t1.terminal_id = r.route_start_id
+                JOIN
+            terminal t2 ON t2.terminal_id = r.route_end_id
+        WHERE
+            r.route_id = #{routeId}
+    </select>
+
+    <select id="getCompanyAndBus" parameterType="int" resultType="CompanyAndBusDto">
+        select c.company_name, b.bus_number
+        from bus b, company c
+        where b.company_id = c.company_id
+          and bus_id = #{busId}
+    </select>
+
+    <update id="deleteSchedule" parameterType="int">
+        update schedule
+        set schedule_status = 0
+        where schedule_id = #{scheduleId}
+    </update>
+
+</mapper>

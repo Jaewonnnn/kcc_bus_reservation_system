@@ -3,8 +3,7 @@ section #admin_info{
 }
 
 #admin_all .header_text{
-  font-weight: 700;
-  
+  font : 700 28px "Noto Sans KR";
 }
 
 .header_area {
@@ -70,7 +69,7 @@ body{
 }
 
 .profile_btn_area button {
-  font-weight: 500;
+  font : 500 20px "Noto Sans KR";
 }
 
 .card_body_main {
@@ -81,7 +80,7 @@ body{
 }
 
 .card_body_header h5 {
-  font-weight: 600;
+  font : 600 23px "Noto Sans KR";
   color: #5C5C5C;
 }
 
@@ -99,7 +98,7 @@ body{
   padding: 0 !important;
   box-sizing: border-box;
   display: flex;
-  font-weight: 500;
+  font : 500 20px "Noto Sans KR";
 }
 
 .user_info_id, .user_info_name {
