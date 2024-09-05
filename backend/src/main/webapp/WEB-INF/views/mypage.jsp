@@ -1,4 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -88,7 +91,7 @@
                   <div class="card_body_header mb-4 ps-2 d-flex justify-content-between align-items-center">
                     <div class="card_header_text"><h5 class="mb-0">승차권 예매 현황</h5></div>
                     <div class="more_btn_area">
-                      <button class="more_btn me-2 pt-0 pb-0">더보기</button>
+                      <button class="more_btn me-2 pt-0 pb-0" onclick="location.href=`/check/reservation/${member.memberId}`">더보기</button>
                     </div>
                   </div>
                   <table class="table border border-1">
@@ -113,51 +116,21 @@
                       </tr>
                     </thead>
                     <tbody>
+                    <c:forEach var="r" items="${reservation}">
                       <tr>
-                        <th scope="row" class="text-center">1</th>
-                        <td class="text-center">Mark</td>
-                        <td class="text-center">Mark</td>
-                        <td class="text-center">Otto</td>
-                        <td class="text-center">Otto</td>
-                        <td class="text-center">@mdo</td>
-                        <td class="text-center">@mdo</td>
+                        <th scope="row" class="text-center">${r.scheduleDate}</th>
+                        <td class="text-center">${r.scheduleEndTime}</td>
+                        <td class="text-center">${r.startTerminalName}</td>
+                        <td class="text-center">${r.endTerminalName}</td>
+                        <td class="text-center">
+                          <c:set var="time" value="${r.startTime}"/>
+                          <c:set var="formattedTime" value="${fn:substring(time,0 ,5 )}"/>
+                          <c:out value="${formattedTime}"/>
+                        </td>
+                        <td class="text-center">${r.reservationCount}</td>
+                        <td class="text-center"><fmt:formatNumber value="${r.totalPrice}" pattern="#,###"></fmt:formatNumber> 원</td>
                       </tr>
-                      <tr>
-                        <th scope="row" class="text-center">1</th>
-                        <td class="text-center">Mark</td>
-                        <td class="text-center">Mark</td>
-                        <td class="text-center">Otto</td>
-                        <td class="text-center">Otto</td>
-                        <td class="text-center">@mdo</td>
-                        <td class="text-center">@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="text-center">1</th>
-                        <td class="text-center">Mark</td>
-                        <td class="text-center">Mark</td>
-                        <td class="text-center">Otto</td>
-                        <td class="text-center">Otto</td>
-                        <td class="text-center">@mdo</td>
-                        <td class="text-center">@mdo</td>
-                      </tr><tr>
-                        <th scope="row" class="text-center">1</th>
-                        <td class="text-center">Mark</td>
-                        <td class="text-center">Mark</td>
-                        <td class="text-center">Otto</td>
-                        <td class="text-center">Otto</td>
-                        <td class="text-center">@mdo</td>
-                        <td class="text-center">@mdo</td>
-                      </tr>
-                      <tr>
-                        <th scope="row" class="text-center">1</th>
-                        <td class="text-center">Mark</td>
-                        <td class="text-center">Mark</td>
-                        <td class="text-center">Otto</td>
-                        <td class="text-center">Otto</td>
-                        <td class="text-center">@mdo</td>
-                        <td class="text-center">@mdo</td>
-                      </tr>
-                      
+                    </c:forEach>
                     </tbody>
                   </table>
                 </div>

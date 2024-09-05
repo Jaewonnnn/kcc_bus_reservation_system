@@ -7,16 +7,16 @@ class Headers extends HTMLElement {
       <link rel="stylesheet" href="/resources/css/header.css">
       <header>
         <div id="header_wrap">
-          <h1>UNIBUS</h1>
+          <a href="/main"><h1>UNIBUS</h1></a>
           <ul id="header_menu">
             <li>승차권예매</li>
             <li>조회/취소</li>
             <li>터미널정보</li>
-          </ul>
+          </ul>         
           <div id="header_login_wrap">
-            <button class="login_join_btn" onclick="location.href='/user/join'">회원가입</button>
-            <button class="login_join_btn" onclick="location.href='/user/login'">로그인</button>
-            <form action="/user/logout" method="post">
+            <button class="login_join_btn" onclick="location.href='/join'">회원가입</button>
+            <button class="login_join_btn" onclick="location.href='/login'">로그인</button>
+            <form action="/logout" method="post">
                 <button class="login_join_btn" type="submit">로그아웃</button>    
             </form>
           </div>

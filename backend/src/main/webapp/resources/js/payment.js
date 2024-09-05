@@ -9,7 +9,7 @@ function getDayOfWeek(year, month, day) {
 $(document).ready(function () {
 
     $.ajax({
-        url : '/check/'+57,
+        url : '/check/'+2,
         method : "GET",
         ContentType: "application/json",
         success: function(data) {
@@ -104,7 +104,7 @@ $(function () {
                     success: function (ticket) {
                             console.log(ticket);
 
-                            location.href = `/check/reservation/finish/` + ticket.paymentImpUid;
+                            location.href = `/check/payment/finish/` + ticket.paymentImpUid;
 
 
 

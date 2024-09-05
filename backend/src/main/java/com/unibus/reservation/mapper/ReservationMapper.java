@@ -1,11 +1,9 @@
 package com.unibus.reservation.mapper;
 
 import com.unibus.reservation.domain.Reservation;
-import com.unibus.reservation.dto.ReservationSummaryDTO;
-import com.unibus.reservation.dto.ReservationTicketDto;
-import com.unibus.reservation.dto.ScheduleDto;
-import com.unibus.reservation.dto.Ticket;
+import com.unibus.reservation.dto.*;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -14,7 +12,7 @@ public interface ReservationMapper {
     public ReservationTicketDto findBus(int scheduleId);
 
     // 회원 예약 조회
-    public List<ReservationSummaryDTO> findReservationsByMember(String memberId);
+    public List<ReservationSummaryDTO> findReservationsByMember(@Param("memberId") String memberId);
 
     // 비회원 예약 조회
     public List<ReservationSummaryDTO> findReservationsByNonUser(String phoneNumber);
@@ -23,9 +21,15 @@ public interface ReservationMapper {
     public int updateReservation(int reservationId);
 
     // 예매 상세 조회
-    public List<ReservationSummaryDTO> finDetailReservation(String memberId);
+    public ReservationSummaryDTO finDetailReservation(@Param("paymentImpUid") int paymentImpUid, @Param("memberId") String memberId);
 
     public ReservationTicketDto getTicketByScheduleId(int scheduleId) ;
     public int memberSaveReservation(Ticket reservation);
     public int nonMemberSaveReservation(Ticket reservation);
+    public ReservationFinishDto getReservationByPaymentImpUid(int paymentImpUid);
+    public int findTotalPriceByPaymentImpUid(int paymentImpUid);
+    public List<Integer> findSeatNumberByPayment(@Param("paymentImpUid") int paymentImpUid);
+    public int findTicketCountByPaymentId(int paymentImpUid);
+    public List<Integer> findDetailTicket(@Param("paymentImpUid") int paymentImpUid, @Param("memberId") String memberId);
+
 }

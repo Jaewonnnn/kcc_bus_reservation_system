@@ -2,21 +2,17 @@ package com.unibus.reservation.service;
 
 import com.unibus.reservation.domain.Payment;
 import com.unibus.reservation.domain.Reservation;
+import com.unibus.reservation.dto.ReservationFinishDto;
+import com.unibus.reservation.dto.ReservationSummaryDTO;
 import com.unibus.reservation.dto.ReservationTicketDto;
 import com.unibus.reservation.dto.Ticket;
 import com.unibus.reservation.mapper.PaymentMapper;
-import com.unibus.reservation.dto.ReservationTicketDto;
-import com.unibus.reservation.dto.ScheduleDto;
 import com.unibus.reservation.mapper.ReservationMapper;
 import com.unibus.user.domain.Member;
 import com.unibus.user.domain.NonMember;
 import com.unibus.user.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import com.unibus.reservation.dto.ScheduleSeatNumber;
-import com.unibus.reservation.dto.ReservationSummaryDTO;
-import com.unibus.reservation.mapper.ReservationMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,9 +25,9 @@ import java.util.List;
 public class ReservationServiceImpl implements ReservationService{
 
     private final ReservationMapper reservationMapper;
-    public ReservationMapper mapper;
     private final UserMapper userMapper;
     private final PaymentMapper paymentMapper;
+    private final ReservationMapper mapper;
 
     @Override
     public ReservationTicketDto getTicket(int scheduleId) {
@@ -64,8 +60,13 @@ public class ReservationServiceImpl implements ReservationService{
     }
 
     @Override
-    public List<ReservationSummaryDTO> finDetailReservation(String memberId) {
-        return mapper.finDetailReservation(memberId);
+    public ReservationSummaryDTO finDetailReservation(int paymentImpUid, String memberId) {
+        ReservationSummaryDTO dto = mapper.finDetailReservation(paymentImpUid, memberId);
+        dto.setSeatNumber(mapper.findDetailTicket(paymentImpUid, memberId));
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        log.info("dto = {}", dto);
+        log.info("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        return dto;
     }
 
 
@@ -119,5 +120,14 @@ public class ReservationServiceImpl implements ReservationService{
 
         }
         return flag;
+    }
+
+    @Override
+    public ReservationFinishDto finishReservation(int paymentImpUid) {
+        ReservationFinishDto dto = reservationMapper.getReservationByPaymentImpUid(paymentImpUid);
+        dto.setSeatNumber(reservationMapper.findSeatNumberByPayment(paymentImpUid));
+        dto.setTicketCount(reservationMapper.findTicketCountByPaymentId(paymentImpUid));
+        dto.setTotalPrice(reservationMapper.findTotalPriceByPaymentImpUid(paymentImpUid));
+        return dto;
     }
 }

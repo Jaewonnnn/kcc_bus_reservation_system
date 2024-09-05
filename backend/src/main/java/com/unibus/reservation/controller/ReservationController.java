@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.unibus.config.PrincipalDetail;
 import com.unibus.reservation.domain.Payment;
 import com.unibus.reservation.domain.Reservation;
-import com.unibus.reservation.dto.ReservationListDto;
+import com.unibus.reservation.dto.ReservationFinishDto;
 import com.unibus.reservation.dto.ReservationSummaryDTO;
 import com.unibus.reservation.dto.ReservationTicketDto;
 import com.unibus.reservation.dto.ScheduleDto;
@@ -18,13 +18,11 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -42,7 +40,7 @@ public class ReservationController {
         return "payment";
     }
 
-
+    
     @GetMapping("/{schedule_id}")
     @ResponseBody
     public ResponseEntity<ReservationTicketDto> getReservation(@PathVariable("schedule_id") int scheduleId) {
@@ -62,6 +60,7 @@ public class ReservationController {
         NonMember nonMember = mapper.treeToValue(saveobj.get("nonMember"), NonMember.class);
         Member member = userService.userInfo(memberId);
 
+
         if(member == null){
             log.info("nonMember ={}", nonMember);
             log.info("memberId={}", memberId);
@@ -78,14 +77,25 @@ public class ReservationController {
 
     }
 
-    @GetMapping("/payment/finish/{paymentImpUid} ")
-    public ResponseEntity<List<ReservationListDto>> acceptPayment(@PathVariable int paymentImpUid) throws Exception {
-        return null;
+    @GetMapping("/payment/finish/{paymentImpUid}")
+    public ModelAndView paymentFinish(@PathVariable("paymentImpUid") int paymentImpUid) throws Exception {
+
+        ReservationFinishDto dto = reservationService.finishReservation(paymentImpUid);
+        if(dto == null){
+            throw new Exception("NOT FOUND");
+        }
+        ModelAndView mav = new ModelAndView();
+        mav.addObject("r", dto);
+        mav.setViewName("payment_finish");
+        return mav;
+
     }
     
     // 회원 예약 리스트 이동
     @GetMapping("/reservation/{user_id}")
-    public String bookingHistory (@PathVariable String user_id, Model model) {
+    public String bookingHistory (@PathVariable String user_id, @AuthenticationPrincipal PrincipalDetail principalDetail, Model model) {
+        Member member = userService.userInfo(principalDetail.getUsername());
+        model.addAttribute("member", member);
         return "mypage_reservation_list";
     }
 
@@ -121,11 +131,11 @@ public class ReservationController {
     }
 
     // 예약 상세 조회
-    @GetMapping("/reservation/detail/{reservation_id}")
+    @GetMapping("/reservation/detail/{paymentImpUid}/{member_id}")
     @ResponseBody
-    public List<ReservationSummaryDTO> getReservationDetail(@PathVariable String reservation_id) {
-        log.info("ReservationController getReservationDetail() called" + reservationService.findReservationsByMember(reservation_id));
-        return reservationService. finDetailReservation(reservation_id);
+    public ResponseEntity<ReservationSummaryDTO> getReservationDetail(@PathVariable("paymentImpUid") int paymentImpUid, @PathVariable("member_id") String memberId) {
+        ReservationSummaryDTO dto = reservationService.finDetailReservation(paymentImpUid,memberId);
+        return dto != null ? new ResponseEntity<>(dto, HttpStatus.OK) : new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
 
 

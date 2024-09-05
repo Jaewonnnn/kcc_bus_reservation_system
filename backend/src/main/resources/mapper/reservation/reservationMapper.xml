@@ -33,48 +33,50 @@
 
     <!-- 회원 예매 리스트 조회   -->
     <resultMap id="reservationSummaryResultMap" type="com.unibus.reservation.dto.ReservationSummaryDTO">
+        <id column="payment_imp_uid" property="paymentImpUid"/>
         <result property="scheduleDate" column="schedule_date" />
         <result property="startTime" column="start_time" />
         <result property="scheduleEndTime" column="schedule_end_time" />
         <result property="startTerminalName" column="start_terminal_name" />
         <result property="endTerminalName" column="end_terminal_name" />
-        <result property="seatNumber" column="seat_number" />
         <result property="reservationCount" column="reservation_count" />
         <result property="totalPrice" column="total_price" />
     </resultMap>
 
 
 
-        <select id="findReservationsByMember"  parameterType="String" resultMap="reservationSummaryResultMap">
-        SELECT
-            TO_CHAR(s.schedule_start_time, 'YY.MM.DD') AS schedule_date,
-            TO_CHAR(s.schedule_start_time, 'HH24:MI:SS') AS start_time,
-            TO_CHAR(s.schedule_end_time, 'HH24:MI:SS') AS schedule_end_time,
-            ter_start.terminal_name AS start_terminal_name,
-            ter_end.terminal_name AS end_terminal_name,
-            COUNT(res.reservation_id) AS reservation_count,
-            SUM(res.price) AS total_price
-        FROM
-            member m
-                JOIN
-            reservation res ON m.member_seq = res.member_seq
-                JOIN
-            schedule s ON res.schedule_id = s.schedule_id
-                JOIN
-            route r ON s.route_id = r.route_id
-                JOIN
-            TERMINAL ter_start ON r.route_start_id = ter_start.terminal_id
-                JOIN
-            TERMINAL ter_end ON r.route_end_id = ter_end.terminal_id
-        WHERE
-            m.member_id = #{memberId} and res.reservation_status = 1
-        GROUP BY
-            r.route_start_id,
-            r.route_end_id,
-            ter_start.terminal_name,
-            ter_end.terminal_name,
-            s.schedule_start_time,
-            s.schedule_end_time
+        <select id="findReservationsByMember" resultMap="reservationSummaryResultMap">
+            SELECT
+                res.payment_imp_uid,
+                TO_CHAR(s.schedule_start_time, 'YY.MM.DD') AS schedule_date,
+                TO_CHAR(s.schedule_start_time, 'HH24:MI:SS') AS start_time,
+                TO_CHAR(s.schedule_end_time, 'YY.MM.DD') AS schedule_end_time,
+                ter_start.terminal_name AS start_terminal_name,
+                ter_end.terminal_name AS end_terminal_name,
+                COUNT(res.payment_imp_uid) AS reservation_count,
+                SUM(res.price) AS total_price
+            FROM
+                member m
+                    JOIN
+                reservation res ON m.member_seq = res.member_seq
+                    JOIN
+                schedule s ON res.schedule_id = s.schedule_id
+                    JOIN
+                route r ON s.route_id = r.route_id
+                    JOIN
+                TERMINAL ter_start ON r.route_start_id = ter_start.terminal_id
+                    JOIN
+                TERMINAL ter_end ON r.route_end_id = ter_end.terminal_id
+            WHERE
+                m.member_id = #{memberId} and res.reservation_status = 1
+            GROUP BY
+                r.route_start_id,
+                r.route_end_id,
+                ter_start.terminal_name,
+                ter_end.terminal_name,
+                s.schedule_start_time,
+                s.schedule_end_time,
+                res.payment_imp_uid
     </select>
 
 
@@ -119,15 +121,13 @@
     </update>
 
     <!-- 예매 상세 조회  -->
-    <select id="finDetailReservation"  parameterType="String" resultMap="reservationSummaryResultMap">
+    <select id="finDetailReservation" resultMap="reservationSummaryResultMap">
         SELECT
             TO_CHAR(s.schedule_start_time, 'YY.MM.DD') AS schedule_date,
-            TO_CHAR(s.schedule_start_time, 'HH24:MI:SS') AS start_time,
-            TO_CHAR(s.schedule_end_time, 'HH24:MI:SS') AS schedule_end_time,
             ter_start.terminal_name AS start_terminal_name,
             ter_end.terminal_name AS end_terminal_name,
-            res.seat_number,
-            COUNT(res.member_seq) AS reservation_count,
+            TO_CHAR(s.schedule_start_time, 'HH24:MI:SS') AS start_time,
+            res.payment_imp_uid AS reservation_pay_id,
             SUM(res.price) AS total_price
         FROM
             member m
@@ -142,7 +142,7 @@
                 JOIN
             TERMINAL ter_end ON r.route_end_id = ter_end.terminal_id
         WHERE
-            m.member_id = #{memberId} and res.reservation_status = 1
+            m.member_id = #{memberId} and res.reservation_status = 1 and res.payment_imp_uid = #{paymentImpUid}
         GROUP BY
             r.route_start_id,
             r.route_end_id,
@@ -150,7 +150,14 @@
             ter_end.terminal_name,
             s.schedule_start_time,
             s.schedule_end_time,
-            res.seat_number
+            res.payment_imp_uid
+    </select>
+
+    <select id="findDetailTicket" resultType="int">
+        select seat_number from reservation r , member m
+        where r.member_seq = m.member_seq
+        and m.member_id = #{memberId}
+        and r.payment_imp_uid = #{paymentImpUid}
     </select>
 
     <select id="getTicketByScheduleId" resultMap="BoardTicket">
@@ -231,5 +238,58 @@
         #{seatNumber}, #{price}, sysdate, 1
         )
     </insert>
+
+    <resultMap id="reservationFinishInfo" type="com.unibus.reservation.dto.ReservationFinishDto">
+        <id property="paymentImpUid" column="payment_imp_uid"/>
+        <result property="reservationStartDate" column="start_date"/>
+        <result property="startTerminal" column="start_terminal"/>
+        <result property="endTerminal" column="end_terminal"/>
+        <result property="busGradeName" column="grade_name"/>
+        <result property="companyName" column="company_name"/>
+    </resultMap>
+
+    <select id="getReservationByPaymentImpUid" resultMap="reservationFinishInfo">
+        SELECT
+            p.payment_imp_uid,
+            TO_CHAR(s.schedule_start_time, 'yyyy-MM-dd') AS start_date,
+            s.schedule_price,
+            ts.terminal_name AS start_terminal,
+            te.terminal_name AS end_terminal,
+            bg.grade_name,
+            c.company_name
+        FROM
+            schedule s
+                JOIN
+            route r ON s.route_id = r.route_id
+                JOIN
+            terminal ts ON r.route_start_id = ts.terminal_id
+                JOIN
+            terminal te ON r.route_end_id = te.terminal_id
+                JOIN
+            bus b ON b.bus_id = s.bus_id
+                JOIN
+            bus_grade bg ON bg.grade_id = b.grade_id
+                JOIN
+            company c ON b.company_id = c.company_id
+                JOIN
+            reservation re ON re.schedule_id = s.schedule_id
+                JOIN
+            payment p ON p.payment_imp_uid =  re.payment_imp_uid
+        where p.payment_imp_uid = #{paymentImpUid} and rownum = 1
+    </select>
+
+    <select id="findTicketCountByPaymentId" resultType="int">
+        select count(*) from reservation where payment_imp_uid= #{paymentImpUid}
+    </select>
+
+    <select id="findSeatNumberByPayment" resultType="int">
+        SELECT seat_number
+        FROM reservation
+        WHERE payment_imp_uid = #{paymentImpUid}
+    </select>
+
+    <select id="findTotalPriceByPaymentImpUid" resultType="int">
+        select sum(price) from reservation where payment_imp_uid= #{paymentImpUid}
+    </select>
 
 </mapper>
