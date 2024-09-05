@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ValidPassword {
-    private String id;
-    private String pass;
+    private String username;
+    private String password;
 }

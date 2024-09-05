@@ -132,7 +132,8 @@ public class AdminController {
     }
 
     @GetMapping("/route")
-    public String getRouteList(){
+    public String getRouteList(Model model){
+        model.addAttribute("routeList",adminService.getRouteList());
         return "admin_route";
     }
 

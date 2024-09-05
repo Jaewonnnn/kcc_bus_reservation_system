@@ -80,6 +80,7 @@ public class UserServiceImpl implements UserService{
         return userMapper.nonMemberSave(nonMember) > 0 ? true : false;
     }
 
+
     @Override
     public Boolean updatePassword(Member member) {
         Member m = userMapper.getMemberByMemberId(member.getMemberId());

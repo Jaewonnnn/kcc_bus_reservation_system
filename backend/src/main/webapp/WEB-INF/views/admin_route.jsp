@@ -1,4 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="ko">
   <head>
@@ -314,7 +315,7 @@
       <section id="admin_info"></section>
       <section id="admin_all">
         <div class="container">
-          <h4 style="font: 800 25px Noto Sans KR">노선 관리</h4>
+          <h4 style="font: 800 25px Noto Sans KR">노선 등록</h4>
           <div class="main-body">
             <div class="row">
               <div class="col-lg-3">
@@ -421,18 +422,23 @@
                                 </th>
                                 <th scope="col" id="user-detail"></th>
                               </tr>
+
+                            </thead>
+                            <tbody id="table-body">
+                            <c:forEach var="item" items="${routeList}">
                               <tr>
-                                <td id="user-id">NAEK010</td>
-                                <td>동서울</td>
-                                <td>부산</td>
-                                <td>4시간 30분</td>
+
+                                <td id="route-id">${item.routeId}</td>
+                                <td>${item.routeStartTerminal.terminalName}</td>
+                                <td>${item.routeEndTerminal.terminalName}</td>
+                                <td>${item.requiredTime}</td>
                                 <td>
                                   <button
-                                    type="button"
-                                    class="btn btn-primary"
-                                    data-bs-toggle="modal"
-                                    data-bs-target="#staticBackdrop"
-                                    style="
+                                          type="button"
+                                          class="btn btn-primary"
+                                          data-bs-toggle="modal"
+                                          data-bs-target="#staticBackdrop"
+                                          style="
                                       background-color: #212954 !important;
                                       font: 400 20px Noto Sans KR;
                                       color: #f9fafc !important;
@@ -442,9 +448,10 @@
                                     수정
                                   </button>
                                 </td>
+
                               </tr>
-                            </thead>
-                            <tbody id="table-body"></tbody>
+                            </c:forEach>
+                            </tbody>
                           </table>
                           <div id="page">
                             <ul class="pagination">
@@ -477,7 +484,9 @@
     ></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-    <!-- <script src="/js/mypage.js"></script> -->
+
     <script src="/resources/js/admin_header.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../../resources/js/admin_route.js"></script>
   </body>
 </html>

@@ -79,7 +79,7 @@ public class UserController {
 
     @PostMapping("/memberPass")
     public ResponseEntity<String> getMemberPass(@RequestBody ValidPassword password) {
-        boolean flag = userService.getMemberPass(password.getPass(), password.getId());
+        boolean flag = userService.getMemberPass(password.getPassword(), password.getUsername());
         return flag == false ? new ResponseEntity<>("fail", HttpStatus.NOT_FOUND)
                 : new ResponseEntity<>("success", HttpStatus.OK);
     }

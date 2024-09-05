@@ -71,7 +71,7 @@
                         id="staticBackdropLabel"
                         style="font: 900 15px Noto sans KR; color: black"
                 >
-                    배차 정보 수정
+                    배차 등록
                 </h1>
 
             </div>
