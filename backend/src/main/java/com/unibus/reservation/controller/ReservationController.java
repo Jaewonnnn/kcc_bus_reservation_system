@@ -9,6 +9,7 @@ import com.unibus.reservation.domain.Reservation;
 import com.unibus.reservation.dto.ReservationListDto;
 import com.unibus.reservation.dto.ReservationSummaryDTO;
 import com.unibus.reservation.dto.ReservationTicketDto;
+import com.unibus.reservation.dto.ScheduleDto;
 import com.unibus.reservation.service.ReservationService;
 import com.unibus.user.domain.Member;
 import com.unibus.user.domain.NonMember;

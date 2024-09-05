@@ -60,8 +60,8 @@ $(function () {
             buyer_name: "원승언"
         }, function (rsp) { // callback
             if (rsp.success) {
-                alert(rsp);
                 let msg = "결제가 완료되었습니다.";
+                alert(msg);
 
                 let count = parseInt($('.count').text());
                 let payment = {
@@ -148,8 +148,8 @@ $(function () {
             buyer_name: "원승언"
         }, function (rsp) { // callback
             if (rsp.success) {
-                alert(rsp);
                 let msg = "결제가 완료되었습니다.";
+                alert(msg);
 
                 let count = parseInt($('.count').text());
                 let payment = {

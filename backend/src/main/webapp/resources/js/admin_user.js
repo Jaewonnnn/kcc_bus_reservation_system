@@ -1,11 +1,15 @@
 $(function () {
 
+    let responseData = []
+
+    // 멤버 호출
     function myMemberList() {
         $.ajax({
             url : '/admin/users',
             type : 'GET',
             success : function (data) {
                 console.table(data)
+                responseData = data
                 data.forEach(function(user) {
                     // 각 사용자에 대해 새로운 행을 생성
                     const tableRow = `
@@ -34,7 +38,38 @@ $(function () {
 
                     $("#table-body").append(tableRow)
                 })
+                suggestMemberList(responseData)
             }
+        })
+    }
+
+    function suggestMemberList(data){
+        $("#search-box").on('input', function () {
+            const input = $(this).val().toLocaleLowerCase()
+            const resultsContainer = $('#autocomplete-results')
+            resultsContainer.empty()
+            if (input){
+                const filteredData = data.filter(item =>
+                    item.name.toLowerCase().includes(input) ||
+                    item.phoneNumber.toLowerCase().includes(input) ||
+                    item.email.toLowerCase().includes(input)
+                );
+                if (filteredData.length){
+                    filteredData.forEach(item=>{
+                        resultsContainer.append(`<div class="autocomplete-item" data-user-id="${item.id}">${item.name}</div>`);
+                    })
+                    resultsContainer.show()
+                }else {
+                    resultsContainer.hide()
+                }
+            }else {
+                resultsContainer.hide()
+            }
+        })
+
+        $('#autocomplete-results').on('click','.autocomplete-item',function () {
+            $('#search-box').val($(this).text())
+            $('#autocomplete-results').empty().hide()
         })
     }
 
@@ -109,5 +144,6 @@ $(function () {
 
 
     myMemberList()
+
 
 })

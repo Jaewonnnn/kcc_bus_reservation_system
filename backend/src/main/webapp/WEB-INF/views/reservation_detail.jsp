@@ -121,10 +121,7 @@
                   <p class="reservation_course_info_otherlistin">소요시간</p>
                   <p id="reservation_course_time">NULL</p>
                 </li>
-                <li>
-                  <p class="reservation_course_info_otherlistin">거리</p>
-                  <p id="reservation_course_length">NULL</p>
-                </li>
+
               </ul>
             </div>
 
