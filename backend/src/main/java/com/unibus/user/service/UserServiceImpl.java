@@ -81,6 +81,13 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
+    public String getMemberRole(String memberId) {
+        String role = userMapper.getMemberRole(memberId);
+        log.info(role);
+        return role;
+    }
+
+    @Override
     public Boolean updatePassword(Member member) {
         Member m = userMapper.getMemberByMemberId(member.getMemberId());
         m.setMemberPass(member.getMemberPass());

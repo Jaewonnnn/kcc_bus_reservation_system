@@ -43,8 +43,12 @@ public class MainController {
     }
 
     @PostMapping("/loginProcess")
-    public String login() {
-        return "redirect:/main";
+    public String login(@RequestBody Member member) {
+        String role = userService.getMemberRole(member.getMemberId());
+
+        if(role.equals("ROLE_ADMIN")) return "redirect:/admin";
+        else if(role.equals("ROLE_USER")) return "redirect:/main";
+        else return "redirect:/login?error";
     }
 
     @GetMapping("/join")

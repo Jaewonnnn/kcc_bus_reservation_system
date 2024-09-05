@@ -15,4 +15,5 @@ public interface UserMapper {
     public Integer changeMemberPassByMemberId(Member member);
     public Integer nonMemberSave(NonMember nonMember);
     public Integer getNonUserCode();
+    public String getMemberRole(String memberId);
 }

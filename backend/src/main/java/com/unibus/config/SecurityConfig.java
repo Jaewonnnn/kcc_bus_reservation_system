@@ -68,10 +68,9 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         );
 
-
         http.formLogin(auth -> auth
                 .loginPage("/login")
-                .defaultSuccessUrl("/main")
+                .successHandler(new CustomAuthenticationSuccessHandler()) // Custom handler 등록
                 .failureUrl("/login?error=true")
                 .usernameParameter("username")
                 .passwordParameter("password")
@@ -82,10 +81,11 @@ public class SecurityConfig {
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout=true")
                 .invalidateHttpSession(true)
-                .deleteCookies("JSESSIONID") 
+                .deleteCookies("JSESSIONID")
         );
 
         return http.build();
     }
+
 
 }

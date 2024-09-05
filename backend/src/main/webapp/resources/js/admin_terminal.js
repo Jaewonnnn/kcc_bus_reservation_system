@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    // terminalPagenation();
+    terminalPagenation();
     searchTerminal();
     terminalUpdate();
     insertTerminal();
