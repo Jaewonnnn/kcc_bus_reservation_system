@@ -69,3 +69,14 @@ button.login_join_btn {
 button.login_join_btn:hover {
   background-color: #00137a !important;
 }
+
+a{
+  text-decoration: none;
+  color: #aeaeae;
+}
+a:hover{
+  color: #090909;
+}
+a:visited{
+  color: #aeaeae;
+}

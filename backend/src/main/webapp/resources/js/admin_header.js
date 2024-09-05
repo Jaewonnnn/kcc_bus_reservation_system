@@ -9,15 +9,25 @@ class Headers extends HTMLElement {
         <div id="header_wrap">
           <h1>UNIBUS</h1>
           <ul id="header_menu">
-            <li>회원관리</li>
-            <li>운송회사관리</li>
-            <li>터미널관리</li>
-            <li>노선관리</li>
-            <li>배차관리</li>
+            <li>
+            <a href="http://localhost:8081/admin/">회원관리</a>
+            </li>
+            <li>
+            <a href="http://localhost:8081/admin/company">운송회사관리</a>
+            </li>
+            <li>
+            <a href="http://localhost:8081/admin/terminal">터미널관리</a>
+            </li>
+            <li>
+            <a href="http://localhost:8081/admin/route">노선관리</a>
+            </li>
+            <li>
+            <a href="http://localhost:8081/admin/schedule">배차관리</a>
+            </li>
           </ul>
           <div id="header_login_wrap">
-            <button class="login_join_btn">회원가입</button>
-            <button class="login_join_btn">로그인</button>
+            <button class="login_join_btn" style="display: none">회원가입</button>
+            <button class="login_join_btn" style="display: none">로그인</button>
           </div>
         </div>
       </header>
